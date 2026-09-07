@@ -1,0 +1,1070 @@
+# Real-Time Mobility Data Platform & Analytics Lakehouse — Project Overview
+
+## 1. Project Idea and Goals
+
+### Project idea
+
+The project simulates the data platform behind a large ride-hailing or mobility company. A mobility platform continuously generates data from multiple operational systems, including customers, drivers, rides, locations, and payments.
+
+The challenge is that this data is initially **raw, inconsistent, distributed across different sources, and not immediately suitable for analytics**.
+
+The objective is to build an end-to-end data engineering platform that can:
+
+1. Ingest mobility data from APIs and batch sources.
+2. Store raw data reliably in a cloud data lake.
+3. Clean, validate, deduplicate, and transform the data.
+4. Process larger datasets using distributed computing.
+5. Organize data into Bronze, Silver, and Gold layers.
+6. Model curated data for analytical workloads.
+7. Automate the complete pipeline using Apache Airflow.
+8. Provide both data-lake querying and warehouse-based analytics.
+9. Deliver business insights through dashboards.
+
+The final system should allow business users to answer questions such as:
+
+* Which cities have the highest ride demand?
+* What are the peak demand hours?
+* What is total and average revenue?
+* Which locations have high cancellation rates?
+* What is average trip duration?
+* Which drivers or regions have the strongest operational performance?
+
+The V1 implementation is primarily a **cloud-based batch data platform**. Real-time streaming with Kafka and Spark Structured Streaming is planned as a V2 enhancement.
+
+---
+
+# 2. Data Sources and Ingestion
+
+We will work with four primary logical datasets:
+
+Customers
+Drivers
+Rides
+Payments
+
+Data can be generated or obtained through an API/batch source to simulate an actual production environment.
+
+For example:
+
+                 DATA SOURCES
+                      |
+          +-----------+-----------+
+          v           v           v
+       REST API     CSV/JSON    Batch files
+          |           |           |
+          +-----------+-----------+
+                      v
+                   Python
+                      v
+                 Amazon S3
+
+### Python's role
+
+Python is responsible for the initial ingestion layer and supporting utilities.
+
+It handles:
+
+* API requests
+* JSON/CSV parsing
+* pagination where applicable
+* basic schema validation
+* error handling
+* logging
+* file generation/upload
+* configuration
+* database interaction
+
+The ingestion process should be designed so that source data is **not heavily modified before being stored**. This preserves the original data for later reprocessing.
+
+---
+
+# 3. Data Transformation Techniques
+
+The transformation layer converts raw operational data into reliable analytical datasets.
+
+## 3.1 Basic transformations
+
+Typical operations include:
+
+### Data type standardization
+
+For example:
+
+"2026-08-25 10:30:00" -> timestamp
+"125.50"              -> decimal
+"5"                   -> integer
+
+### Missing-value handling
+
+Depending on the field:
+
+* reject invalid records
+* replace with defaults where appropriate
+* retain NULL where the absence of a value is meaningful
+
+### Deduplication
+
+For example:
+
+ride_id = R1001
+ride_id = R1001
+
+Only one valid record should remain.
+
+### Filtering
+
+Examples:
+
+fare > 0
+distance >= 0
+valid ride status
+valid customer_id
+valid driver_id
+
+### Standardization
+
+Examples:
+
+"pune"
+"PUNE"
+"Pune"
+
+becomes:
+
+"Pune"
+
+### Timestamp processing
+
+Derive fields such as:
+
+ride_date
+ride_hour
+day_of_week
+month
+year
+
+These make analytical queries more efficient.
+
+---
+
+## 3.2 Advanced transformations
+
+As the project progresses, we can introduce:
+
+* joins between ride, customer, driver, and payment datasets
+* incremental processing
+* partition-aware processing
+* window functions
+* aggregations
+* surrogate key generation
+* historical dimension handling
+* schema validation
+* referential integrity checks
+
+For example:
+
+Rides
+   +
+Drivers
+   +
+Customers
+   +
+Locations
+        v
+   Enriched ride dataset
+
+---
+
+# 4. PySpark's Role
+
+Python handles ingestion and supporting logic, while **PySpark is used for distributed data processing**.
+
+The transformation flow is:
+
+S3 Bronze
+     v
+   PySpark
+     v
+Clean
+Validate
+Deduplicate
+Join
+Transform
+Aggregate
+     v
+S3 Silver
+     v
+   PySpark
+     v
+Business transformations
+     v
+S3 Gold
+
+This gives the project experience with:
+
+* Spark DataFrames
+* transformations and actions
+* joins
+* aggregations
+* partitioning
+* repartitioning
+* shuffle
+* distributed processing
+* optimization techniques
+
+The important engineering distinction is:
+
+> **Python gets the data into the platform; PySpark performs large-scale transformation; SQL performs relational and analytical querying.**
+
+---
+
+# 5. Data Modeling and Schema Design
+
+The final analytical layer follows a **dimensional/star-schema approach**.
+
+## Core fact tables
+
+### fact_rides
+
+| Field        | Description              |
+| ------------ | ------------------------ |
+| ride_key     | Surrogate key            |
+| ride_id      | Source ride identifier   |
+| customer_key | FK to customer dimension |
+| driver_key   | FK to driver dimension   |
+| location_key | FK to location dimension |
+| date_key     | FK to date dimension     |
+| request_time | Ride request timestamp   |
+| pickup_time  | Pickup timestamp         |
+| drop_time    | Completion timestamp     |
+| distance     | Trip distance            |
+| fare         | Ride fare                |
+| ride_status  | Completed/cancelled/etc. |
+
+### fact_payments
+
+Contains payment-level transactional measures.
+
+payment_key
+payment_id
+ride_key
+customer_key
+date_key
+amount
+payment_method
+payment_status
+payment_time
+
+---
+
+## Dimension tables
+
+### dim_customer
+
+customer_key
+customer_id
+customer_name
+city
+signup_date
+
+### dim_driver
+
+driver_key
+driver_id
+driver_name
+city
+vehicle_type
+rating
+join_date
+
+### dim_location
+
+location_key
+city
+area
+latitude
+longitude
+
+### dim_date
+
+date_key
+full_date
+day
+month
+quarter
+year
+day_of_week
+is_weekend
+
+The relationship looks like:
+
+                     dim_driver
+                         |
+                         |
+dim_customer -------- fact_rides -------- dim_location
+                         |
+                         |
+                      dim_date
+
+### Constraints and integrity
+
+The model should enforce logical integrity such as:
+
+* unique source IDs
+* non-null primary keys
+* valid foreign-key relationships
+* valid status values
+* valid numeric ranges
+* no negative fare/distance
+* valid timestamps
+
+---
+
+# 6. Storage Strategy
+
+## Amazon S3 — Data Lake
+
+Amazon S3 acts as the central cloud storage layer.
+
+The bucket can be organized as:
+
+mobility-data/
+|
++-- bronze/
+|   +-- rides/
+|   +-- drivers/
+|   +-- customers/
+|   +-- payments/
+|
++-- silver/
+|   +-- rides/
+|   +-- drivers/
+|   +-- customers/
+|   +-- payments/
+|
++-- gold/
+    +-- fact_rides/
+    +-- fact_payments/
+    +-- dim_customer/
+    +-- dim_driver/
+    +-- dim_location/
+    +-- dim_date/
+
+---
+
+## Bronze Layer
+
+### Purpose
+
+Preserve the raw source data.
+
+API / Files
+    v
+Bronze
+
+Characteristics:
+
+* minimally transformed
+* source-aligned
+* useful for auditing
+* recoverable/reprocessable
+
+Example:
+
+bronze/rides/
+  2026-08-24/
+  2026-08-25/
+
+---
+
+## Silver Layer
+
+### Purpose
+
+Create clean and standardized datasets.
+
+Bronze
+   v
+Validation
+   v
+Cleaning
+   v
+Deduplication
+   v
+Silver
+
+Silver data is:
+
+* typed correctly
+* deduplicated
+* validated
+* standardized
+* enriched where necessary
+
+---
+
+## Gold Layer
+
+### Purpose
+
+Create datasets specifically designed for analytics.
+
+Silver
+   v
+Business logic
+   v
+Aggregations
+   v
+Dimensional modeling
+   v
+Gold
+
+Gold contains:
+
+fact_rides
+fact_payments
+dim_customer
+dim_driver
+dim_location
+dim_date
+
+This is the primary analytical layer.
+
+---
+
+# 7. Why Parquet?
+
+Processed Silver and Gold datasets will be stored as **Parquet** rather than relying exclusively on CSV.
+
+This gives us:
+
+* column-oriented storage
+* compression
+* schema information
+* efficient analytical reads
+* compatibility with Spark and AWS analytics services
+
+We can also partition data logically, for example:
+
+gold/fact_rides/
+    year=2026/
+       month=08/
+          day=25/
+
+Partitioning reduces the amount of data that needs to be scanned for queries that filter on those partition columns.
+
+---
+
+# 8. PostgreSQL's Role
+
+PostgreSQL is **not the final cloud data lake**.
+
+Its main role is in the **initial/local development stage**.
+
+We use it to:
+
+* understand relational ingestion
+* store initial structured datasets
+* develop and test SQL
+* validate schemas
+* experiment with joins and constraints
+* simulate an operational relational source
+
+The initial development flow can therefore be:
+
+Source
+  v
+Python
+  v
+PostgreSQL
+
+while the cloud pipeline becomes:
+
+Source
+  v
+Python
+  v
+S3
+  v
+PySpark/Glue
+  v
+Gold
+
+This distinction is important: PostgreSQL represents a **relational operational-style source/development environment**, whereas S3 becomes the central data lake.
+
+---
+
+# 9. AWS Glue
+
+AWS Glue provides the managed cloud ETL/catalog layer.
+
+Its responsibilities in the project include:
+
+* running Spark-based ETL
+* processing S3 datasets
+* maintaining metadata through the Glue Data Catalog
+* helping discover schemas
+* integrating with other AWS analytics services
+
+The conceptual flow is:
+
+S3 Bronze
+    v
+AWS Glue
+    v
+PySpark
+    v
+S3 Silver
+    v
+AWS Glue/PySpark
+    v
+S3 Gold
+
+We first learn and test PySpark locally, then use Glue to understand how the same data-processing concepts operate in a managed AWS environment.
+
+---
+
+# 10. Amazon Athena
+
+Athena provides a SQL query layer directly over S3.
+
+For example:
+
+S3 Gold
+   v
+Athena
+   v
+SQL
+
+This allows ad-hoc analysis without requiring every dataset to be copied into the warehouse.
+
+Example:
+
+SELECT
+    city,
+    COUNT(*) AS total_rides,
+    AVG(fare) AS avg_fare
+FROM gold_rides
+GROUP BY city;
+
+Athena therefore demonstrates an important concept:
+
+> **Querying data in the lake directly.**
+
+---
+
+# 11. Amazon Redshift
+
+Redshift is our dedicated analytical data warehouse.
+
+The flow is:
+
+S3 Gold
+   v
+Redshift
+   v
+SQL analytics
+
+The dimensional model is loaded into Redshift:
+
+fact_rides
+fact_payments
+dim_customer
+dim_driver
+dim_location
+dim_date
+
+This gives us an opportunity to demonstrate the difference between:
+
+### Data Lake
+
+S3
+
+and
+
+### Data Warehouse
+
+Redshift
+
+Athena and Redshift therefore have deliberately different roles:
+
+* **Athena:** ad-hoc querying over S3
+* **Redshift:** persistent analytical warehouse and dimensional model
+
+---
+
+# 12. Apache Airflow and Workflow Orchestration
+
+Airflow coordinates the pipeline rather than performing the heavy transformation itself.
+
+A simplified DAG:
+
+             START
+               |
+               v
+        Extract Source Data
+               |
+               v
+        Upload to S3 Bronze
+               |
+               v
+        Validate Input Data
+               |
+               v
+        Run Glue/PySpark Job
+               |
+               v
+          Silver Dataset
+               |
+               v
+      Run Gold Transformations
+               |
+               v
+        Data Quality Checks
+               |
+               v
+         Load Redshift
+               |
+               v
+       Analytics / Dashboard
+               |
+              END
+
+Airflow handles:
+
+* task dependencies
+* scheduling
+* retries
+* failure detection
+* execution history
+* logging
+
+For example:
+
+Transform
+   v
+fails
+   v
+Airflow retries
+   v
+success
+   v
+Load warehouse
+
+The project therefore demonstrates **workflow orchestration rather than a collection of independent scripts**.
+
+---
+
+# 13. Complete Project Flow and Route Connections
+
+## V1 end-to-end route
+
+                    DATA SOURCES
+                         |
+                +--------+--------+
+                v                 v
+              REST API        Batch Files
+                |                 |
+                +--------+--------+
+                         v
+                      PYTHON
+                    INGESTION
+                         |
+                         v
+                    AMAZON S3
+                    +----+----+
+                    | BRONZE  |
+                    +----+----+
+                         v
+                   GLUE / PYSPARK
+                         |
+             +-----------+-----------+
+             v                       v
+        Cleaning                Validation
+             |                       |
+             +-----------+-----------+
+                         v
+                       SILVER
+                         |
+                         v
+                  Business Logic
+                         |
+                         v
+                        GOLD
+                   /            \
+                  /              \
+                 v                v
+              ATHENA           REDSHIFT
+                 |                |
+                 |                v
+                 |           QUICK ANALYTICS
+                 |                |
+                 +--------+-------+
+                          v
+                       POWER BI
+                          v
+                    BUSINESS USERS
+
+Airflow sits above the pipeline:
+
+                         AIRFLOW
+                            |
+          +-----------------+------------------+
+          v                 v                  v
+       INGEST            TRANSFORM             LOAD
+          v                 v                  v
+       Python         Glue / PySpark        Redshift
+
+---
+
+# 14. Data Quality and Error Handling
+
+A production-oriented project shouldn't blindly trust incoming data.
+
+## Validation checks
+
+Examples:
+
+ride_id IS NOT NULL
+
+fare > 0
+
+distance >= 0
+
+ride_status IN
+(completed, cancelled, ongoing)
+
+customer_id exists
+
+driver_id exists
+
+ride_id is unique
+
+### Deduplication
+
+A duplicate event such as:
+
+R1001
+R1001
+
+should not result in two analytical rides.
+
+### Referential integrity
+
+A ride referencing:
+
+driver_id = D900
+
+should fail or be quarantined if D900 does not exist in the driver dataset.
+
+### Invalid records
+
+Bad records can be routed to a rejected/quarantine area instead of contaminating Silver/Gold.
+
+For example:
+
+S3
+ +-- bronze/
+ +-- silver/
+ +-- gold/
+ +-- rejected/
+
+This gives us an audit trail and makes troubleshooting easier.
+
+---
+
+# 15. Incremental Processing
+
+The pipeline should eventually avoid processing all historical data every time.
+
+Instead:
+
+Yesterday:
+1,000,000 records
+
+Today:
+50,000 new records
+
+we process primarily the new data.
+
+The flow becomes:
+
+Existing data
+      +
+New partition
+      v
+Incremental transformation
+      v
+Updated Silver/Gold
+
+This teaches an important real-world concept:
+
+> **Incremental processing is generally preferable to repeatedly performing full historical loads as data volume grows.**
+
+---
+
+# 16. Visualization
+
+The final curated warehouse data feeds **Power BI**.
+
+The dashboard can contain:
+
+### Executive KPIs
+
+* Total rides
+* Total revenue
+* Average fare
+* Cancellation rate
+* Average trip duration
+
+### Operational analysis
+
+* rides by city
+* rides by hour
+* revenue by day/month
+* cancellation by location
+* driver performance
+* demand trends
+
+The flow is:
+
+S3 Gold
+   v
+Redshift
+   v
+Power BI
+
+Power BI is therefore the **consumption layer**, not part of the ETL engine.
+
+---
+
+# 17. Docker and Development Environment
+
+Docker is primarily used to make local development reproducible.
+
+A local environment can contain:
+
+Docker Compose
+|
++-- PostgreSQL
++-- Airflow
++-- Supporting services
+
+This avoids the common problem:
+
+> "The project works on my machine but not on someone else's."
+
+Docker gives us:
+
+* consistent dependencies
+* reproducible environments
+* easier onboarding
+* isolated services
+* easier local testing
+
+The AWS services remain cloud components; Docker mainly standardizes the development environment.
+
+---
+
+# 18. Security Considerations
+
+Even for a portfolio project, we should demonstrate basic cloud security principles.
+
+### IAM
+
+Use roles and policies rather than embedding credentials in code.
+
+### Secrets
+
+Store:
+
+* database credentials
+* API keys
+* passwords
+
+outside source code, using environment variables or managed secret mechanisms.
+
+### Least privilege
+
+A service should receive only the permissions it needs.
+
+For example:
+
+ETL role
+   v
+read Bronze
+write Silver
+write Gold
+
+rather than unrestricted access to the whole AWS account.
+
+### S3 security
+
+Keep buckets private and control access through IAM.
+
+---
+
+# 19. Scalability Considerations
+
+The system should be designed so that the data volume can grow.
+
+### Current
+
+1 GB
+ v
+PySpark
+
+### Future
+
+100 GB
+ v
+PySpark distributed processing
+
+### Larger future architecture
+
+Millions/Billions of records
+          v
+Distributed Spark
+          v
+Partitioned S3
+          v
+Warehouse
+
+Important scalability concepts we will eventually address include:
+
+* partitioning
+* distributed processing
+* efficient file formats
+* incremental loads
+* avoiding unnecessary full-table scans
+* join optimization
+* Spark shuffles
+* parallel execution
+
+---
+
+# 20. Monitoring and Reliability
+
+The pipeline should expose enough information to determine whether it is operating correctly.
+
+We can monitor:
+
+Pipeline status
+Task failures
+Retry counts
+Processing duration
+Input record counts
+Output record counts
+Rejected records
+Data freshness
+
+Airflow provides workflow-level visibility, while AWS monitoring tools can be introduced as the project becomes more production-oriented.
+
+---
+
+# 21. V1 vs V2
+
+This distinction is important because we don't want V1 to become too large.
+
+## V1 — Complete cloud data platform
+
+Python
+SQL
+S3
+Parquet
+PySpark
+Glue
+Athena
+Redshift
+Airflow
+PostgreSQL
+Docker
+Power BI
+
+V1 demonstrates:
+
+* batch ingestion
+* ETL
+* distributed processing
+* data lake
+* data warehouse
+* dimensional modeling
+* orchestration
+* data quality
+* cloud architecture
+* analytics
+
+---
+
+## V2 — Advanced/Production evolution
+
+Later we can add:
+
+Kafka
+        v
+Spark Structured Streaming
+        v
+Real-time ingestion
+
+and:
+
+Databricks
+Delta Lake
+Unity Catalog
+
+along with:
+
+* streaming
+* late-arriving data
+* more sophisticated incremental processing
+* SCD Type 2
+* infrastructure as code with Terraform
+* monitoring/observability
+* CI/CD
+* scalability and fault-tolerance improvements
+* deeper system design
+
+That transforms the project from a **cloud batch data platform** into a more advanced **batch + streaming lakehouse**.
+
+---
+
+# 22. Final Architecture at a Glance
+
+### V1
+
+                         +-------------------+
+                         |    DATA SOURCES   |
+                         +---------+---------+
+                                   v
+                              PYTHON INGESTION
+                                   |
+                                   v
+                         +-------------------+
+                         |    AMAZON S3      |
+                         |      BRONZE       |
+                         +---------+---------+
+                                   v
+                         +-------------------+
+                         | GLUE / PYSPARK    |
+                         +---------+---------+
+                                   v
+                              SILVER LAYER
+                                   v
+                              GOLD LAYER
+                              /         \
+                             /           \
+                            v             v
+                        ATHENA        REDSHIFT
+                                          v
+                                      POWER BI
+
+                 +----------------------------+
+                 |       APACHE AIRFLOW       |
+                 |   orchestration + retries  |
+                 +----------------------------+
+
+The architectural idea is therefore:
+
+> **Ingest with Python -> store raw data in S3 -> process at scale with PySpark/Glue -> organize data through Bronze/Silver/Gold layers -> query lake data with Athena -> load dimensional Gold data into Redshift -> consume analytical results through Power BI -> orchestrate the workflow with Airflow.**
+
+This gives us a complete project where every technology has a **specific responsibility**, rather than being added merely as a resume keyword.

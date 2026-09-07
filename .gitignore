@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+eggs/
+*.egg
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment variables
+.env
+
+# Data files (generated — don't commit large datasets)
+data/raw/**/*.csv
+data/raw/**/*.json
+!data/raw/.gitkeep
+
+# Logs
+logs/*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker volumes
+docker/pgdata/
+
+# AWS
+.aws/
+
+# Jupyter
+.ipynb_checkpoints/

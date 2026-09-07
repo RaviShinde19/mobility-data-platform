@@ -1,0 +1,146 @@
+# ──────────────────────────────────────────────────────────────
+# Mobility Data Platform — Configuration
+# ──────────────────────────────────────────────────────────────
+# This is the single source of truth for all configurable
+# parameters. No magic numbers should live in Python code.
+# ──────────────────────────────────────────────────────────────
+
+project:
+  name: "mobility-data-platform"
+  version: "1.0.0"
+  environment: "development"          # development | staging | production
+
+# ── Data Generation ──────────────────────────────────────────
+data_generation:
+  # Volume controls — adjust these to scale up/down
+  num_customers: 1000
+  num_drivers: 500
+  num_rides: 10000
+  num_payments: 8000
+
+  # Output settings
+  output_dir: "data/raw"
+  formats:
+    - "csv"
+    - "json"
+
+  # Seed for reproducibility (same seed = same data every run)
+  random_seed: 42
+
+# ── Geography ────────────────────────────────────────────────
+geography:
+  cities:
+    - name: "Mumbai"
+      areas: ["Andheri", "Bandra", "Colaba", "Dadar", "Juhu", "Kurla", "Malad", "Powai", "Worli", "Thane"]
+      lat_range: [18.90, 19.25]
+      lon_range: [72.77, 72.97]
+
+    - name: "Pune"
+      areas: ["Koregaon Park", "Hinjewadi", "Kothrud", "Viman Nagar", "Hadapsar", "Shivaji Nagar", "Baner", "Wakad", "Aundh", "Kharadi"]
+      lat_range: [18.45, 18.65]
+      lon_range: [73.75, 73.95]
+
+    - name: "Bangalore"
+      areas: ["Koramangala", "Whitefield", "Indiranagar", "HSR Layout", "Electronic City", "Marathahalli", "JP Nagar", "Jayanagar", "BTM Layout", "Hebbal"]
+      lat_range: [12.85, 13.10]
+      lon_range: [77.50, 77.75]
+
+    - name: "Delhi"
+      areas: ["Connaught Place", "Dwarka", "Saket", "Karol Bagh", "Rohini", "Lajpat Nagar", "Rajouri Garden", "Vasant Kunj", "Hauz Khas", "Nehru Place"]
+      lat_range: [28.50, 28.75]
+      lon_range: [77.10, 77.35]
+
+    - name: "Hyderabad"
+      areas: ["Banjara Hills", "HITEC City", "Jubilee Hills", "Madhapur", "Gachibowli", "Secunderabad", "Ameerpet", "Kukatpally", "Begumpet", "Kondapur"]
+      lat_range: [17.35, 17.50]
+      lon_range: [78.35, 78.55]
+
+    - name: "Chennai"
+      areas: ["T Nagar", "Anna Nagar", "Adyar", "Velachery", "OMR", "Guindy", "Mylapore", "Nungambakkam", "Besant Nagar", "Porur"]
+      lat_range: [12.95, 13.15]
+      lon_range: [80.15, 80.30]
+
+# ── Ride Parameters ──────────────────────────────────────────
+ride_params:
+  # Ride statuses and their probability weights
+  statuses:
+    - status: "completed"
+      weight: 0.72
+    - status: "cancelled"
+      weight: 0.15
+    - status: "ongoing"
+      weight: 0.08
+    - status: "no_show"
+      weight: 0.05
+
+  # Fare calculation
+  base_fare_range: [30.0, 80.0]        # INR
+  per_km_rate_range: [8.0, 15.0]       # INR per km
+  distance_range: [1.0, 45.0]          # km
+  surge_multiplier_range: [1.0, 2.5]
+
+  # Duration
+  min_duration_minutes: 5
+  max_duration_minutes: 120
+
+  # Date range for ride generation
+  date_range:
+    start: "2026-01-01"
+    end: "2026-08-31"
+
+# ── Driver Parameters ────────────────────────────────────────
+driver_params:
+  vehicle_types:
+    - type: "Sedan"
+      weight: 0.35
+    - type: "Hatchback"
+      weight: 0.30
+    - type: "SUV"
+      weight: 0.20
+    - type: "Auto"
+      weight: 0.10
+    - type: "Bike"
+      weight: 0.05
+
+  rating_range: [3.0, 5.0]
+
+# ── Payment Parameters ──────────────────────────────────────
+payment_params:
+  methods:
+    - method: "UPI"
+      weight: 0.40
+    - method: "Credit Card"
+      weight: 0.20
+    - method: "Debit Card"
+      weight: 0.15
+    - method: "Cash"
+      weight: 0.15
+    - method: "Wallet"
+      weight: 0.10
+
+  statuses:
+    - status: "completed"
+      weight: 0.88
+    - status: "failed"
+      weight: 0.07
+    - status: "refunded"
+      weight: 0.03
+    - status: "pending"
+      weight: 0.02
+
+# ── Logging ──────────────────────────────────────────────────
+logging:
+  level: "INFO"                        # DEBUG | INFO | WARNING | ERROR
+  log_dir: "logs"
+  log_file: "mobility_platform.log"
+  console_output: true
+  file_output: true
+  format: "%(asctime)s | %(levelname)-8s | %(name)-25s | %(message)s"
+
+# ── Paths ────────────────────────────────────────────────────
+paths:
+  raw_data: "data/raw"
+  bronze: "data/bronze"
+  silver: "data/silver"
+  gold: "data/gold"
+  rejected: "data/rejected"

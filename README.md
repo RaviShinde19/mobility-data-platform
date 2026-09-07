@@ -1,0 +1,92 @@
+# Mobility Data Platform & Analytics Lakehouse
+
+A production-grade data engineering platform simulating a ride-hailing company's data infrastructure.
+
+## Architecture
+
+```
+DATA SOURCES → PYTHON INGESTION → S3 BRONZE → GLUE/PYSPARK → SILVER → GOLD → ATHENA/REDSHIFT → POWER BI
+                                                                    ↑
+                                                              APACHE AIRFLOW
+                                                            (orchestration)
+```
+
+## Current Phase: Phase 1 — Data Generation
+
+### Quick Start
+
+```bash
+# 1. Create virtual environment
+python -m venv venv
+venv\Scripts\activate        # Windows
+
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Generate data
+python main.py generate
+
+# 4. Run tests
+pytest tests/ -v
+```
+
+### Generated Data
+
+| Dataset    | Records | Format   | Location                |
+|-----------|---------|----------|-------------------------|
+| Customers | 1,000   | CSV/JSON | data/raw/customers/     |
+| Drivers   | 500     | CSV/JSON | data/raw/drivers/       |
+| Rides     | 10,000  | CSV/JSON | data/raw/rides/         |
+| Payments  | 8,000   | CSV/JSON | data/raw/payments/      |
+
+### Project Structure
+
+```
+mobility-platform/
+├── config/config.yaml           # All configurable parameters
+├── src/
+│   ├── data_generator/          # Phase 1: Synthetic data generation
+│   │   ├── generator.py         # Orchestrator
+│   │   ├── customers.py         # Customer generator
+│   │   ├── drivers.py           # Driver generator
+│   │   ├── rides.py             # Ride generator
+│   │   └── payments.py          # Payment generator
+│   ├── utils/
+│   │   ├── config_loader.py     # YAML config management
+│   │   └── logger.py            # Logging setup
+│   └── models/
+│       └── schemas.py           # Data schemas (dataclasses)
+├── data/raw/                    # Generated data output
+├── tests/                       # Test suite
+├── main.py                      # CLI entry point
+└── requirements.txt             # Dependencies
+```
+
+## Phases
+
+- [x] **Phase 1**: Project Setup & Data Generation
+- [ ] **Phase 2**: PostgreSQL — Local Relational Store
+- [ ] **Phase 3**: Amazon S3 — Bronze Layer Ingestion
+- [ ] **Phase 4**: PySpark — Bronze → Silver Transformations
+- [ ] **Phase 5**: PySpark — Silver → Gold (Dimensional Model)
+- [ ] **Phase 6**: Data Quality & Error Handling
+- [ ] **Phase 7**: AWS Glue — Managed Cloud ETL
+- [ ] **Phase 8**: Amazon Athena — Query the Lake
+- [ ] **Phase 9**: Amazon Redshift — Data Warehouse
+- [ ] **Phase 10**: Apache Airflow — Pipeline Orchestration
+- [ ] **Phase 11**: Power BI — Dashboards & Visualization
+
+## Tech Stack
+
+| Component      | Technology     | Phase |
+|---------------|---------------|-------|
+| Data Generation| Python, Faker | 1     |
+| Local DB       | PostgreSQL    | 2     |
+| Cloud Storage  | Amazon S3     | 3     |
+| Processing     | PySpark       | 4-5   |
+| Data Quality   | Python        | 6     |
+| Cloud ETL      | AWS Glue      | 7     |
+| Lake Querying  | Amazon Athena | 8     |
+| Warehouse      | Amazon Redshift| 9    |
+| Orchestration  | Apache Airflow| 10    |
+| Visualization  | Power BI      | 11    |
