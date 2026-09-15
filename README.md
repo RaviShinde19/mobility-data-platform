@@ -70,6 +70,16 @@ python main.py generate
 pytest tests/ -v
 ```
 
+### Documentation
+
+To view the project documentation (Data Dictionary, Data Governance Rules, etc.):
+
+```bash
+# Start the MkDocs server
+mkdocs serve
+```
+Then, open your browser and navigate to: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+
 ### Generated Data
 
 | Dataset    | Records | Format   | Location                |
