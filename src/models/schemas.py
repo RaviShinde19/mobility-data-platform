@@ -58,14 +58,14 @@ class Customer:
 
     In a real system, this comes from the user registration service.
     """
-    customer_id: str           # e.g., "C0001" — unique identifier
-    first_name: str
-    last_name: str
-    email: str
-    phone: str
-    city: str                  # Registration city
-    signup_date: date
-    is_active: bool = True
+    customer_id: str = field(metadata={"classification": "INTERNAL"})           # e.g., "C0001" — unique identifier
+    first_name: str = field(metadata={"classification": "CONFIDENTIAL"})
+    last_name: str = field(metadata={"classification": "CONFIDENTIAL"})
+    email: str = field(metadata={"classification": "CONFIDENTIAL"})
+    phone: str = field(metadata={"classification": "CONFIDENTIAL"})
+    city: str = field(metadata={"classification": "PUBLIC"})                  # Registration city
+    signup_date: date = field(metadata={"classification": "PUBLIC"})
+    is_active: bool = field(default=True, metadata={"classification": "PUBLIC"})
 
     # Columns list for CSV header
     @classmethod
@@ -83,16 +83,16 @@ class Driver:
 
     In a real system, this comes from the driver onboarding service.
     """
-    driver_id: str             # e.g., "D0001"
-    first_name: str
-    last_name: str
-    phone: str
-    city: str
-    vehicle_type: str          # Sedan, Hatchback, SUV, Auto, Bike
-    license_number: str
-    rating: float              # 3.0 to 5.0
-    join_date: date
-    is_active: bool = True
+    driver_id: str = field(metadata={"classification": "INTERNAL"})             # e.g., "D0001"
+    first_name: str = field(metadata={"classification": "CONFIDENTIAL"})
+    last_name: str = field(metadata={"classification": "CONFIDENTIAL"})
+    phone: str = field(metadata={"classification": "CONFIDENTIAL"})
+    city: str = field(metadata={"classification": "PUBLIC"})
+    vehicle_type: str = field(metadata={"classification": "PUBLIC"})          # Sedan, Hatchback, SUV, Auto, Bike
+    license_number: str = field(metadata={"classification": "CONFIDENTIAL"})
+    rating: float = field(metadata={"classification": "PUBLIC"})              # 3.0 to 5.0
+    join_date: date = field(metadata={"classification": "PUBLIC"})
+    is_active: bool = field(default=True, metadata={"classification": "PUBLIC"})
 
     @classmethod
     def columns(cls) -> list[str]:
@@ -113,24 +113,24 @@ class Ride:
 
     In a real system, ride events stream from the dispatch service.
     """
-    ride_id: str               # e.g., "R00001"
-    customer_id: str           # FK → Customer
-    driver_id: str             # FK → Driver
-    pickup_city: str
-    pickup_area: str
-    dropoff_city: str
-    dropoff_area: str
-    pickup_lat: float
-    pickup_lon: float
-    dropoff_lat: float
-    dropoff_lon: float
-    request_time: datetime
-    pickup_time: Optional[datetime]    # NULL if cancelled before pickup
-    dropoff_time: Optional[datetime]   # NULL if not completed
-    distance_km: float
-    fare: float
-    surge_multiplier: float
-    ride_status: str           # completed | cancelled | ongoing | no_show
+    ride_id: str = field(metadata={"classification": "INTERNAL"})               # e.g., "R00001"
+    customer_id: str = field(metadata={"classification": "INTERNAL"})           # FK → Customer
+    driver_id: str = field(metadata={"classification": "INTERNAL"})             # FK → Driver
+    pickup_city: str = field(metadata={"classification": "PUBLIC"})
+    pickup_area: str = field(metadata={"classification": "PUBLIC"})
+    dropoff_city: str = field(metadata={"classification": "PUBLIC"})
+    dropoff_area: str = field(metadata={"classification": "PUBLIC"})
+    pickup_lat: float = field(metadata={"classification": "RESTRICTED"})
+    pickup_lon: float = field(metadata={"classification": "RESTRICTED"})
+    dropoff_lat: float = field(metadata={"classification": "RESTRICTED"})
+    dropoff_lon: float = field(metadata={"classification": "RESTRICTED"})
+    request_time: datetime = field(metadata={"classification": "PUBLIC"})
+    distance_km: float = field(metadata={"classification": "PUBLIC"})
+    fare: float = field(metadata={"classification": "PUBLIC"})
+    surge_multiplier: float = field(metadata={"classification": "PUBLIC"})
+    ride_status: str = field(metadata={"classification": "PUBLIC"})           # completed | cancelled | ongoing | no_show
+    pickup_time: Optional[datetime] = field(default=None, metadata={"classification": "PUBLIC"})    # NULL if cancelled before pickup
+    dropoff_time: Optional[datetime] = field(default=None, metadata={"classification": "PUBLIC"})   # NULL if not completed
 
     @classmethod
     def columns(cls) -> list[str]:
@@ -151,14 +151,14 @@ class Payment:
     In a real system, this comes from the payment gateway service.
     Note: Not every ride has a payment (cancelled rides may not).
     """
-    payment_id: str            # e.g., "P00001"
-    ride_id: str               # FK → Ride
-    customer_id: str           # FK → Customer
-    amount: float
-    payment_method: str        # UPI | Credit Card | Debit Card | Cash | Wallet
-    payment_status: str        # completed | failed | refunded | pending
-    payment_time: datetime
-    tip_amount: float = 0.0
+    payment_id: str = field(metadata={"classification": "INTERNAL"})            # e.g., "P00001"
+    ride_id: str = field(metadata={"classification": "INTERNAL"})               # FK → Ride
+    customer_id: str = field(metadata={"classification": "INTERNAL"})           # FK → Customer
+    amount: float = field(metadata={"classification": "PUBLIC"})
+    payment_method: str = field(metadata={"classification": "PUBLIC"})        # UPI | Credit Card | Debit Card | Cash | Wallet
+    payment_status: str = field(metadata={"classification": "PUBLIC"})        # completed | failed | refunded | pending
+    payment_time: datetime = field(metadata={"classification": "PUBLIC"})
+    tip_amount: float = field(default=0.0, metadata={"classification": "PUBLIC"})
 
     @classmethod
     def columns(cls) -> list[str]:

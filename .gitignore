@@ -43,3 +43,8 @@ docker/pgdata/
 
 # Jupyter
 .ipynb_checkpoints/
+
+# AI Configurations & Rules
+.agents/
+AGENTS.md
+GEMINI.md

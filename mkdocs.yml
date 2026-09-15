@@ -1,0 +1,41 @@
+site_name: Mobility Data Platform
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.magiclink
+  - tables
+  - admonition
+  - pymdownx.details
+
+nav:
+  - Home: index.md
+  - Implementation Plan: implementation_plan.md
+  - Data Dictionary: data_dictionary.md
+  - Governance & Security: data_governance_and_security.md
+  - Metrics Reference: v1_v2_metrics_reference.md
+  - Phase 1 Walkthrough: phase1_walkthrough.md
