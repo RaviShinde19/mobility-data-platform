@@ -74,11 +74,9 @@ pytest tests/ -v
 
 To view the project documentation (Data Dictionary, Data Governance Rules, etc.):
 
-```bash
-# Start the MkDocs server
-mkdocs serve
-```
-Then, open your browser and navigate to: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+You can view the live documentation here: [https://RaviShinde19.github.io/mobility-data-platform/](https://RaviShinde19.github.io/mobility-data-platform/)
+
+*(Alternatively, to run it locally, you can use `mkdocs serve` and visit http://127.0.0.1:8000/)*
 
 ### Generated Data
 
