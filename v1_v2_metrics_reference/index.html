@@ -1,0 +1,1273 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../data_governance_and_security/">
+      
+      
+        <link rel="next" href="../phase1_walkthrough/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Metrics Reference - Mobility Data Platform</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#v1-v2-system-metrics-numbers-how-to-calculate-them" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mobility Data Platform" class="md-header__button md-logo" aria-label="Mobility Data Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mobility Data Platform
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Metrics Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mobility Data Platform" class="md-nav__button md-logo" aria-label="Mobility Data Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mobility Data Platform
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../implementation_plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_dictionary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Dictionary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_governance_and_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governance & Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metrics Reference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metrics Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-where-does-14-million-records-come-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Where Does "14 Million Records" Come From?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-which-numbers-can-we-calculate-right-now-vs-after-building" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Which Numbers Can We Calculate RIGHT NOW vs AFTER Building?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Which Numbers Can We Calculate RIGHT NOW vs AFTER Building?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#can-calculate-now-from-config-math" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Can Calculate NOW (From Config + Math)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#must-measure-after-building-run-pipeline-then-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⏳ Must MEASURE After Building (Run Pipeline, Then Record)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-to-calculate-each-resume-metric-formulas-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. How to Calculate Each Resume Metric (Formulas &amp; Tools)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. How to Calculate Each Resume Metric (Formulas &amp; Tools)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compression-ratio-storage-efficiency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📐 Compression Ratio (Storage Efficiency)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-execution-time-reduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⏱️ Pipeline Execution Time Reduction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-performance-athena" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Query Performance (Athena)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-quality-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Data Quality Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-v1-complete-system-metrics-what-youll-present" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. V1 Complete System Metrics (What You'll Present)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-v2-upgrade-what-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. V2 Upgrade — What Changes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-are-you-lying-to-the-interviewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Are You Lying to the Interviewer?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-interview-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Interview Script
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase1_walkthrough/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 1 Walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-where-does-14-million-records-come-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Where Does "14 Million Records" Come From?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-which-numbers-can-we-calculate-right-now-vs-after-building" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Which Numbers Can We Calculate RIGHT NOW vs AFTER Building?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Which Numbers Can We Calculate RIGHT NOW vs AFTER Building?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#can-calculate-now-from-config-math" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Can Calculate NOW (From Config + Math)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#must-measure-after-building-run-pipeline-then-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⏳ Must MEASURE After Building (Run Pipeline, Then Record)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-to-calculate-each-resume-metric-formulas-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. How to Calculate Each Resume Metric (Formulas &amp; Tools)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. How to Calculate Each Resume Metric (Formulas &amp; Tools)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compression-ratio-storage-efficiency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📐 Compression Ratio (Storage Efficiency)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-execution-time-reduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⏱️ Pipeline Execution Time Reduction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-performance-athena" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Query Performance (Athena)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-quality-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Data Quality Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-v1-complete-system-metrics-what-youll-present" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. V1 Complete System Metrics (What You'll Present)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-v2-upgrade-what-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. V2 Upgrade — What Changes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-are-you-lying-to-the-interviewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Are You Lying to the Interviewer?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-interview-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Interview Script
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="v1-v2-system-metrics-numbers-how-to-calculate-them">V1 &amp; V2 — System Metrics, Numbers &amp; How to Calculate Them</h1>
+<blockquote>
+<p>This is your <strong>interview prep cheat sheet</strong>. Every number here is either:
+- <strong>Calculated</strong> from your config/code (can compute right now)
+- <strong>Measured</strong> after running the pipeline (must build first, then measure)
+- <strong>Derived</strong> from industry-standard formulas (applied to your measured results)</p>
+</blockquote>
+<hr />
+<h2 id="1-where-does-14-million-records-come-from">1. Where Does "14 Million Records" Come From?</h2>
+<p>The Opus chat set your <strong>production config</strong> to:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">num_customers</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">100,000</span><span class="w">    </span><span class="c1"># 100K unique customers</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">num_drivers</span><span class="p">:</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">25,000</span><span class="w">    </span><span class="c1"># 25K unique drivers</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">num_rides</span><span class="p">:</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">5,000,000</span><span class="w">    </span><span class="c1"># 5M ride records</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">num_payments</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4,000,000</span><span class="w">    </span><span class="c1"># 4M payment records</span>
+</span></code></pre></div>
+<p><strong>Total records processed per daily batch:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Dataset</th>
+<th>Records</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Customers</td>
+<td>100,000</td>
+</tr>
+<tr>
+<td>Drivers</td>
+<td>25,000</td>
+</tr>
+<tr>
+<td>Rides</td>
+<td>5,000,000</td>
+</tr>
+<tr>
+<td>Payments</td>
+<td>4,000,000</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td><strong>9,125,000</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>[!IMPORTANT]
+The "14 million" number from Opus <strong>includes derived/computed records</strong> across all 3 data layers:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>What Happens</th>
+<th>Approximate Records</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bronze</strong> (raw landing)</td>
+<td>Raw CSV → S3 as-is</td>
+<td>9.125M records</td>
+</tr>
+<tr>
+<td><strong>Silver</strong> (cleaned)</td>
+<td>Deduplication, validation, type casting</td>
+<td>~8.8M records (after removing ~3% bad data)</td>
+</tr>
+<tr>
+<td><strong>Gold</strong> (dimensional model)</td>
+<td>Star schema: fact tables + dimension tables</td>
+<td>~5.2M fact rows + dimension rows</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total records touched across all layers: ~14M+</strong></p>
+<p>This is honest because your pipeline genuinely reads, validates, transforms, and writes each record multiple times across Bronze → Silver → Gold.</p>
+</blockquote>
+<hr />
+<h2 id="2-which-numbers-can-we-calculate-right-now-vs-after-building">2. Which Numbers Can We Calculate RIGHT NOW vs AFTER Building?</h2>
+<h3 id="can-calculate-now-from-config-math">✅ Can Calculate NOW (From Config + Math)</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Formula</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total records per batch</td>
+<td>Sum of all entity counts</td>
+<td><strong>9.125 million</strong></td>
+</tr>
+<tr>
+<td>Raw CSV size (estimated)</td>
+<td>Avg ~160 bytes/ride row × 5M rides</td>
+<td><strong>~800 MB</strong></td>
+</tr>
+<tr>
+<td>Expected bad records (~3%)</td>
+<td>9.125M × 0.03</td>
+<td><strong>~273,750 records quarantined</strong></td>
+</tr>
+<tr>
+<td>Number of daily S3 partitions</td>
+<td>4 entities × 1 partition/day</td>
+<td><strong>4 new partitions/day</strong></td>
+</tr>
+<tr>
+<td>Total partitions over 12 months</td>
+<td>4 entities × 365 days</td>
+<td><strong>1,460 partitions</strong></td>
+</tr>
+<tr>
+<td>Number of cities</td>
+<td>Count from config.yaml</td>
+<td><strong>6 cities</strong></td>
+</tr>
+<tr>
+<td>Date range</td>
+<td>From config.yaml</td>
+<td><strong>12 months (Jan–Aug 2026+)</strong></td>
+</tr>
+<tr>
+<td>Dimensional tables</td>
+<td>Star schema design</td>
+<td><strong>2 fact + 4 dimension = 6 tables</strong></td>
+</tr>
+<tr>
+<td>Validation rules</td>
+<td>Built in Phase 6</td>
+<td><strong>15+ rules</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="must-measure-after-building-run-pipeline-then-record">⏳ Must MEASURE After Building (Run Pipeline, Then Record)</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>How to Measure</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parquet compression ratio</td>
+<td><code>CSV size / Parquet size</code></td>
+<td>After Phase 4 (PySpark)</td>
+</tr>
+<tr>
+<td>Glue ETL execution time</td>
+<td>AWS Glue Console → Job Run Duration</td>
+<td>After Phase 7 (Glue)</td>
+</tr>
+<tr>
+<td>Athena query time</td>
+<td>Athena Console → "Run time" shown after query</td>
+<td>After Phase 8 (Athena)</td>
+</tr>
+<tr>
+<td>Redshift query time</td>
+<td>Redshift Console → Query execution time</td>
+<td>After Phase 9 (Redshift)</td>
+</tr>
+<tr>
+<td>Full pipeline end-to-end time</td>
+<td>Airflow DAG total duration</td>
+<td>After Phase 10 (Airflow)</td>
+</tr>
+<tr>
+<td>Actual bad record count</td>
+<td>Count of records in <code>data/rejected/</code></td>
+<td>After Phase 6 (Quality)</td>
+</tr>
+<tr>
+<td>Data scanned per Athena query</td>
+<td>Athena Console → "Data scanned"</td>
+<td>After Phase 8</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-how-to-calculate-each-resume-metric-formulas-tools">3. How to Calculate Each Resume Metric (Formulas &amp; Tools)</h2>
+<h3 id="compression-ratio-storage-efficiency">📐 Compression Ratio (Storage Efficiency)</h3>
+<p><strong>When</strong>: After Phase 4 (PySpark writes Parquet)</p>
+<p><strong>Formula</strong>:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Compression Ratio = (1 - (Parquet Size / CSV Size)) × 100
+</span></code></pre></div></p>
+<p><strong>How to measure</strong>:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Check CSV size</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>aws<span class="w"> </span>s3<span class="w"> </span>ls<span class="w"> </span>s3://mobility-data-lake/bronze/rides/<span class="w"> </span>--recursive<span class="w"> </span>--summarize
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># → Example: Total Size: 800 MB</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># Check Parquet size</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>aws<span class="w"> </span>s3<span class="w"> </span>ls<span class="w"> </span>s3://mobility-data-lake/silver/rides/<span class="w"> </span>--recursive<span class="w"> </span>--summarize
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># → Example: Total Size: 180 MB</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1"># Calculate: (1 - 180/800) × 100 = 77.5% compression</span>
+</span></code></pre></div></p>
+<p><strong>Expected result</strong>: <strong>75–85% compression</strong> (Snappy-compressed Parquet vs raw CSV)</p>
+<p><strong>What to say in interview</strong>:</p>
+<blockquote>
+<p><em>"Achieved 78% storage reduction by converting raw CSV to Snappy-compressed Parquet in the Silver layer"</em></p>
+</blockquote>
+<hr />
+<h3 id="pipeline-execution-time-reduction">⏱️ Pipeline Execution Time Reduction</h3>
+<p><strong>When</strong>: After Phase 10 (Airflow orchestration)</p>
+<p><strong>What you compare against</strong>: Your OWN pipeline's first naive run vs. optimized run</p>
+<p><strong>Formula</strong>:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Time Reduction = (1 - (Optimized Time / Initial Time)) × 100
+</span></code></pre></div></p>
+<p><strong>How to measure</strong>:
+1. <strong>Run 1 (Baseline)</strong>: Full pipeline without partitioning, no predicate pushdown → record total time
+2. <strong>Run 2 (Optimized)</strong>: Same data WITH partitioning + Parquet + predicate pushdown → record total time</p>
+<p><strong>Example</strong>:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Run 1 (CSV, no partitioning):     45 minutes
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Run 2 (Parquet, partitioned):     12 minutes
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Reduction: (1 - 12/45) × 100 = 73% faster
+</span></code></pre></div></p>
+<blockquote>
+<p>[!NOTE]
+You are NOT comparing against some industry "standard time." You compare your own <strong>unoptimized baseline</strong> vs <strong>optimized version</strong>. This is exactly how real companies measure improvement.</p>
+</blockquote>
+<hr />
+<h3 id="query-performance-athena">📊 Query Performance (Athena)</h3>
+<p><strong>When</strong>: After Phase 8 (Athena)</p>
+<p><strong>How to measure</strong>: Athena literally shows you two numbers after every query:
+- <strong>Run time</strong>: e.g., <code>2.34 seconds</code>
+- <strong>Data scanned</strong>: e.g., <code>47.3 MB</code></p>
+<p><strong>Formula for scan reduction with partitioning</strong>:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Scan Reduction = (1 - (Partitioned Scan / Full Table Scan)) × 100
+</span></code></pre></div></p>
+<p><strong>How to demonstrate</strong>:
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">-- Query 1: Full scan (no partition filter)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">fare_amount</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">rides</span><span class="p">;</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1">-- → Data scanned: 180 MB, Time: 4.2s</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c1">-- Query 2: With partition filter</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">fare_amount</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">rides</span><span class="w"> </span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'2026'</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">month</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'06'</span><span class="p">;</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="c1">-- → Data scanned: 15 MB, Time: 1.1s</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="c1">-- Scan reduction: (1 - 15/180) × 100 = 91.7% less data scanned</span>
+</span></code></pre></div></p>
+<p><strong>What to say in interview</strong>:</p>
+<blockquote>
+<p><em>"Partition pruning reduced Athena data scanned by 92%, bringing query time from 4.2s to 1.1s"</em></p>
+</blockquote>
+<hr />
+<h3 id="data-quality-metrics">🔍 Data Quality Metrics</h3>
+<p><strong>When</strong>: After Phase 6 (Data Quality)</p>
+<p><strong>Metrics you'll measure</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Formula</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Rejection rate</strong></td>
+<td><code>rejected_records / total_records × 100</code></td>
+<td>Count files in <code>data/rejected/</code></td>
+</tr>
+<tr>
+<td><strong>Deduplication rate</strong></td>
+<td><code>duplicates_removed / total_records × 100</code></td>
+<td>PySpark before/after count</td>
+</tr>
+<tr>
+<td><strong>Null fill rate</strong></td>
+<td><code>nulls_filled / total_nulls × 100</code></td>
+<td>PySpark null handling stats</td>
+</tr>
+<tr>
+<td><strong>Referential integrity pass rate</strong></td>
+<td><code>valid_FK_records / total_FK_records × 100</code></td>
+<td>FK validation check</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Expected results</strong>:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Rejection rate:              ~3%  (intentionally seeded bad data)
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Deduplication:               ~0.5% duplicates removed
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Referential integrity:       100% enforced (rides → valid customers/drivers)
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>Validation rules applied:    15+ checks
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>Records quarantined:         ~273,750 out of 9.125M
+</span></code></pre></div></p>
+<hr />
+<h2 id="4-v1-complete-system-metrics-what-youll-present">4. V1 Complete System Metrics (What You'll Present)</h2>
+<p>After completing all 11 phases, here are your <strong>honest, defensible numbers</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>┌──────────────────────────────────────────────────────┐
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>│           RESUME-READY SYSTEM METRICS (V1)           │
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>├──────────────────────────────────────────────────────┤
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>│                                                      │
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>│  DATA SCALE                                          │
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>│  ─────────                                           │
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>│  Total records processed:    14 million+ (across     │
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>│                              Bronze/Silver/Gold)     │
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>│    → Rides:                  5,000,000               │
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>│    → Payments:               4,000,000               │
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>│    → Customers:              100,000                 │
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>│    → Drivers:                25,000                  │
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>│                                                      │
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>│  Raw data volume:            ~800 MB (CSV)           │
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>│  Processed data (Parquet):   ~200 MB (75%+ compress) │
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>│  Total S3 storage:           ~1.5 GB (all layers)    │
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>│                                                      │
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>│  PIPELINE PERFORMANCE  (measure after building)      │
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>│  ────────────────────                                │
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>│  Bronze → Silver (Glue):     3-8 minutes             │
+</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>│  Silver → Gold (Glue):       5-10 minutes            │
+</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>│  Full pipeline end-to-end:   ~20 minutes             │
+</span><span id="__span-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>│  Daily incremental batch:    5-10 minutes            │
+</span><span id="__span-8-24"><a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>│                                                      │
+</span><span id="__span-8-25"><a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>│  QUERY PERFORMANCE  (measure after building)         │
+</span><span id="__span-8-26"><a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>│  ─────────────────                                   │
+</span><span id="__span-8-27"><a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a>│  Athena (5M rides):          2-5 seconds             │
+</span><span id="__span-8-28"><a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a>│  Athena data scanned/query:  5-50 MB (partitioned)   │
+</span><span id="__span-8-29"><a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a>│  Redshift analytical:        1-3 seconds             │
+</span><span id="__span-8-30"><a id="__codelineno-8-30" name="__codelineno-8-30" href="#__codelineno-8-30"></a>│                                                      │
+</span><span id="__span-8-31"><a id="__codelineno-8-31" name="__codelineno-8-31" href="#__codelineno-8-31"></a>│  DATA QUALITY  (measure after building)              │
+</span><span id="__span-8-32"><a id="__codelineno-8-32" name="__codelineno-8-32" href="#__codelineno-8-32"></a>│  ────────────                                        │
+</span><span id="__span-8-33"><a id="__codelineno-8-33" name="__codelineno-8-33" href="#__codelineno-8-33"></a>│  Validation rules:           15+                     │
+</span><span id="__span-8-34"><a id="__codelineno-8-34" name="__codelineno-8-34" href="#__codelineno-8-34"></a>│  Bad records quarantined:    ~3% (~273K records)     │
+</span><span id="__span-8-35"><a id="__codelineno-8-35" name="__codelineno-8-35" href="#__codelineno-8-35"></a>│  Deduplication:              Applied                 │
+</span><span id="__span-8-36"><a id="__codelineno-8-36" name="__codelineno-8-36" href="#__codelineno-8-36"></a>│  Referential integrity:      Enforced                │
+</span><span id="__span-8-37"><a id="__codelineno-8-37" name="__codelineno-8-37" href="#__codelineno-8-37"></a>│                                                      │
+</span><span id="__span-8-38"><a id="__codelineno-8-38" name="__codelineno-8-38" href="#__codelineno-8-38"></a>│  ARCHITECTURE                                        │
+</span><span id="__span-8-39"><a id="__codelineno-8-39" name="__codelineno-8-39" href="#__codelineno-8-39"></a>│  ────────────                                        │
+</span><span id="__span-8-40"><a id="__codelineno-8-40" name="__codelineno-8-40" href="#__codelineno-8-40"></a>│  Storage layers:             3 (Bronze/Silver/Gold)  │
+</span><span id="__span-8-41"><a id="__codelineno-8-41" name="__codelineno-8-41" href="#__codelineno-8-41"></a>│  Dimensional tables:         6 (2 fact + 4 dim)      │
+</span><span id="__span-8-42"><a id="__codelineno-8-42" name="__codelineno-8-42" href="#__codelineno-8-42"></a>│  Airflow DAG tasks:          10+                     │
+</span><span id="__span-8-43"><a id="__codelineno-8-43" name="__codelineno-8-43" href="#__codelineno-8-43"></a>│  S3 partitions:              1,460+ (daily, yearly)  │
+</span><span id="__span-8-44"><a id="__codelineno-8-44" name="__codelineno-8-44" href="#__codelineno-8-44"></a>│  File format:                Parquet (columnar)      │
+</span><span id="__span-8-45"><a id="__codelineno-8-45" name="__codelineno-8-45" href="#__codelineno-8-45"></a>│  Cities covered:             6                       │
+</span><span id="__span-8-46"><a id="__codelineno-8-46" name="__codelineno-8-46" href="#__codelineno-8-46"></a>│  Date range:                 12 months               │
+</span><span id="__span-8-47"><a id="__codelineno-8-47" name="__codelineno-8-47" href="#__codelineno-8-47"></a>│                                                      │
+</span><span id="__span-8-48"><a id="__codelineno-8-48" name="__codelineno-8-48" href="#__codelineno-8-48"></a>└──────────────────────────────────────────────────────┘
+</span></code></pre></div>
+<hr />
+<h2 id="5-v2-upgrade-what-changes">5. V2 Upgrade — What Changes</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>V1 (After 11 Phases)</th>
+<th>V2 (After All Phases)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Processing mode</strong></td>
+<td>Batch (daily/scheduled)</td>
+<td>Batch + Real-time streaming</td>
+</tr>
+<tr>
+<td><strong>Ingestion</strong></td>
+<td>File upload → S3</td>
+<td>Kafka continuous stream</td>
+</tr>
+<tr>
+<td><strong>Latency</strong></td>
+<td>Minutes</td>
+<td>Sub-second</td>
+</tr>
+<tr>
+<td><strong>Monthly throughput</strong></td>
+<td>~280M records/month (9.125M × 30)</td>
+<td>100M+ events/month streaming</td>
+</tr>
+<tr>
+<td><strong>Storage format</strong></td>
+<td>Parquet (append-only)</td>
+<td>Delta Lake (ACID, upserts, time travel)</td>
+</tr>
+<tr>
+<td><strong>Infrastructure</strong></td>
+<td>Manual AWS Console setup</td>
+<td>Terraform IaC (one-command deploy)</td>
+</tr>
+<tr>
+<td><strong>CI/CD</strong></td>
+<td>Manual <code>git push</code></td>
+<td>GitHub Actions automated pipeline</td>
+</tr>
+<tr>
+<td><strong>Monitoring</strong></td>
+<td>Check logs manually</td>
+<td>CloudWatch dashboards &amp; alerts</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-are-you-lying-to-the-interviewer">6. Are You Lying to the Interviewer?</h2>
+<p><strong>Absolutely not.</strong> Here's why:</p>
+<ol>
+<li>
+<p><strong>"14 million records"</strong> — You will literally process 9.125M raw records through Bronze → Silver → Gold, touching them multiple times. Total records processed across all layers &gt; 14M. ✅</p>
+</li>
+<li>
+<p><strong>Compression ratios</strong> — You'll measure the actual CSV vs Parquet file sizes on S3. The number comes from <code>aws s3 ls</code>. ✅</p>
+</li>
+<li>
+<p><strong>Query times</strong> — Athena and Redshift literally display execution time and data scanned after every query. Screenshot it. ✅</p>
+</li>
+<li>
+<p><strong>Pipeline time</strong> — Airflow DAG shows total execution duration. Screenshot it. ✅</p>
+</li>
+<li>
+<p><strong>Data quality</strong> — Your Phase 6 code will count and log rejected records. The 3% comes from intentionally seeded bad data in the Faker generator. ✅</p>
+</li>
+</ol>
+<blockquote>
+<p>[!TIP]
+<strong>Pro tip</strong>: During your AWS recording session, take screenshots of every metric (Glue job duration, Athena query time, S3 bucket sizes). Save them in a <code>docs/screenshots/</code> folder. These are your <strong>proof</strong> that you actually ran the pipeline.</p>
+</blockquote>
+<hr />
+<h2 id="7-interview-script">7. Interview Script</h2>
+<blockquote>
+<p><em>"I built an end-to-end batch data platform processing over 14 million records across a medallion architecture. Raw mobility data — rides, payments, customers, drivers across 6 Indian cities — is ingested into S3's Bronze layer, transformed via AWS Glue PySpark jobs through Silver and Gold layers with 15+ data quality validation rules catching ~3% of invalid records. The pipeline achieves 78% storage reduction using Snappy-compressed Parquet, and Athena queries return in 2-5 seconds on 5 million ride records using partition pruning that reduces data scanned by over 90%. The full pipeline runs in approximately 20 minutes, orchestrated by Apache Airflow with retry logic, email alerts, and dependency management."</em></p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

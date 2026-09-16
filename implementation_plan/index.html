@@ -1,0 +1,5135 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../data_dictionary/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Implementation Plan - Mobility Data Platform</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#real-time-mobility-data-platform-phased-implementation-plan" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mobility Data Platform" class="md-header__button md-logo" aria-label="Mobility Data Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mobility Data Platform
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Implementation Plan
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mobility Data Platform" class="md-nav__button md-logo" aria-label="Mobility Data Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mobility Data Platform
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation Plan
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#phase-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-project-setup-data-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Project Setup &amp; Data Generation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 1: Project Setup &amp; Data Generation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Project Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-design-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Design Decisions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-governance-tasks-phase-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Governance Tasks (Phase 1)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Governance Tasks (Phase 1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-data-classification-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Data Classification Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-data-dictionary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Data Dictionary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-architecture-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Architecture Diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-postgresql-local-relational-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: PostgreSQL — Local Relational Store
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 2: PostgreSQL — Local Relational Store">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-docker-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Docker setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-database-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Database layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-sql-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] SQL scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-security-tasks-phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Security Tasks (Phase 2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Security Tasks (Phase 2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#database-rbac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database RBAC
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-amazon-s3-bronze-layer-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: Amazon S3 — Bronze Layer Ingestion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: Amazon S3 — Bronze Layer Ingestion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-s3-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] S3 ingestion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-iam-security-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] IAM &amp; Security configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-resource-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Resource management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s3-security-configuration-phase-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S3 Security Configuration (Phase 3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iam-role-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IAM Role Design
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s3-structure-created" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S3 Structure Created
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-pyspark-bronze-silver-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: PySpark — Bronze → Silver Transformations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 4: PySpark — Bronze → Silver Transformations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-pyspark-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] PySpark transformations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-data-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Data protection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Transformations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pii-masking-rules-applied-in-silver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PII Masking Rules (Applied in Silver)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-idempotency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Idempotency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spark-performance-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spark Performance Tuning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#partition-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Partition Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-5-pyspark-silver-gold-dimensional-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5: PySpark — Silver → Gold (Dimensional Model)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 5: PySpark — Silver → Gold (Dimensional Model)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-gold-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Gold transformations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-tests_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Tables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-broadcast-joins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance: Broadcast Joins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gold-layer-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gold Layer Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-6-data-quality-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 6: Data Quality &amp; Error Handling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 6: Data Quality &amp; Error Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-quality-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Quality framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-data-assertion-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Data assertion suite
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quarantine-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quarantine Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quarantine-record-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quarantine Record Format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-assertion-suite-runs-after-each-pipeline-stage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Assertion Suite (Runs After Each Pipeline Stage)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quality-alerting-thresholds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quality Alerting Thresholds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quarantine-reprocessing-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quarantine Reprocessing Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-7-aws-glue-managed-cloud-etl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 7: AWS Glue — Managed Cloud ETL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 7: AWS Glue — Managed Cloud ETL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-glue-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Glue jobs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-infrastructure-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Infrastructure config
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#incremental-processing-with-job-bookmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incremental Processing with Job Bookmarks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#glue-data-catalog-governance-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Glue Data Catalog — Governance Metadata
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-lineage-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Lineage Columns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-8-amazon-athena-query-the-lake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 8: Amazon Athena — Query the Lake
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 8: Amazon Athena — Query the Lake">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-athena-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Athena queries
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Queries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-optimization-partition-pruning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cost Optimization — Partition Pruning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-9-amazon-redshift-data-warehouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 9: Amazon Redshift — Data Warehouse
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 9: Amazon Redshift — Data Warehouse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-redshift-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Redshift scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distribution-sort-key-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distribution &amp; Sort Key Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redshift-rbac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redshift RBAC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-10-apache-airflow-pipeline-orchestration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 10: Apache Airflow — Pipeline Orchestration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 10: Apache Airflow — Pipeline Orchestration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-airflow-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Airflow setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dag-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DAG Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alerting-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alerting Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idempotent-dag-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Idempotent DAG Design
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backfill-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backfill Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-11-power-bi-dashboards-visualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 11: Power BI — Dashboards &amp; Visualization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 11: Power BI — Dashboards &amp; Visualization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dashboards-to-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dashboards to Build
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dashboards to Build">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#executive-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Executive Dashboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operational-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operational Dashboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-cost-estimate-portfolio-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AWS Cost Estimate (Portfolio Project)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AWS Cost Estimate (Portfolio Project)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expected-costs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Costs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#free-tier-credits-new-aws-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Free Tier &amp; Credits (New AWS Account)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-killers-to-avoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Cost Killers to AVOID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#teardown-checklist-run-after-every-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Teardown Checklist (Run After Every Session)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evidence-collection-strategy-for-interviews" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evidence Collection Strategy (For Interviews)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evidence Collection Strategy (For Interviews)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-to-capture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to Capture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-deliverables-built-incrementally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Deliverables (Built Incrementally)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation Deliverables (Built Incrementally)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture-decision-records-adrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture Decision Records (ADRs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-decisions-made" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Decisions Made
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v2-scope-future-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        V2 Scope (Future Enhancements)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="V2 Scope (Future Enhancements)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#streaming-advanced-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Streaming &amp; Advanced Processing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infrastructure-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Infrastructure &amp; Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-governance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Governance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operational-maturity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operational Maturity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification Plan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Verification Plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automated-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automated Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_dictionary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Dictionary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_governance_and_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governance & Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v1_v2_metrics_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metrics Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase1_walkthrough/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 1 Walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#phase-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-project-setup-data-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Project Setup &amp; Data Generation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 1: Project Setup &amp; Data Generation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Project Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-design-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Design Decisions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-governance-tasks-phase-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Governance Tasks (Phase 1)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Governance Tasks (Phase 1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-data-classification-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Data Classification Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-data-dictionary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Data Dictionary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-architecture-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Architecture Diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-postgresql-local-relational-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: PostgreSQL — Local Relational Store
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 2: PostgreSQL — Local Relational Store">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-docker-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Docker setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-database-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Database layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-sql-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] SQL scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-security-tasks-phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Security Tasks (Phase 2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Security Tasks (Phase 2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#database-rbac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database RBAC
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-amazon-s3-bronze-layer-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: Amazon S3 — Bronze Layer Ingestion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: Amazon S3 — Bronze Layer Ingestion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-s3-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] S3 ingestion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-iam-security-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] IAM &amp; Security configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-resource-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Resource management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s3-security-configuration-phase-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S3 Security Configuration (Phase 3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iam-role-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IAM Role Design
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s3-structure-created" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S3 Structure Created
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-pyspark-bronze-silver-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: PySpark — Bronze → Silver Transformations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 4: PySpark — Bronze → Silver Transformations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-pyspark-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] PySpark transformations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-data-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Data protection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Transformations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pii-masking-rules-applied-in-silver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PII Masking Rules (Applied in Silver)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-idempotency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Idempotency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spark-performance-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spark Performance Tuning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#partition-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Partition Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-5-pyspark-silver-gold-dimensional-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5: PySpark — Silver → Gold (Dimensional Model)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 5: PySpark — Silver → Gold (Dimensional Model)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-gold-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Gold transformations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-tests_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Tables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-broadcast-joins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance: Broadcast Joins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gold-layer-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gold Layer Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-6-data-quality-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 6: Data Quality &amp; Error Handling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 6: Data Quality &amp; Error Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-quality-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Quality framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-data-assertion-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Data assertion suite
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quarantine-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quarantine Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quarantine-record-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quarantine Record Format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-assertion-suite-runs-after-each-pipeline-stage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Assertion Suite (Runs After Each Pipeline Stage)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quality-alerting-thresholds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quality Alerting Thresholds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quarantine-reprocessing-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quarantine Reprocessing Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-7-aws-glue-managed-cloud-etl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 7: AWS Glue — Managed Cloud ETL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 7: AWS Glue — Managed Cloud ETL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-glue-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Glue jobs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-infrastructure-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Infrastructure config
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#incremental-processing-with-job-bookmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incremental Processing with Job Bookmarks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#glue-data-catalog-governance-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Glue Data Catalog — Governance Metadata
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-lineage-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Lineage Columns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-8-amazon-athena-query-the-lake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 8: Amazon Athena — Query the Lake
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 8: Amazon Athena — Query the Lake">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-athena-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Athena queries
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Queries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-optimization-partition-pruning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cost Optimization — Partition Pruning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-9-amazon-redshift-data-warehouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 9: Amazon Redshift — Data Warehouse
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 9: Amazon Redshift — Data Warehouse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-redshift-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Redshift scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distribution-sort-key-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distribution &amp; Sort Key Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redshift-rbac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redshift RBAC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-10-apache-airflow-pipeline-orchestration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 10: Apache Airflow — Pipeline Orchestration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 10: Apache Airflow — Pipeline Orchestration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files-to-create_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files to Create
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Files to Create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-airflow-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [NEW] Airflow setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dag-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DAG Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alerting-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alerting Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idempotent-dag-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Idempotent DAG Design
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backfill-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backfill Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-11-power-bi-dashboards-visualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 11: Power BI — Dashboards &amp; Visualization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 11: Power BI — Dashboards &amp; Visualization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You'll Learn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dashboards-to-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dashboards to Build
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dashboards to Build">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#executive-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Executive Dashboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operational-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operational Dashboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-cost-estimate-portfolio-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AWS Cost Estimate (Portfolio Project)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AWS Cost Estimate (Portfolio Project)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expected-costs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Costs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#free-tier-credits-new-aws-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Free Tier &amp; Credits (New AWS Account)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-killers-to-avoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Cost Killers to AVOID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#teardown-checklist-run-after-every-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Teardown Checklist (Run After Every Session)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evidence-collection-strategy-for-interviews" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evidence Collection Strategy (For Interviews)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evidence Collection Strategy (For Interviews)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-to-capture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to Capture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-deliverables-built-incrementally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Deliverables (Built Incrementally)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation Deliverables (Built Incrementally)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture-decision-records-adrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture Decision Records (ADRs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-decisions-made" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Decisions Made
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v2-scope-future-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        V2 Scope (Future Enhancements)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="V2 Scope (Future Enhancements)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#streaming-advanced-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Streaming &amp; Advanced Processing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infrastructure-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Infrastructure &amp; Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-governance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Governance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operational-maturity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operational Maturity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification Plan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Verification Plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automated-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automated Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="real-time-mobility-data-platform-phased-implementation-plan">Real-Time Mobility Data Platform — Phased Implementation Plan</h1>
+<p>This project will be built in <strong>11 phases</strong>, each introducing new concepts and technologies. You'll learn by building — each phase produces working code that builds on the previous one.</p>
+<p><strong>Cross-cutting principles</strong> embedded into every phase:
+- <strong>Data Governance</strong>: Classification, lineage, cataloging, schema enforcement
+- <strong>Data Security</strong>: Encryption, access control, PII masking, least privilege
+- <strong>Reliability</strong>: Pipeline idempotency, error recovery, testing
+- <strong>Operational Readiness</strong>: Monitoring, alerting, runbooks, cost awareness</p>
+<hr />
+<h2 id="phase-overview">Phase Overview</h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Title</th>
+<th>Key Technologies</th>
+<th>What You Learn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Project Setup &amp; Data Generation</strong></td>
+<td>Python, Faker, CSV/JSON</td>
+<td>Project structure, synthetic data generation, configuration management, data classification</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>PostgreSQL — Local Relational Store</strong></td>
+<td>Python, PostgreSQL, psycopg2, Docker</td>
+<td>Relational modeling, SQL DDL, Python-DB interaction, Docker basics, database RBAC</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Amazon S3 — Bronze Layer Ingestion</strong></td>
+<td>Python, boto3, S3, IAM</td>
+<td>Cloud storage, raw data landing, S3 security, IAM least privilege, encryption</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>PySpark — Local Transformations (Bronze → Silver)</strong></td>
+<td>PySpark, Parquet</td>
+<td>Spark DataFrames, cleaning, deduplication, PII masking, geospatial obfuscation, Spark tuning</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>PySpark — Silver → Gold (Dimensional Modeling)</strong></td>
+<td>PySpark, Star Schema</td>
+<td>Fact/dimension tables, surrogate keys, broadcast joins, partition strategy</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Data Quality &amp; Error Handling</strong></td>
+<td>Python, PySpark, Great Expectations</td>
+<td>Validation rules, quarantine zone, reprocessing, data assertion suites, quality alerting</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>AWS Glue — Managed Cloud ETL</strong></td>
+<td>AWS Glue, Glue Catalog, PySpark</td>
+<td>Managed Spark, crawlers, data catalog, incremental processing, job bookmarks</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Amazon Athena — Query the Lake</strong></td>
+<td>Athena, SQL, Glue Catalog</td>
+<td>Serverless SQL over S3, ad-hoc analytics, partition pruning, cost optimization</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Amazon Redshift — Data Warehouse</strong></td>
+<td>Redshift Serverless, SQL, COPY</td>
+<td>Warehouse loading, distribution/sort keys, RBAC, analytical SQL</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>Apache Airflow — Pipeline Orchestration</strong></td>
+<td>Airflow, Docker Compose, DAGs</td>
+<td>Workflow orchestration, alerting, backfill strategy, idempotent DAGs</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>Power BI — Dashboards &amp; Visualization</strong></td>
+<td>Power BI, DAX</td>
+<td>KPI dashboards, operational analytics, data storytelling</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-1-project-setup-data-generation">Phase 1: Project Setup &amp; Data Generation</h2>
+<h3 id="goal">Goal</h3>
+<p>Set up the project structure and build a synthetic data generator that creates realistic mobility data (customers, drivers, rides, payments) in CSV and JSON formats.</p>
+<h3 id="what-youll-learn">What You'll Learn</h3>
+<ul>
+<li>How to structure a data engineering project</li>
+<li>How to generate realistic test data with Python's <code>Faker</code> library</li>
+<li>Configuration management with YAML</li>
+<li>Logging best practices</li>
+<li>Working with CSV and JSON formats</li>
+<li><strong>Data classification — understanding which fields are PII, confidential, or public</strong></li>
+</ul>
+<h3 id="files-to-create">Files to Create</h3>
+<h4 id="new-project-structure">[NEW] Project Structure</h4>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mobility-platform/
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── config/
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│   └── config.yaml              # All configurable parameters
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── src/
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│   ├── __init__.py
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│   ├── data_generator/
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│   │   ├── __init__.py
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│   │   ├── generator.py         # Main data generation orchestrator
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│   │   ├── customers.py         # Customer data generator
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│   │   ├── drivers.py           # Driver data generator
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│   │   ├── rides.py             # Rides data generator
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│   │   └── payments.py          # Payments data generator
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│   ├── utils/
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>│   │   ├── __init__.py
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>│   │   ├── logger.py            # Logging setup
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>│   │   └── config_loader.py     # YAML config loader
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>│   └── models/
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>│       ├── __init__.py
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>│       └── schemas.py           # Data schemas / field definitions
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>├── data/
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>│   └── raw/                     # Generated data lands here
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>│       ├── customers/
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>│       ├── drivers/
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>│       ├── rides/
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>│       └── payments/
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>├── logs/
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>├── tests/
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>│   └── test_data_generator.py
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>├── docs/
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>│   └── data_dictionary.md       # Column-level documentation with PII classification
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>├── requirements.txt
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>├── .env.example
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>├── .gitignore
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>└── README.md
+</span></code></pre></div>
+<h4 id="key-design-decisions">Key Design Decisions</h4>
+<ul>
+<li><strong>Referential integrity in generated data</strong>: Rides reference valid customer_ids and driver_ids. Payments reference valid ride_ids.</li>
+<li><strong>Realistic distributions</strong>: Not all rides are completed — some are cancelled. Not all payments succeed.</li>
+<li><strong>Configurable volume</strong>: Generate 100 records for testing or 100,000 for load testing via config.</li>
+<li><strong>Indian cities focus</strong>: Pune, Mumbai, Bangalore, Delhi, Hyderabad, Chennai — to match a realistic ride-hailing context.</li>
+</ul>
+<h3 id="data-governance-tasks-phase-1">Data Governance Tasks (Phase 1)</h3>
+<h4 id="new-data-classification-matrix">[NEW] Data Classification Matrix</h4>
+<p>Tag every field in the schema with a sensitivity classification. This drives all downstream masking and access control decisions:</p>
+<table>
+<thead>
+<tr>
+<th>Classification</th>
+<th>Meaning</th>
+<th>Example Fields</th>
+<th>What Happens in Silver/Gold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PUBLIC</strong></td>
+<td>No restriction</td>
+<td>city, vehicle_type, ride_status</td>
+<td>Passes through unchanged</td>
+</tr>
+<tr>
+<td><strong>INTERNAL</strong></td>
+<td>Internal use only</td>
+<td>customer_id, driver_id, ride_id</td>
+<td>Replaced with surrogate keys in Gold</td>
+</tr>
+<tr>
+<td><strong>CONFIDENTIAL</strong></td>
+<td>PII — must be masked</td>
+<td>first_name, last_name, email, phone</td>
+<td>Hashed/masked in Silver, removed in Gold</td>
+</tr>
+<tr>
+<td><strong>RESTRICTED</strong></td>
+<td>Sensitive location data</td>
+<td>pickup_lat, pickup_lon, dropoff_lat, dropoff_lon</td>
+<td>Obfuscated to H3 hex index in Silver</td>
+</tr>
+</tbody>
+</table>
+<p>Add this classification as metadata in <code>schemas.py</code> — it will be used by the masking logic in Phase 4.</p>
+<h4 id="new-data-dictionary">[NEW] Data Dictionary</h4>
+<p>Create <code>docs/data_dictionary.md</code> documenting every column across all 4 datasets with: column name, data type, description, example value, PII classification, and source.</p>
+<h4 id="new-architecture-diagram">[NEW] Architecture Diagram</h4>
+<p>Add a Mermaid architecture diagram to <code>README.md</code> showing the complete V1 pipeline flow visually. This replaces the ASCII art for interviewer-facing documentation.</p>
+<h3 id="verification">Verification</h3>
+<ul>
+<li>Run the generator and verify CSV/JSON files are created</li>
+<li>Verify referential integrity (all ride customer_ids exist in customers)</li>
+<li>Verify data distributions look realistic</li>
+<li><strong>Data classification matrix exists for all fields</strong></li>
+<li><strong>Data dictionary document created</strong></li>
+</ul>
+<hr />
+<h2 id="phase-2-postgresql-local-relational-store">Phase 2: PostgreSQL — Local Relational Store</h2>
+<h3 id="goal_1">Goal</h3>
+<p>Set up PostgreSQL in Docker, create the relational schema, and load generated data using Python. Implement database-level access control.</p>
+<h3 id="what-youll-learn_1">What You'll Learn</h3>
+<ul>
+<li>Docker and Docker Compose basics</li>
+<li>SQL DDL (CREATE TABLE, constraints, indexes)</li>
+<li>Python database interaction with <code>psycopg2</code></li>
+<li>Relational schema design</li>
+<li>Data loading patterns (COPY vs INSERT)</li>
+<li><strong>Database RBAC — creating roles with scoped permissions</strong></li>
+</ul>
+<h3 id="files-to-create_1">Files to Create</h3>
+<h4 id="new-docker-setup">[NEW] Docker setup</h4>
+<ul>
+<li><code>docker/docker-compose.yml</code> — PostgreSQL service</li>
+<li><code>docker/.env</code> — Database credentials (not committed)</li>
+</ul>
+<h4 id="new-database-layer">[NEW] Database layer</h4>
+<ul>
+<li><code>src/database/connection.py</code> — Connection pooling and management</li>
+<li><code>src/database/schema.py</code> — DDL statements and schema creation</li>
+<li><code>src/database/loader.py</code> — Bulk data loading from CSV</li>
+<li><code>src/database/rbac.py</code> — Role creation and permission grants</li>
+</ul>
+<h4 id="new-sql-scripts">[NEW] SQL scripts</h4>
+<ul>
+<li><code>sql/ddl/create_tables.sql</code> — Full schema with constraints</li>
+<li><code>sql/ddl/create_roles.sql</code> — RBAC role definitions</li>
+<li><code>sql/queries/sample_queries.sql</code> — Practice analytical queries</li>
+</ul>
+<h3 id="database-security-tasks-phase-2">Database Security Tasks (Phase 2)</h3>
+<h4 id="database-rbac">Database RBAC</h4>
+<p>Create dedicated database roles with scoped permissions:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">-- 1. Create specialized roles</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">etl_writer</span><span class="p">;</span><span class="w">      </span><span class="c1">-- Can read/write Silver and Gold schemas</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">data_analyst</span><span class="p">;</span><span class="w">    </span><span class="c1">-- Can read Gold schema only</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">bi_reader</span><span class="p">;</span><span class="w">       </span><span class="c1">-- Can read Gold aggregated views only</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1">-- 2. Scoped permissions</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">GRANT</span><span class="w"> </span><span class="k">USAGE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">gold</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">data_analyst</span><span class="p">,</span><span class="w"> </span><span class="n">bi_reader</span><span class="p">;</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="n">TABLES</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">gold</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">data_analyst</span><span class="p">,</span><span class="w"> </span><span class="n">bi_reader</span><span class="p">;</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">silver</span><span class="p">,</span><span class="w"> </span><span class="n">gold</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">etl_writer</span><span class="p">;</span>
+</span></code></pre></div>
+<p>This establishes the access control pattern that will carry into Redshift (Phase 9).</p>
+<h3 id="verification_1">Verification</h3>
+<ul>
+<li>Docker container runs PostgreSQL</li>
+<li>Tables created with proper constraints</li>
+<li>Data loads successfully</li>
+<li>Sample queries return expected results</li>
+<li><strong>RBAC roles created and permissions verified</strong></li>
+<li><strong>Integration tests for database loading pass</strong></li>
+</ul>
+<hr />
+<h2 id="phase-3-amazon-s3-bronze-layer-ingestion">Phase 3: Amazon S3 — Bronze Layer Ingestion</h2>
+<h3 id="goal_2">Goal</h3>
+<p>Upload raw generated data to S3 in a date-partitioned Bronze layer structure. Configure S3 security, IAM roles, and encryption from day one.</p>
+<h3 id="what-youll-learn_2">What You'll Learn</h3>
+<ul>
+<li>AWS S3 concepts (buckets, prefixes, objects)</li>
+<li>boto3 Python SDK</li>
+<li>Date-based partitioning strategy</li>
+<li><strong>IAM roles and the Principle of Least Privilege</strong></li>
+<li><strong>S3 bucket security (Block Public Access, encryption, TLS enforcement)</strong></li>
+<li><strong>S3 Versioning for accidental deletion protection</strong></li>
+<li>Idempotent uploads</li>
+</ul>
+<h3 id="files-to-create_2">Files to Create</h3>
+<h4 id="new-s3-ingestion">[NEW] S3 ingestion</h4>
+<ul>
+<li><code>src/ingestion/s3_uploader.py</code> — Upload files to S3 with partitioning</li>
+<li><code>src/ingestion/bronze_ingestion.py</code> — Orchestrate Bronze layer loading</li>
+</ul>
+<h4 id="new-iam-security-configuration">[NEW] IAM &amp; Security configuration</h4>
+<ul>
+<li><code>infrastructure/iam/mobility-ingestion-role.json</code> — IAM policy for ingestion (PutObject on bronze/* only)</li>
+<li><code>infrastructure/iam/mobility-etl-role.json</code> — IAM policy for Glue ETL (read bronze/<em>, write silver/</em>, gold/<em>, quarantine/</em>)</li>
+<li><code>infrastructure/iam/mobility-analytics-role.json</code> — IAM policy for Athena/Redshift (read-only on silver/<em>, gold/</em>)</li>
+<li><code>infrastructure/s3/bucket-policy.json</code> — TLS enforcement + prefix isolation</li>
+</ul>
+<h4 id="new-resource-management">[NEW] Resource management</h4>
+<ul>
+<li><code>scripts/teardown_aws.sh</code> — Destroys ALL AWS resources to avoid surprise bills</li>
+<li><code>scripts/setup_s3.sh</code> — Creates bucket with security config (Block Public Access, encryption, versioning)</li>
+</ul>
+<h3 id="s3-security-configuration-phase-3">S3 Security Configuration (Phase 3)</h3>
+<p>Every S3 bucket MUST be configured with:</p>
+<ol>
+<li><strong>Block Public Access</strong> — All 4 settings enabled (BlockPublicAcls, IgnorePublicAcls, BlockPublicPolicy, RestrictPublicBuckets)</li>
+<li><strong>Default Encryption</strong> — SSE-S3 (AES256) on all objects</li>
+<li><strong>TLS Enforcement</strong> — Bucket policy denying any request where <code>aws:SecureTransport = false</code></li>
+<li><strong>Versioning Enabled</strong> — Protects against accidental deletion or overwrite</li>
+<li><strong>Prefix Isolation</strong> — Separate IAM access for <code>bronze/</code>, <code>silver/</code>, <code>gold/</code>, <code>quarantine/</code></li>
+</ol>
+<h3 id="iam-role-design">IAM Role Design</h3>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Permissions</th>
+<th>Used By</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mobility-ingestion-role</code></td>
+<td><code>s3:PutObject</code> on <code>bronze/*</code> only</td>
+<td>Python ingestion scripts</td>
+</tr>
+<tr>
+<td><code>mobility-etl-role</code></td>
+<td><code>s3:GetObject</code> on <code>bronze/*</code>, <code>s3:PutObject</code> on <code>silver/*</code>, <code>gold/*</code>, <code>quarantine/*</code></td>
+<td>Glue/PySpark ETL jobs</td>
+</tr>
+<tr>
+<td><code>mobility-analytics-role</code></td>
+<td><code>s3:GetObject</code>, <code>s3:ListBucket</code> on <code>silver/*</code>, <code>gold/*</code> only. Explicit <code>Deny</code> on <code>bronze/*</code></td>
+<td>Athena, Redshift Spectrum</td>
+</tr>
+<tr>
+<td><code>mobility-airflow-role</code></td>
+<td>Trigger Glue jobs, no direct S3 write</td>
+<td>Airflow orchestration</td>
+</tr>
+</tbody>
+</table>
+<h3 id="s3-structure-created">S3 Structure Created</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>s3://mobility-data-lake/
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>└── bronze/
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    ├── customers/year=2026/month=09/day=01/customers.csv
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    ├── drivers/year=2026/month=09/day=01/drivers.csv
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    ├── rides/year=2026/month=09/day=01/rides.csv
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    └── payments/year=2026/month=09/day=01/payments.csv
+</span></code></pre></div>
+<h3 id="verification_2">Verification</h3>
+<ul>
+<li>Files appear in S3 with correct structure</li>
+<li>Re-running doesn't create duplicates (idempotent)</li>
+<li>Credentials are NOT in source code</li>
+<li><strong>Block Public Access is ON (verify in AWS Console)</strong></li>
+<li><strong>Default encryption is enabled</strong></li>
+<li><strong>S3 Versioning is enabled</strong></li>
+<li><strong>IAM roles have scoped permissions (no wildcards)</strong></li>
+<li><strong>TLS-only bucket policy is active</strong></li>
+<li><strong>Teardown script successfully removes all resources</strong></li>
+<li><strong>📸 Screenshot: S3 bucket security settings, IAM role policies</strong></li>
+</ul>
+<hr />
+<h2 id="phase-4-pyspark-bronze-silver-transformations">Phase 4: PySpark — Bronze → Silver Transformations</h2>
+<h3 id="goal_3">Goal</h3>
+<p>Read Bronze data from S3 (or local), apply cleaning/validation/deduplication, <strong>mask PII fields</strong>, <strong>obfuscate geospatial data</strong>, and write Silver layer as Parquet. Apply Spark performance tuning.</p>
+<h3 id="what-youll-learn_3">What You'll Learn</h3>
+<ul>
+<li>PySpark DataFrames and operations</li>
+<li>Data type casting and standardization</li>
+<li>Deduplication with <code>dropDuplicates()</code></li>
+<li>Null handling strategies</li>
+<li>Writing Parquet files</li>
+<li>Column transformations</li>
+<li><strong>PII masking — hashing emails, phones, and names using salted SHA-256</strong></li>
+<li><strong>Geospatial privacy — converting GPS coordinates to H3 hex indices</strong></li>
+<li><strong>Pipeline idempotency — ensuring re-runs don't create duplicates</strong></li>
+<li><strong>Spark performance tuning — shuffle partitions, predicate pushdown</strong></li>
+<li><strong>Partition strategy — avoiding the small files problem</strong></li>
+</ul>
+<h3 id="files-to-create_3">Files to Create</h3>
+<h4 id="new-pyspark-transformations">[NEW] PySpark transformations</h4>
+<ul>
+<li><code>src/transformations/spark_session.py</code> — Spark session factory with tuned configurations</li>
+<li><code>src/transformations/bronze_to_silver.py</code> — Main transformation pipeline</li>
+<li><code>src/transformations/cleaners/ride_cleaner.py</code> — Ride-specific cleaning</li>
+<li><code>src/transformations/cleaners/customer_cleaner.py</code></li>
+<li><code>src/transformations/cleaners/driver_cleaner.py</code></li>
+<li><code>src/transformations/cleaners/payment_cleaner.py</code></li>
+</ul>
+<h4 id="new-data-protection">[NEW] Data protection</h4>
+<ul>
+<li><code>src/transformations/masking/pii_masker.py</code> — PII hashing and masking functions</li>
+<li><code>src/transformations/masking/geo_obfuscator.py</code> — H3 hex index conversion for GPS coordinates</li>
+</ul>
+<h4 id="new-tests">[NEW] Tests</h4>
+<ul>
+<li><code>tests/test_bronze_to_silver.py</code> — Integration tests for Silver transformations</li>
+<li><code>tests/test_pii_masker.py</code> — Unit tests verifying PII is correctly masked</li>
+</ul>
+<h3 id="key-transformations">Key Transformations</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Bronze CSV → Read into Spark DataFrame
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  → Cast data types (strings → timestamps, decimals, integers)
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  → Standardize city names ("pune" / "PUNE" → "Pune")
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  → Handle nulls (reject vs. default vs. keep)
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  → Deduplicate on primary keys
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  → Filter invalid records (fare &gt; 0, distance &gt;= 0)
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>  → Derive timestamp fields (ride_date, ride_hour, day_of_week)
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>  → [NEW] Mask PII fields (hash emails, phones, names with salted SHA-256)
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>  → [NEW] Obfuscate GPS coordinates to H3 hex indices (resolution 7 ~1.2 km²)
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>  → [NEW] Add lineage metadata (_source_file, _pipeline_run_id, _processed_at)
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>  → Write as Parquet to Silver (mode="overwrite" per partition for idempotency)
+</span></code></pre></div>
+<h3 id="pii-masking-rules-applied-in-silver">PII Masking Rules (Applied in Silver)</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Raw (Bronze)</th>
+<th>Masked (Silver)</th>
+<th>Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>email</td>
+<td><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#112;&#114;&#105;&#121;&#97;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#112;&#114;&#105;&#121;&#97;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td><code>a1b2c3d4...</code> (64-char hash)</td>
+<td>SHA-256 with salt</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>+91 98765 43210</td>
+<td><code>***-***-3210</code></td>
+<td>Last 4 digits only</td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>Priya</td>
+<td><code>P***</code></td>
+<td>First initial + mask</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>Patel</td>
+<td><code>P***</code></td>
+<td>First initial + mask</td>
+</tr>
+<tr>
+<td>pickup_lat/lon</td>
+<td>19.0760, 72.8777</td>
+<td><code>872a1069fffffff</code></td>
+<td>H3 hex index (res 7)</td>
+</tr>
+<tr>
+<td>dropoff_lat/lon</td>
+<td>18.9220, 72.8347</td>
+<td><code>872a1068bffffff</code></td>
+<td>H3 hex index (res 7)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pipeline-idempotency">Pipeline Idempotency</h3>
+<p>Silver writes use <strong>partition-based overwrite</strong> — each run writes to a specific date partition (<code>year=YYYY/month=MM/day=DD</code>) using <code>mode="overwrite"</code>. If the pipeline re-runs for the same date, it replaces the partition instead of appending duplicates.</p>
+<h3 id="spark-performance-tuning">Spark Performance Tuning</h3>
+<p>Configure these in <code>spark_session.py</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th>Our Setting</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>spark.sql.shuffle.partitions</code></td>
+<td>200</td>
+<td>8-16 (for local), 50-100 (for Glue)</td>
+<td>Default 200 creates 200 tiny files for small datasets</td>
+</tr>
+<tr>
+<td><code>spark.sql.parquet.compression.codec</code></td>
+<td>snappy</td>
+<td>snappy</td>
+<td>Best balance of speed vs compression</td>
+</tr>
+<tr>
+<td><code>spark.sql.sources.partitionOverwriteMode</code></td>
+<td>static</td>
+<td>dynamic</td>
+<td>Overwrites only the partitions being written, not entire table</td>
+</tr>
+</tbody>
+</table>
+<h3 id="partition-strategy">Partition Strategy</h3>
+<p><strong>Target</strong>: 1 Parquet file per partition between 64 MB and 256 MB. Avoid creating hundreds of tiny files.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>✅ GOOD: gold/fact_rides/year=2026/month=08/ → 1-3 files, 80 MB each
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>❌ BAD:  gold/fact_rides/year=2026/month=08/day=01/city=Mumbai/status=completed/ → 1 file, 0.02 MB
+</span></code></pre></div>
+<p>Use <code>coalesce(1)</code> or <code>coalesce(4)</code> before writing to control output file count for small datasets.</p>
+<h3 id="verification_3">Verification</h3>
+<ul>
+<li>Silver Parquet files are created</li>
+<li>Record count: Bronze ≥ Silver (some records filtered/deduped)</li>
+<li>Data types are correct in Parquet schema</li>
+<li>No duplicates in Silver</li>
+<li><strong>PII fields are masked — no raw emails, phones, or names in Silver</strong></li>
+<li><strong>GPS coordinates replaced with H3 hex strings</strong></li>
+<li><strong>Lineage metadata columns present (_source_file, _pipeline_run_id, _processed_at)</strong></li>
+<li><strong>Re-running the pipeline produces identical output (idempotent)</strong></li>
+<li><strong>Integration tests pass</strong></li>
+<li><strong>📸 Screenshot: Silver Parquet schema showing masked fields</strong></li>
+</ul>
+<hr />
+<h2 id="phase-5-pyspark-silver-gold-dimensional-model">Phase 5: PySpark — Silver → Gold (Dimensional Model)</h2>
+<h3 id="goal_4">Goal</h3>
+<p>Build fact and dimension tables from Silver data using PySpark joins and transformations. Apply broadcast joins for dimension tables and ensure idempotent writes.</p>
+<h3 id="what-youll-learn_4">What You'll Learn</h3>
+<ul>
+<li>Dimensional modeling concepts</li>
+<li>Surrogate key generation</li>
+<li>Multi-table joins in Spark</li>
+<li>Aggregation and window functions</li>
+<li>Star schema design</li>
+<li>Partitioned Parquet writes</li>
+<li><strong>Broadcast joins — why small dimension tables should be broadcast</strong></li>
+<li><strong>Idempotent Gold writes</strong></li>
+</ul>
+<h3 id="files-to-create_4">Files to Create</h3>
+<h4 id="new-gold-transformations">[NEW] Gold transformations</h4>
+<ul>
+<li><code>src/transformations/silver_to_gold.py</code> — Orchestrator</li>
+<li><code>src/transformations/dimensions/dim_customer.py</code></li>
+<li><code>src/transformations/dimensions/dim_driver.py</code></li>
+<li><code>src/transformations/dimensions/dim_location.py</code></li>
+<li><code>src/transformations/dimensions/dim_date.py</code></li>
+<li><code>src/transformations/facts/fact_rides.py</code></li>
+<li><code>src/transformations/facts/fact_payments.py</code></li>
+</ul>
+<h4 id="new-tests_1">[NEW] Tests</h4>
+<ul>
+<li><code>tests/test_silver_to_gold.py</code> — Integration tests verifying star schema integrity</li>
+</ul>
+<h3 id="output-tables">Output Tables</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Gold/
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>├── fact_rides/        — partitioned by year/month
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>├── fact_payments/     — partitioned by year/month
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>├── dim_customer/      — surrogate keys, NO raw PII (names/emails are masked)
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>├── dim_driver/        — surrogate keys, NO raw PII
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>├── dim_location/      — H3 hex indices, NO raw GPS coordinates
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>└── dim_date/
+</span></code></pre></div>
+<h3 id="performance-broadcast-joins">Performance: Broadcast Joins</h3>
+<p>Dimension tables (customers: ~1K rows, drivers: ~500 rows, locations: ~60 rows, dates: ~365 rows) are tiny compared to fact tables (rides: 10K-5M rows). Use <code>broadcast()</code> to avoid expensive shuffle joins:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyspark.sql.functions</span><span class="w"> </span><span class="kn">import</span> <span class="n">broadcast</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># Instead of:</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">fact_rides</span> <span class="o">=</span> <span class="n">rides</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dim_customer</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"customer_key"</span><span class="p">)</span>  <span class="c1"># SLOW — shuffles both tables</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1"># Do:</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">fact_rides</span> <span class="o">=</span> <span class="n">rides</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">broadcast</span><span class="p">(</span><span class="n">dim_customer</span><span class="p">),</span> <span class="n">on</span><span class="o">=</span><span class="s2">"customer_key"</span><span class="p">)</span>  <span class="c1"># FAST — sends dim to all executors</span>
+</span></code></pre></div>
+<h3 id="gold-layer-security">Gold Layer Security</h3>
+<ul>
+<li>Gold tables contain <strong>surrogate keys only</strong> (customer_key, driver_key) — no raw IDs</li>
+<li><strong>No PII</strong> in Gold — all names, emails, phones were masked in Silver</li>
+<li><strong>No raw GPS</strong> in Gold — only H3 hex indices from Silver</li>
+<li>Analysts and BI tools query Gold without ever seeing raw data</li>
+</ul>
+<h3 id="verification_4">Verification</h3>
+<ul>
+<li>All dimension and fact tables created as Parquet</li>
+<li>Foreign keys in facts reference valid dimension keys</li>
+<li>Record counts are consistent</li>
+<li>Partitioning is applied to fact tables</li>
+<li><strong>Gold contains zero raw PII fields</strong></li>
+<li><strong>Broadcast joins used for dimension table joins</strong></li>
+<li><strong>Re-running produces identical output (idempotent)</strong></li>
+<li><strong>Integration tests pass</strong></li>
+<li><strong>📸 Screenshot: Gold Parquet schema, row counts</strong></li>
+</ul>
+<hr />
+<h2 id="phase-6-data-quality-error-handling">Phase 6: Data Quality &amp; Error Handling</h2>
+<h3 id="goal_5">Goal</h3>
+<p>Add systematic data quality checks, route bad records to a quarantine zone, define a reprocessing path for corrected records, and build a data assertion test suite.</p>
+<h3 id="what-youll-learn_5">What You'll Learn</h3>
+<ul>
+<li>Data quality frameworks and patterns</li>
+<li>Referential integrity validation</li>
+<li>Quarantine/rejected records pattern</li>
+<li>Quality metrics and reporting</li>
+<li>Production error handling</li>
+<li><strong>Quarantine review and reprocessing workflow</strong></li>
+<li><strong>Data assertion suites (Great Expectations or PySpark assertions)</strong></li>
+<li><strong>Quality alerting thresholds</strong></li>
+</ul>
+<h3 id="files-to-create_5">Files to Create</h3>
+<h4 id="new-quality-framework">[NEW] Quality framework</h4>
+<ul>
+<li><code>src/quality/validators.py</code> — Reusable validation rules</li>
+<li><code>src/quality/referential_checks.py</code> — FK validation</li>
+<li><code>src/quality/quality_reporter.py</code> — Generate quality reports</li>
+<li><code>src/quality/quarantine.py</code> — Route bad records with error metadata</li>
+<li><code>src/quality/reprocessor.py</code> — Reprocess corrected quarantine records</li>
+</ul>
+<h4 id="new-data-assertion-suite">[NEW] Data assertion suite</h4>
+<ul>
+<li><code>src/quality/assertions.py</code> — Post-pipeline data assertions</li>
+<li><code>tests/test_data_quality.py</code> — Tests for the quality framework itself</li>
+</ul>
+<h3 id="quarantine-structure">Quarantine Structure</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>s3://mobility-data-lake/
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>├── bronze/
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>├── silver/
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>├── gold/
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>└── quarantine/
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    ├── rides/dt=2026-09-01/
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    │   └── failed_records.parquet    ← each record has error metadata
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    ├── customers/
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    ├── drivers/
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    └── payments/
+</span></code></pre></div>
+<h3 id="quarantine-record-format">Quarantine Record Format</h3>
+<p>Every quarantined record includes error metadata for debugging:
+<div class="language-json highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">"raw_record"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{...original record...}"</span><span class="p">,</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">"error_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NEGATIVE_DISTANCE"</span><span class="p">,</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="nt">"error_message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"distance_km must be &gt;= 0, got -12.5"</span><span class="p">,</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="nt">"source_file"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bronze/rides/year=2026/month=08/day=25/rides.csv"</span><span class="p">,</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">  </span><span class="nt">"pipeline_run_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"run-2026-09-01-0800"</span><span class="p">,</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">  </span><span class="nt">"quarantined_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-09-01T08:15:00Z"</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="p">}</span>
+</span></code></pre></div></p>
+<h3 id="data-assertion-suite-runs-after-each-pipeline-stage">Data Assertion Suite (Runs After Each Pipeline Stage)</h3>
+<p>Assertions that run automatically after Silver and Gold writes:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Post-Silver assertions</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">assert</span> <span class="n">silver_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">"fare &lt; 0"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>           <span class="c1"># No negative fares</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">assert</span> <span class="n">silver_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">"ride_id IS NULL"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>     <span class="c1"># No null PKs</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">assert</span> <span class="n">silver_df</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span>                                 <span class="c1"># Not empty</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="k">assert</span> <span class="n">silver_df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">"ride_id"</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="n">silver_df</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>  <span class="c1"># No dupes</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># Post-Gold assertions</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="k">assert</span> <span class="n">fact_rides</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">"customer_key IS NULL"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>  <span class="c1"># All FKs valid</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="k">assert</span> <span class="n">dim_customer</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">"email LIKE '%@%'"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>    <span class="c1"># No raw emails in Gold</span>
+</span></code></pre></div>
+<h3 id="quality-alerting-thresholds">Quality Alerting Thresholds</h3>
+<p>Define thresholds that trigger warnings:</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Warning Threshold</th>
+<th>Critical Threshold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Daily rejection rate</td>
+<td>&gt; 5%</td>
+<td>&gt; 15%</td>
+</tr>
+<tr>
+<td>Duplicate rate</td>
+<td>&gt; 0.5%</td>
+<td>&gt; 2%</td>
+</tr>
+<tr>
+<td>Null PK rate</td>
+<td>&gt; 0% (any nulls)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Volume drop vs 7-day avg</td>
+<td>&gt; 30% drop</td>
+<td>&gt; 60% drop</td>
+</tr>
+</tbody>
+</table>
+<h3 id="quarantine-reprocessing-path">Quarantine Reprocessing Path</h3>
+<p>When quarantined records are investigated and corrected:
+1. Fix the root cause (e.g., upstream data source issue)
+2. Move corrected records back to Bronze
+3. Re-run the Silver transformation for that date partition
+4. Pipeline idempotency ensures no duplicates</p>
+<h3 id="verification_5">Verification</h3>
+<ul>
+<li>Bad records (negative fare, missing IDs, invalid status) land in quarantine/</li>
+<li>Quality report shows counts of passed/failed/quarantined</li>
+<li>Silver/Gold are clean — no invalid records</li>
+<li><strong>Data assertion suite passes post-Silver and post-Gold</strong></li>
+<li><strong>Quality report includes rejection rate, duplicate rate, null rate</strong></li>
+<li><strong>Quarantine records include error metadata</strong></li>
+<li><strong>📸 Screenshot: Quality report, quarantine record sample</strong></li>
+</ul>
+<hr />
+<h2 id="phase-7-aws-glue-managed-cloud-etl">Phase 7: AWS Glue — Managed Cloud ETL</h2>
+<h3 id="goal_6">Goal</h3>
+<p>Move PySpark transformations to AWS Glue jobs. Set up the Glue Data Catalog. Implement incremental processing with Glue Job Bookmarks.</p>
+<h3 id="what-youll-learn_6">What You'll Learn</h3>
+<ul>
+<li>AWS Glue jobs and architecture</li>
+<li>Glue Data Catalog and Crawlers</li>
+<li>GlueContext and DynamicFrames</li>
+<li>Cloud-managed Spark execution</li>
+<li><strong>Job Bookmarks for incremental processing</strong></li>
+<li><strong>Data lineage tracking through catalog metadata</strong></li>
+</ul>
+<h3 id="files-to-create_6">Files to Create</h3>
+<h4 id="new-glue-jobs">[NEW] Glue jobs</h4>
+<ul>
+<li><code>glue_jobs/bronze_to_silver_glue.py</code> — Glue version of Bronze→Silver (with PII masking)</li>
+<li><code>glue_jobs/silver_to_gold_glue.py</code> — Glue version of Silver→Gold</li>
+</ul>
+<h4 id="new-infrastructure-config">[NEW] Infrastructure config</h4>
+<ul>
+<li><code>infrastructure/glue/crawler_config.json</code> — Crawler definitions</li>
+<li><code>infrastructure/glue/job_config.json</code> — Job parameters</li>
+<li><code>infrastructure/glue/security_config.json</code> — Glue security configuration (encryption for local disk and shuffle)</li>
+</ul>
+<h3 id="incremental-processing-with-job-bookmarks">Incremental Processing with Job Bookmarks</h3>
+<p>Instead of reprocessing ALL Bronze data every run, Glue Job Bookmarks track what has already been processed:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Run 1: Processes bronze/rides/year=2026/month=08/day=25/  → bookmark saved
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>Run 2: Processes bronze/rides/year=2026/month=08/day=26/  → only NEW data
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>Run 3: Processes bronze/rides/year=2026/month=08/day=27/  → only NEW data
+</span></code></pre></div>
+<p><strong>Without bookmarks</strong>: Every run reads and transforms the entire Bronze history (5M+ records)
+<strong>With bookmarks</strong>: Each run processes only new/unprocessed data (~50K records)</p>
+<h3 id="glue-data-catalog-governance-metadata">Glue Data Catalog — Governance Metadata</h3>
+<p>Register all tables with appropriate metadata tags:</p>
+<table>
+<thead>
+<tr>
+<th>Catalog Database</th>
+<th>Tables</th>
+<th>Metadata Tags</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mobility_bronze_db</code></td>
+<td>rides, customers, drivers, payments</td>
+<td><code>layer=bronze</code>, <code>contains_pii=true</code></td>
+</tr>
+<tr>
+<td><code>mobility_silver_db</code></td>
+<td>rides, customers, drivers, payments</td>
+<td><code>layer=silver</code>, <code>pii_masked=true</code></td>
+</tr>
+<tr>
+<td><code>mobility_gold_db</code></td>
+<td>fact_rides, fact_payments, dim_customer, dim_driver, dim_location, dim_date</td>
+<td><code>layer=gold</code>, <code>pii_masked=true</code>, <code>analytical=true</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="data-lineage-columns">Data Lineage Columns</h3>
+<p>Every Silver and Gold record includes:
+- <code>_source_file_uri</code> — S3 path of the source Bronze file
+- <code>_pipeline_run_id</code> — Unique Glue job run ID
+- <code>_processed_timestamp</code> — UTC timestamp of transformation</p>
+<h3 id="verification_6">Verification</h3>
+<ul>
+<li>Glue jobs run successfully in AWS console</li>
+<li>Crawlers populate the Glue Data Catalog</li>
+<li>Tables visible in Catalog with correct schemas</li>
+<li><strong>Job Bookmarks enabled — second run processes only new data</strong></li>
+<li><strong>Catalog tables have metadata tags</strong></li>
+<li><strong>Lineage columns present in output data</strong></li>
+<li><strong>Glue security configuration enabled (local disk encryption)</strong></li>
+<li><strong>📸 Screenshot: Glue Console — job run duration, Data Catalog tables, job bookmark status</strong></li>
+</ul>
+<hr />
+<h2 id="phase-8-amazon-athena-query-the-lake">Phase 8: Amazon Athena — Query the Lake</h2>
+<h3 id="goal_7">Goal</h3>
+<p>Query Gold layer data directly in S3 using Athena SQL. Demonstrate partition pruning and cost optimization.</p>
+<h3 id="what-youll-learn_7">What You'll Learn</h3>
+<ul>
+<li>Serverless SQL querying</li>
+<li>Querying Parquet data over S3</li>
+<li>Using Glue Catalog as metastore</li>
+<li>Cost optimization with partitioning</li>
+<li>Ad-hoc vs. warehouse analytics</li>
+</ul>
+<h3 id="files-to-create_7">Files to Create</h3>
+<h4 id="new-athena-queries">[NEW] Athena queries</h4>
+<ul>
+<li><code>sql/athena/create_tables.sql</code> — External table definitions</li>
+<li><code>sql/athena/analytical_queries.sql</code> — Business analysis queries</li>
+<li><code>sql/athena/kpi_queries.sql</code> — KPI calculations</li>
+</ul>
+<h3 id="example-queries">Example Queries</h3>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1">-- Top cities by ride demand</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">city</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_rides</span><span class="p">,</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">fare</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">avg_fare</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">gold_fact_rides</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">gold_dim_location</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">location_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">location_key</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">city</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">total_rides</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="c1">-- Peak demand hours</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">ride_hour</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">demand</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="k">FROM</span><span class="w"> </span><span class="n">gold_fact_rides</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">ride_hour</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">demand</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+</span></code></pre></div>
+<h3 id="cost-optimization-partition-pruning">Cost Optimization — Partition Pruning</h3>
+<p>Demonstrate the cost difference:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1">-- Query 1: Full scan (no partition filter) → scans ~180 MB</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">fare</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">gold_fact_rides</span><span class="p">;</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1">-- Query 2: With partition filter → scans ~15 MB (92% less!)</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">fare</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">gold_fact_rides</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'2026'</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">month</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'06'</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Athena charges $5/TB scanned. Partition pruning directly reduces your bill.</p>
+<h3 id="verification_7">Verification</h3>
+<ul>
+<li>Athena queries return correct results</li>
+<li>Partitioned queries scan less data</li>
+<li>Results match what we see in local PySpark</li>
+<li><strong>📸 Screenshot: Athena Console — query results, "Data scanned" metric, execution time</strong></li>
+</ul>
+<hr />
+<h2 id="phase-9-amazon-redshift-data-warehouse">Phase 9: Amazon Redshift — Data Warehouse</h2>
+<h3 id="goal_8">Goal</h3>
+<p>Load Gold layer into Redshift Serverless and run analytical queries on the star schema. Implement warehouse-level RBAC.</p>
+<blockquote>
+<p><strong>Why Redshift Serverless (not Provisioned)?</strong> Provisioned Redshift runs 24/7 at ~$180/month. Serverless charges only when queries run. For a portfolio project with 5-10 pipeline runs, Serverless costs $2-10 vs $180+. New accounts get a $300 trial credit.</p>
+</blockquote>
+<h3 id="what-youll-learn_8">What You'll Learn</h3>
+<ul>
+<li>Redshift architecture (columnar, MPP)</li>
+<li>COPY command for bulk loading from S3</li>
+<li><strong>Distribution keys and sort keys — how to optimize query performance</strong></li>
+<li>Analytical SQL on a star schema</li>
+<li>Athena vs. Redshift trade-offs</li>
+<li><strong>Warehouse RBAC — creating analyst and BI reader roles</strong></li>
+</ul>
+<h3 id="files-to-create_8">Files to Create</h3>
+<h4 id="new-redshift-scripts">[NEW] Redshift scripts</h4>
+<ul>
+<li><code>sql/redshift/create_schema.sql</code> — DDL with distribution/sort keys</li>
+<li><code>sql/redshift/copy_from_s3.sql</code> — COPY commands</li>
+<li><code>sql/redshift/create_roles.sql</code> — RBAC role definitions (etl_writer, data_analyst, bi_reader)</li>
+<li><code>sql/redshift/analytical_queries.sql</code> — Business analytics</li>
+<li><code>src/warehouse/redshift_loader.py</code> — Python-based loading</li>
+</ul>
+<h3 id="distribution-sort-key-strategy">Distribution &amp; Sort Key Strategy</h3>
+<table>
+<thead>
+<tr>
+<th>Table</th>
+<th>Distribution</th>
+<th>Sort Key</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fact_rides</td>
+<td><code>DISTSTYLE KEY (location_key)</code></td>
+<td><code>request_time</code></td>
+<td>Co-locates with dim_location for city-based joins; time-sorted for range queries</td>
+</tr>
+<tr>
+<td>fact_payments</td>
+<td><code>DISTSTYLE KEY (ride_key)</code></td>
+<td><code>payment_time</code></td>
+<td>Co-locates with fact_rides for ride-payment joins</td>
+</tr>
+<tr>
+<td>dim_customer</td>
+<td><code>DISTSTYLE ALL</code></td>
+<td><code>customer_key</code></td>
+<td>Small table — replicate to all nodes for fast joins</td>
+</tr>
+<tr>
+<td>dim_driver</td>
+<td><code>DISTSTYLE ALL</code></td>
+<td><code>driver_key</code></td>
+<td>Small table — replicate</td>
+</tr>
+<tr>
+<td>dim_location</td>
+<td><code>DISTSTYLE ALL</code></td>
+<td><code>location_key</code></td>
+<td>Small table — replicate</td>
+</tr>
+<tr>
+<td>dim_date</td>
+<td><code>DISTSTYLE ALL</code></td>
+<td><code>date_key</code></td>
+<td>Small table — replicate</td>
+</tr>
+</tbody>
+</table>
+<h3 id="redshift-rbac">Redshift RBAC</h3>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1">-- Same pattern as PostgreSQL (Phase 2), now in Redshift</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">etl_loader</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">'from_secrets_manager'</span><span class="p">;</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">analyst</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">'from_secrets_manager'</span><span class="p">;</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">bi_reader</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">'from_secrets_manager'</span><span class="p">;</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="k">GRANT</span><span class="w"> </span><span class="k">USAGE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">gold</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">analyst</span><span class="p">,</span><span class="w"> </span><span class="n">bi_reader</span><span class="p">;</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="n">TABLES</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">gold</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">analyst</span><span class="p">,</span><span class="w"> </span><span class="n">bi_reader</span><span class="p">;</span>
+</span></code></pre></div>
+<h3 id="verification_8">Verification</h3>
+<ul>
+<li>All tables loaded in Redshift</li>
+<li>Analytical queries return correct results</li>
+<li>Star schema joins work efficiently</li>
+<li>Compare results with Athena queries</li>
+<li><strong>Distribution/sort keys applied correctly</strong></li>
+<li><strong>RBAC roles created and permissions verified</strong></li>
+<li><strong>📸 Screenshot: Redshift query results, execution plan showing sort key usage</strong></li>
+</ul>
+<hr />
+<h2 id="phase-10-apache-airflow-pipeline-orchestration">Phase 10: Apache Airflow — Pipeline Orchestration</h2>
+<h3 id="goal_9">Goal</h3>
+<p>Orchestrate the entire pipeline (ingest → bronze → silver → gold → warehouse) using Airflow DAGs. Implement alerting, idempotent DAGs, and backfill capability.</p>
+<blockquote>
+<p><strong>Cost note</strong>: Apache Airflow is open-source and FREE. We run it locally in Docker. DO NOT use AWS MWAA (Managed Workflows for Apache Airflow) — it costs $300+/month.</p>
+</blockquote>
+<h3 id="what-youll-learn_9">What You'll Learn</h3>
+<ul>
+<li>Airflow architecture (scheduler, webserver, workers)</li>
+<li>DAG design and task dependencies</li>
+<li>Operators (Python, Bash, S3, Glue, Redshift)</li>
+<li>Scheduling and retries</li>
+<li>XComs for inter-task communication</li>
+<li><strong>Failure alerting — on_failure_callback</strong></li>
+<li><strong>Idempotent DAGs — safe to re-run without duplicates</strong></li>
+<li><strong>Backfill strategy — how to reprocess historical data</strong></li>
+</ul>
+<h3 id="files-to-create_9">Files to Create</h3>
+<h4 id="new-airflow-setup">[NEW] Airflow setup</h4>
+<ul>
+<li><code>docker/docker-compose-airflow.yml</code> — Full Airflow stack</li>
+<li><code>dags/mobility_pipeline_dag.py</code> — Main orchestration DAG (with alerting and idempotency)</li>
+<li><code>dags/data_quality_dag.py</code> — Quality check DAG</li>
+<li><code>plugins/operators/custom_operators.py</code> — Custom operators</li>
+</ul>
+<h3 id="dag-structure">DAG Structure</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>generate_data → upload_bronze → validate_bronze
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    → transform_silver → validate_silver
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    → transform_gold → validate_gold
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    → load_redshift → run_quality_checks
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    → notify_completion
+</span></code></pre></div>
+<h3 id="alerting-configuration">Alerting Configuration</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># In DAG definition:</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">default_args</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="s1">'retries'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="s1">'retry_delay'</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>    <span class="s1">'on_failure_callback'</span><span class="p">:</span> <span class="n">alert_on_failure</span><span class="p">,</span>   <span class="c1"># Email or log alert</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>    <span class="s1">'on_retry_callback'</span><span class="p">:</span> <span class="n">alert_on_retry</span><span class="p">,</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="idempotent-dag-design">Idempotent DAG Design</h3>
+<ul>
+<li>Each task operates on a specific <code>execution_date</code> partition</li>
+<li>Silver/Gold writes use <code>mode="overwrite"</code> per partition</li>
+<li>Re-running a DAG for the same date replaces data, never appends duplicates</li>
+<li>Glue Job Bookmarks track processed data</li>
+</ul>
+<h3 id="backfill-strategy">Backfill Strategy</h3>
+<p>When a bug is fixed and historical data needs reprocessing:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Reprocess last 7 days:</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>airflow<span class="w"> </span>dags<span class="w"> </span>backfill<span class="w"> </span>mobility_pipeline<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">  </span>--start-date<span class="w"> </span><span class="m">2026</span>-08-25<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">  </span>--end-date<span class="w"> </span><span class="m">2026</span>-09-01
+</span></code></pre></div>
+Because DAGs are idempotent, backfill safely overwrites the affected date partitions.</p>
+<h3 id="verification_9">Verification</h3>
+<ul>
+<li>DAG renders in Airflow UI without errors</li>
+<li>Full pipeline runs end-to-end on schedule</li>
+<li>Failed tasks retry correctly</li>
+<li>Task logs are accessible</li>
+<li><strong>Failure callbacks trigger alerts</strong></li>
+<li><strong>Backfill command successfully reprocesses historical data</strong></li>
+<li><strong>Re-running a DAG produces identical results (idempotent)</strong></li>
+<li><strong>📸 Screenshot: Airflow UI — DAG graph, task execution timeline, task logs</strong></li>
+</ul>
+<hr />
+<h2 id="phase-11-power-bi-dashboards-visualization">Phase 11: Power BI — Dashboards &amp; Visualization</h2>
+<h3 id="goal_10">Goal</h3>
+<p>Connect Power BI to Redshift and build executive and operational dashboards.</p>
+<h3 id="what-youll-learn_10">What You'll Learn</h3>
+<ul>
+<li>Power BI data connectivity</li>
+<li>DAX measures and calculations</li>
+<li>Dashboard design best practices</li>
+<li>KPI visualization</li>
+<li>Interactive filtering and drill-down</li>
+</ul>
+<h3 id="dashboards-to-build">Dashboards to Build</h3>
+<h4 id="executive-dashboard">Executive Dashboard</h4>
+<ul>
+<li>Total rides, revenue, avg fare, cancellation rate</li>
+<li>Revenue trend over time</li>
+<li>City-wise performance map</li>
+</ul>
+<h4 id="operational-dashboard">Operational Dashboard</h4>
+<ul>
+<li>Rides by hour (demand pattern)</li>
+<li>Driver performance metrics</li>
+<li>Cancellation analysis by location</li>
+<li>Payment method distribution</li>
+</ul>
+<h3 id="verification_10">Verification</h3>
+<ul>
+<li>Dashboards connected to live Redshift data</li>
+<li>Filters and drill-downs work correctly</li>
+<li>KPIs match Athena/Redshift query results</li>
+<li><strong>📸 Screenshot/Recording: Dashboard walkthrough showing KPIs, filters, drill-downs</strong></li>
+</ul>
+<hr />
+<h2 id="aws-cost-estimate-portfolio-project">AWS Cost Estimate (Portfolio Project)</h2>
+<blockquote>
+<p><strong>Context</strong>: This is a portfolio project. You'll run the pipeline 5-10 times on real AWS, collect evidence (screenshots, recordings, query results), then tear down all resources.</p>
+</blockquote>
+<h3 id="expected-costs">Expected Costs</h3>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Usage Pattern</th>
+<th>Estimated Total Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>S3</strong></td>
+<td>~2 GB storage for 1-2 months</td>
+<td><strong>~$0.05</strong> (free tier covers 5 GB)</td>
+</tr>
+<tr>
+<td><strong>Glue ETL</strong></td>
+<td>2 jobs × 10 runs × ~10 min × 2 DPU</td>
+<td><strong>$7-15</strong> ($0.44/DPU-hour)</td>
+</tr>
+<tr>
+<td><strong>Glue Catalog</strong></td>
+<td>&lt;1M objects</td>
+<td><strong>Free</strong></td>
+</tr>
+<tr>
+<td><strong>Athena</strong></td>
+<td>~100 queries × ~50 MB scanned each</td>
+<td><strong>$0.03</strong> ($5/TB)</td>
+</tr>
+<tr>
+<td><strong>Redshift Serverless</strong></td>
+<td>5-10 loading sessions + queries</td>
+<td><strong>$5-15</strong> (covered by $300 trial credit)</td>
+</tr>
+<tr>
+<td><strong>Airflow</strong></td>
+<td>Docker on your laptop</td>
+<td><strong>$0</strong> (self-hosted, not MWAA)</td>
+</tr>
+<tr>
+<td><strong>IAM, CloudWatch</strong></td>
+<td>Basic usage</td>
+<td><strong>Free</strong></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td></td>
+<td><strong>$12-30</strong> (mostly Glue ETL compute)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="free-tier-credits-new-aws-account">Free Tier &amp; Credits (New AWS Account)</h3>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Free Tier Offer</th>
+<th>Covers Our Usage?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S3</td>
+<td>5 GB storage + 20K GET + 2K PUT/month for 12 months</td>
+<td>✅ Fully covered</td>
+</tr>
+<tr>
+<td>Glue Catalog</td>
+<td>1M objects free</td>
+<td>✅ Fully covered</td>
+</tr>
+<tr>
+<td>Glue ETL</td>
+<td>No free tier</td>
+<td>❌ ~$7-15 cost</td>
+</tr>
+<tr>
+<td>Athena</td>
+<td>No free tier, but $5/TB scanned (our data is tiny)</td>
+<td>✅ Pennies</td>
+</tr>
+<tr>
+<td>Redshift Serverless</td>
+<td>$300 credit for 3 months (trial)</td>
+<td>✅ Fully covered</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cost-killers-to-avoid">⚠️ Cost Killers to AVOID</h3>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Cost</th>
+<th>Alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Redshift Provisioned (dc2.large)</td>
+<td>$180/month running 24/7</td>
+<td>Use <strong>Redshift Serverless</strong> (pay-per-query)</td>
+</tr>
+<tr>
+<td>AWS MWAA (Managed Airflow)</td>
+<td>$300+/month</td>
+<td>Use <strong>Docker Airflow</strong> on your laptop ($0)</td>
+</tr>
+<tr>
+<td>Forgetting to delete resources</td>
+<td>$180-500/month</td>
+<td>Run <code>scripts/teardown_aws.sh</code> after every session</td>
+</tr>
+</tbody>
+</table>
+<h3 id="teardown-checklist-run-after-every-session">Teardown Checklist (Run After Every Session)</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># scripts/teardown_aws.sh</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="c1"># 1. Delete Redshift Serverless workgroup (or pause it)</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="c1"># 2. Delete Glue jobs and crawlers</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="c1"># 3. Empty and delete S3 bucket (or keep bucket, delete objects)</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="c1"># 4. Delete IAM roles and policies</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="c1"># 5. Verify nothing is running in AWS Console → Billing Dashboard</span>
+</span></code></pre></div>
+<hr />
+<h2 id="evidence-collection-strategy-for-interviews">Evidence Collection Strategy (For Interviews)</h2>
+<blockquote>
+<p><strong>Why</strong>: Interviewers will ask "Show me it works." You need proof.</p>
+</blockquote>
+<h3 id="what-to-capture">What to Capture</h3>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Evidence to Collect</th>
+<th>Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Phase 1</td>
+<td>Generated data samples, test results</td>
+<td>Terminal screenshot</td>
+</tr>
+<tr>
+<td>Phase 3</td>
+<td>S3 bucket structure, security settings, IAM policies</td>
+<td>AWS Console screenshots</td>
+</tr>
+<tr>
+<td>Phase 4</td>
+<td>Silver Parquet schema (showing masked PII fields), record counts</td>
+<td>PySpark output screenshot</td>
+</tr>
+<tr>
+<td>Phase 5</td>
+<td>Gold star schema, FK validation results</td>
+<td>PySpark output screenshot</td>
+</tr>
+<tr>
+<td>Phase 6</td>
+<td>Quality report, quarantine record samples</td>
+<td>Terminal + file screenshots</td>
+</tr>
+<tr>
+<td>Phase 7</td>
+<td>Glue Console — job run duration, Data Catalog, bookmark status</td>
+<td>AWS Console screenshots</td>
+</tr>
+<tr>
+<td>Phase 8</td>
+<td>Athena query results + "Data scanned" + execution time</td>
+<td>Athena Console screenshots</td>
+</tr>
+<tr>
+<td>Phase 9</td>
+<td>Redshift query results, execution plans</td>
+<td>Redshift Console screenshots</td>
+</tr>
+<tr>
+<td>Phase 10</td>
+<td>Airflow DAG graph, task timeline, logs</td>
+<td>Airflow UI screenshots</td>
+</tr>
+<tr>
+<td>Phase 11</td>
+<td>Dashboard walkthrough</td>
+<td>Screen recording</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storage">Storage</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>docs/
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>├── screenshots/       ← AWS Console, terminal, query results
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>├── recordings/        ← Screen recordings of pipeline runs
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>└── query_results/     ← Saved CSV outputs from Athena/Redshift queries
+</span></code></pre></div>
+<hr />
+<h2 id="documentation-deliverables-built-incrementally">Documentation Deliverables (Built Incrementally)</h2>
+<p>These documents are created alongside the phases, not as a separate effort:</p>
+<table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Created In</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docs/data_dictionary.md</code></td>
+<td>Phase 1</td>
+<td>Column-level docs with PII classification</td>
+</tr>
+<tr>
+<td><code>docs/data_governance_and_security.md</code></td>
+<td>Exists (update each phase)</td>
+<td>Governance architecture blueprint</td>
+</tr>
+<tr>
+<td><code>docs/adr/</code></td>
+<td>Each phase</td>
+<td>Architecture Decision Records (why Parquet? why star schema? why Airflow?)</td>
+</tr>
+<tr>
+<td><code>docs/runbooks/</code></td>
+<td>Phase 7+</td>
+<td>Operational playbooks (what to do when X fails)</td>
+</tr>
+<tr>
+<td><code>docs/incident_response.md</code></td>
+<td>Phase 7+</td>
+<td>Data breach response procedure</td>
+</tr>
+<tr>
+<td><code>README.md</code></td>
+<td>Phase 1 (update each phase)</td>
+<td>Project overview with architecture diagram</td>
+</tr>
+</tbody>
+</table>
+<h3 id="architecture-decision-records-adrs">Architecture Decision Records (ADRs)</h3>
+<p>Short documents recording WHY specific decisions were made:</p>
+<table>
+<thead>
+<tr>
+<th>ADR</th>
+<th>Decision</th>
+<th>Phase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADR-001</td>
+<td>Why Parquet over CSV/ORC for Silver/Gold</td>
+<td>Phase 4</td>
+</tr>
+<tr>
+<td>ADR-002</td>
+<td>Why Star Schema over Data Vault</td>
+<td>Phase 5</td>
+</tr>
+<tr>
+<td>ADR-003</td>
+<td>Why Redshift Serverless over Provisioned</td>
+<td>Phase 9</td>
+</tr>
+<tr>
+<td>ADR-004</td>
+<td>Why Docker Airflow over AWS MWAA</td>
+<td>Phase 10</td>
+</tr>
+<tr>
+<td>ADR-005</td>
+<td>Why H3 over GeoHash for geospatial obfuscation</td>
+<td>Phase 4</td>
+</tr>
+<tr>
+<td>ADR-006</td>
+<td>Why SHA-256 salted hash for PII masking</td>
+<td>Phase 4</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="notes">Notes</h2>
+<blockquote>
+<p><strong>Phase 1 First</strong>: Phase 1 was built completely with working code. After studying and understanding it, we move to Phase 2. Each phase builds on the previous one.</p>
+<p><strong>AWS Account</strong>: Phases 3, 7, 8, 9 require an AWS account. Total expected cost: $12-30 for 5-10 pipeline runs using free tier + Redshift Serverless trial credit.</p>
+<p><strong>Docker</strong>: Phases 2 and 10 require Docker Desktop.</p>
+<p><strong>Evidence</strong>: Capture screenshots and recordings at every phase. Store in <code>docs/screenshots/</code> and <code>docs/recordings/</code>.</p>
+</blockquote>
+<h2 id="design-decisions-made">Design Decisions Made</h2>
+<ol>
+<li><strong>Data volume</strong>: 1,000 customers, 500 drivers, 10,000 rides, and ~8,000 payments</li>
+<li><strong>City focus</strong>: Indian cities (Pune, Mumbai, Bangalore, Delhi, Hyderabad, Chennai)</li>
+<li><strong>Intentional bad data</strong>: ~3% dirty data injected for testing cleaning pipeline</li>
+<li><strong>Redshift Serverless</strong> over Provisioned (cost: $5-15 vs $180/month)</li>
+<li><strong>Docker Airflow</strong> over AWS MWAA (cost: $0 vs $300+/month)</li>
+<li><strong>PII masking</strong> with salted SHA-256 in Silver layer</li>
+<li><strong>H3 hex indexing</strong> for geospatial privacy in Silver layer</li>
+<li><strong>Partition-based overwrite</strong> for pipeline idempotency</li>
+</ol>
+<hr />
+<h2 id="v2-scope-future-enhancements">V2 Scope (Future Enhancements)</h2>
+<p>After V1 is complete, these items elevate the platform to production-enterprise grade:</p>
+<h3 id="streaming-advanced-processing">Streaming &amp; Advanced Processing</h3>
+<ul>
+<li>Kafka real-time ingestion</li>
+<li>Spark Structured Streaming</li>
+<li>Delta Lake (ACID transactions, time travel, upserts)</li>
+<li>Databricks / Unity Catalog</li>
+<li>SCD Type 2 (Slowly Changing Dimensions)</li>
+<li>Late-arriving data handling</li>
+</ul>
+<h3 id="infrastructure-security">Infrastructure &amp; Security</h3>
+<ul>
+<li><strong>VPC Design</strong> — Private subnets for Redshift, RDS, Glue with VPC Endpoints for S3</li>
+<li><strong>Infrastructure-as-Code</strong> — Terraform for all AWS resources (IAM, S3, Glue, Redshift, VPC)</li>
+<li><strong>DPDPA/GDPR Compliance</strong> — Consent tracking, Right to Erasure workflow, Data Subject Access Requests</li>
+<li>CI/CD pipeline with security scanning (Bandit, Trufflehog, pip-audit)</li>
+<li>AWS GuardDuty threat detection</li>
+<li>AWS Config compliance rules</li>
+<li>ABAC / Lake Formation tag-based access control</li>
+</ul>
+<h3 id="advanced-governance">Advanced Governance</h3>
+<ul>
+<li>Schema Registry with backward/forward compatibility rules</li>
+<li>Data contracts between pipeline layers</li>
+<li>Data observability platform (freshness, volume, drift monitoring)</li>
+<li>k-Anonymity / differential privacy validation</li>
+<li>OpenLineage + Marquez for visual lineage graphs</li>
+</ul>
+<h3 id="operational-maturity">Operational Maturity</h3>
+<ul>
+<li>CloudWatch dashboards and alarms</li>
+<li>Pipeline SLA monitoring</li>
+<li>Chaos testing (what happens when S3 is unreachable?)</li>
+<li>Multi-region disaster recovery</li>
+</ul>
+<hr />
+<h2 id="verification-plan">Verification Plan</h2>
+<h3 id="automated-tests">Automated Tests</h3>
+<ul>
+<li>Unit tests for data generators (Phase 1) ✅</li>
+<li>Integration tests for database loading (Phase 2)</li>
+<li>Integration tests for Bronze→Silver transformations (Phase 4)</li>
+<li>Integration tests for Silver→Gold star schema (Phase 5)</li>
+<li>PII masking verification tests (Phase 4)</li>
+<li>Data quality assertion suite (Phase 6)</li>
+<li>DAG parsing tests for Airflow (Phase 10)</li>
+</ul>
+<h3 id="manual-verification">Manual Verification</h3>
+<ul>
+<li>Inspect generated CSV/JSON files</li>
+<li>Query PostgreSQL tables</li>
+<li>Check S3 bucket structure and security settings in AWS Console</li>
+<li>Verify Parquet schemas (confirm PII masking)</li>
+<li>Run Athena queries and record data scanned</li>
+<li>Check Airflow UI for DAG runs</li>
+<li>Review Power BI dashboards</li>
+<li><strong>Collect screenshots at every phase for evidence portfolio</strong></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

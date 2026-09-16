@@ -1,0 +1,2151 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../v1_v2_metrics_reference/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Phase 1 Walkthrough - Mobility Data Platform</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#phase-1-complete-beginner-explanation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mobility Data Platform" class="md-header__button md-logo" aria-label="Mobility Data Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mobility Data Platform
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Phase 1 Walkthrough
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mobility Data Platform" class="md-nav__button md-logo" aria-label="Mobility Data Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mobility Data Platform
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../implementation_plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_dictionary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Dictionary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_governance_and_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governance & Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v1_v2_metrics_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metrics Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 1 Walkthrough
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 1 Walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#start-here-what-are-we-even-building" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Start Here: What Are We Even Building?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-very-first-thing-what-is-this-folder-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Very First Thing: What Is This Folder Structure?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-virtual-environment-venv-why-does-this-exist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Virtual Environment (venv/) — Why Does This Exist?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Virtual Environment (venv/) — Why Does This Exist?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-solution-virtual-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Solution: Virtual Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-we-did" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What We Did
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-requirementstxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's requirements.txt?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-configuration-configconfigyaml-the-brain-of-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Configuration (config/config.yaml) — The Brain of the Project
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Configuration (config/config.yaml) — The Brain of the Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem-magic-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem: Magic Numbers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-solution-config-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Solution: Config File
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-in-our-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's In Our Config?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-random_seed-42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's "random_seed: 42"?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-where-does-the-data-come-from-data-generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Where Does the Data Come From? (Data Generators)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Where Does the Data Come From? (Data Generators)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#in-real-life-vs-our-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In Real Life vs Our Project
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-faker-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Faker Library
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-four-generators-what-each-one-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Four Generators — What Each One Does
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-lets-walk-through-each-generator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Let's Walk Through Each Generator
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Let&#39;s Walk Through Each Generator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4a-customer-generator-customerspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4a. Customer Generator (customers.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4b-driver-generator-driverspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4b. Driver Generator (drivers.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4c-ride-generator-ridespy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4c. Ride Generator (rides.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4d-payment-generator-paymentspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4d. Payment Generator (payments.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-schemas-schemaspy-the-data-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Schemas (schemas.py) — The Data Contract
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Schemas (schemas.py) — The Data Contract">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whats-a-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's a Schema?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-config-loader-config_loaderpy-reading-the-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Config Loader (config_loader.py) — Reading the Settings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-logger-loggerpy-recording-what-happened" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Logger (logger.py) — Recording What Happened
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Logger (logger.py) — Recording What Happened">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-not-just-print" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Not Just print()?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-the-orchestrator-generatorpy-putting-it-all-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. The Orchestrator (generator.py) — Putting It All Together
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-the-entry-point-mainpy-the-start-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. The Entry Point (main.py) — The "Start" Button
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-tests-test_data_generatorpy-does-our-code-actually-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Tests (test_data_generator.py) — Does Our Code Actually Work?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Tests (test_data_generator.py) — Does Our Code Actually Work?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-test-a-data-generator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Test a Data Generator?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-our-27-tests-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Our 27 Tests Check
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-the-output-what-was-actually-generated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. The Output — What Was Actually Generated?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. The Output — What Was Actually Generated?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-does-the-data-look-like" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What does the data look like?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-of-what-was-generated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary of what was generated:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-the-gitignore-file-what-not-to-share" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. The .gitignore File — What NOT to Share
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-how-it-all-connects-the-full-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. How It All Connects — The Full Picture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-what-happens-next-phase-2-preview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. What Happens Next (Phase 2 Preview)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try-these-things-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Try These Things Now
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#start-here-what-are-we-even-building" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Start Here: What Are We Even Building?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-very-first-thing-what-is-this-folder-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Very First Thing: What Is This Folder Structure?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-virtual-environment-venv-why-does-this-exist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Virtual Environment (venv/) — Why Does This Exist?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Virtual Environment (venv/) — Why Does This Exist?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-solution-virtual-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Solution: Virtual Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-we-did" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What We Did
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-requirementstxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's requirements.txt?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-configuration-configconfigyaml-the-brain-of-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Configuration (config/config.yaml) — The Brain of the Project
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Configuration (config/config.yaml) — The Brain of the Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem-magic-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem: Magic Numbers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-solution-config-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Solution: Config File
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-in-our-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's In Our Config?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-random_seed-42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's "random_seed: 42"?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-where-does-the-data-come-from-data-generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Where Does the Data Come From? (Data Generators)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Where Does the Data Come From? (Data Generators)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#in-real-life-vs-our-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In Real Life vs Our Project
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-faker-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Faker Library
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-four-generators-what-each-one-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Four Generators — What Each One Does
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-lets-walk-through-each-generator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Let's Walk Through Each Generator
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Let&#39;s Walk Through Each Generator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4a-customer-generator-customerspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4a. Customer Generator (customers.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4b-driver-generator-driverspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4b. Driver Generator (drivers.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4c-ride-generator-ridespy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4c. Ride Generator (rides.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4d-payment-generator-paymentspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4d. Payment Generator (payments.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-schemas-schemaspy-the-data-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Schemas (schemas.py) — The Data Contract
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Schemas (schemas.py) — The Data Contract">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whats-a-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's a Schema?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-config-loader-config_loaderpy-reading-the-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Config Loader (config_loader.py) — Reading the Settings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-logger-loggerpy-recording-what-happened" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Logger (logger.py) — Recording What Happened
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Logger (logger.py) — Recording What Happened">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-not-just-print" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Not Just print()?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-the-orchestrator-generatorpy-putting-it-all-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. The Orchestrator (generator.py) — Putting It All Together
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-the-entry-point-mainpy-the-start-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. The Entry Point (main.py) — The "Start" Button
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-tests-test_data_generatorpy-does-our-code-actually-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Tests (test_data_generator.py) — Does Our Code Actually Work?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Tests (test_data_generator.py) — Does Our Code Actually Work?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-test-a-data-generator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Test a Data Generator?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-our-27-tests-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Our 27 Tests Check
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-the-output-what-was-actually-generated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. The Output — What Was Actually Generated?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. The Output — What Was Actually Generated?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-does-the-data-look-like" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What does the data look like?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-of-what-was-generated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary of what was generated:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-the-gitignore-file-what-not-to-share" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. The .gitignore File — What NOT to Share
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-how-it-all-connects-the-full-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. How It All Connects — The Full Picture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-what-happens-next-phase-2-preview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. What Happens Next (Phase 2 Preview)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try-these-things-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Try These Things Now
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="phase-1-complete-beginner-explanation">Phase 1 — Complete Beginner Explanation</h1>
+<h2 id="start-here-what-are-we-even-building">Start Here: What Are We Even Building?</h2>
+<p>Imagine you work at <strong>Ola or Uber</strong>. Every day:
+- Customers book rides
+- Drivers pick them up
+- Rides happen across cities
+- Payments get processed</p>
+<p>All of this generates <strong>data</strong>. Thousands of records every minute.</p>
+<p>Now, a business person asks: <em>"Which city had the most rides last month?"</em></p>
+<p>You can't answer that if your data is:
+- Scattered across 10 different systems
+- Full of errors (someone typed "mumbai" instead of "Mumbai")
+- Has duplicate records
+- Isn't organized for analysis</p>
+<p><strong>Our project builds a system that takes this messy data and turns it into clean, organized, queryable information.</strong></p>
+<p>But we don't work at Ola. We don't have real data. So <strong>Phase 1 is about creating realistic fake data</strong> that we'll process in later phases.</p>
+<hr />
+<h2 id="the-very-first-thing-what-is-this-folder-structure">The Very First Thing: What Is This Folder Structure?</h2>
+<p>When you open the project folder, you see something like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mobility platform/
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── config/          ← Settings (like your phone's Settings app)
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── src/             ← Source code (the actual program)
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── data/            ← Where generated data goes
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├── tests/           ← Code that checks if our code works
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── logs/            ← Records of what happened when program ran
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>├── venv/            ← Virtual environment (explained below)
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>├── main.py          ← The "Start" button
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├── requirements.txt ← Shopping list of tools we need
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>└── .gitignore       ← List of files Git should ignore
+</span></code></pre></div>
+<p>Think of it like a kitchen:
+- <code>config/</code> = Recipe card (tells us quantities, settings)
+- <code>src/</code> = The chef (does the actual cooking)
+- <code>data/</code> = The serving plates (where food/data ends up)
+- <code>tests/</code> = Quality tester (checks if food tastes right)
+- <code>main.py</code> = The "Order" button (starts everything)</p>
+<p>Let's go through each piece, starting from the very bottom.</p>
+<hr />
+<h2 id="1-virtual-environment-venv-why-does-this-exist">1. Virtual Environment (<code>venv/</code>) — Why Does This Exist?</h2>
+<h3 id="the-problem">The Problem</h3>
+<p>Python has thousands of "packages" (tools other people wrote). For example:
+- <code>Faker</code> — generates fake names, emails, phones
+- <code>PyYAML</code> — reads YAML config files
+- <code>pandas</code> — works with data tables
+- <code>pytest</code> — runs tests</p>
+<p>But here's the problem: <strong>different projects need different versions of the same tool</strong>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Project A needs: pandas version 1.5
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Project B needs: pandas version 2.2
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>If you install both globally, they FIGHT each other.
+</span></code></pre></div>
+<h3 id="the-solution-virtual-environment">The Solution: Virtual Environment</h3>
+<p>A virtual environment is like a <strong>separate box for each project</strong>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Your Computer
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>├── Project A/venv/ → has pandas 1.5 (only for Project A)
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>├── Project B/venv/ → has pandas 2.2 (only for Project B)
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>└── Global Python    → stays clean, no conflicts
+</span></code></pre></div>
+<h3 id="what-we-did">What We Did</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv<span class="w">           </span><span class="c1"># Created the box</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>.<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">       </span><span class="c1"># "Stepped into" the box</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt<span class="w">  </span><span class="c1"># Installed our tools INTO the box</span>
+</span></code></pre></div>
+<h3 id="whats-requirementstxt">What's <code>requirements.txt</code>?</h3>
+<p>It's a <strong>shopping list</strong>. It tells anyone: <em>"To run this project, you need these exact tools."</em></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Faker==37.1.0          ← Generates fake data (names, emails, phones)
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>PyYAML==6.0.2          ← Reads our config.yaml file
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>python-dotenv==1.1.0   ← Reads secret passwords from .env file
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>pandas==2.2.3          ← Data table manipulation
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>pytest==8.3.5          ← Runs our test suite
+</span></code></pre></div>
+<p>Without this file, if you gave someone your code, they'd get errors because they don't have these tools installed.</p>
+<blockquote>
+<p><strong>Takeaway</strong>: Virtual environment = isolated tool box. requirements.txt = shopping list. Every serious project has both.</p>
+</blockquote>
+<hr />
+<h2 id="2-configuration-configconfigyaml-the-brain-of-the-project">2. Configuration (<code>config/config.yaml</code>) — The Brain of the Project</h2>
+<h3 id="the-problem-magic-numbers">The Problem: Magic Numbers</h3>
+<p>Imagine you wrote this code:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># BAD — "magic numbers" embedded in code</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>       <span class="c1"># Why 1000? Where did this come from?</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">city</span> <span class="o">=</span> <span class="s2">"Mumbai"</span>          <span class="c1"># What if I want Pune too?</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">fare</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>  <span class="c1"># Why 30? Why 80?</span>
+</span></code></pre></div>
+<p>Problems:
+- If someone asks "how many customers did you generate?" you have to READ THE CODE
+- If you want to change from 1000 to 5000, you have to FIND and EDIT the code
+- If a number appears in 10 places, you might miss one</p>
+<h3 id="the-solution-config-file">The Solution: Config File</h3>
+<p>Put ALL settings in ONE file. The code READS from this file.</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># config/config.yaml — This is YAML format (like a cleaner version of JSON)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nt">data_generation</span><span class="p">:</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="nt">num_customers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000    ← Change this ONE place, everywhere updates</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="nt">num_drivers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="nt">num_rides</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span><span class="nt">num_payments</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8000</span>
+</span></code></pre></div>
+<p>Now our code does:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># GOOD — reads from config</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">num_customers</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"data_generation"</span><span class="p">,</span> <span class="s2">"num_customers"</span><span class="p">)</span>  <span class="c1"># Gets 1000</span>
+</span></code></pre></div>
+<h3 id="whats-in-our-config">What's In Our Config?</h3>
+<p>Let me break down the actual file:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># ── How much data to generate ──</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nt">data_generation</span><span class="p">:</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">num_customers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span><span class="w">       </span><span class="c1"># 1000 registered users</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="nt">num_drivers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500</span><span class="w">          </span><span class="c1"># 500 registered drivers</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="nt">num_rides</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span><span class="w">          </span><span class="c1"># 10,000 trip records</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">  </span><span class="nt">num_payments</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8000</span><span class="w">        </span><span class="c1"># 8,000 payment transactions</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">  </span><span class="nt">random_seed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">42</span><span class="w">           </span><span class="c1"># Makes random data REPRODUCIBLE (explained below)</span>
+</span></code></pre></div>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># ── Which cities and areas ──</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nt">geography</span><span class="p">:</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">cities</span><span class="p">:</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"Mumbai"</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">      </span><span class="nt">areas</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"Andheri"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"Bandra"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"Colaba"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">...</span><span class="p p-Indicator">]</span><span class="w">   </span><span class="c1"># Real neighborhoods</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">      </span><span class="nt">lat_range</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">18.90</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">19.25</span><span class="p p-Indicator">]</span><span class="w">                       </span><span class="c1"># GPS coordinates for Mumbai</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">      </span><span class="nt">lon_range</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">72.77</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">72.97</span><span class="p p-Indicator">]</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"Pune"</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">      </span><span class="nt">areas</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"Koregaon</span><span class="nv"> </span><span class="s">Park"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"Hinjewadi"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">...</span><span class="p p-Indicator">]</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</span></code></pre></div>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># ── Ride behavior ──</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nt">ride_params</span><span class="p">:</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">statuses</span><span class="p">:</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="s">"completed"</span><span class="w">    </span><span class="c1"># 72% of rides complete successfully</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">      </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.72</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="s">"cancelled"</span><span class="w">    </span><span class="c1"># 15% get cancelled</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">      </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.15</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="s">"ongoing"</span><span class="w">      </span><span class="c1"># 8% are currently happening</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">      </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.08</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="s">"no_show"</span><span class="w">      </span><span class="c1"># 5% — driver came but customer didn't</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">      </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
+</span></code></pre></div>
+<h3 id="whats-random_seed-42">What's "random_seed: 42"?</h3>
+<p>Random numbers in computers aren't truly random. They follow a <strong>sequence</strong> based on a starting number (the seed).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Seed 42 → generates: 0.37, 0.95, 0.12, 0.54, ...
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>Seed 42 → generates: 0.37, 0.95, 0.12, 0.54, ...  ← SAME sequence!
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>Seed 99 → generates: 0.81, 0.22, 0.67, 0.43, ...  ← Different sequence
+</span></code></pre></div>
+<p>Why is this useful? <strong>Reproducibility.</strong> If you run the program today and I run it tomorrow, we both get <strong>the exact same data</strong>. This makes debugging much easier.</p>
+<blockquote>
+<p><strong>Takeaway</strong>: Config file = one place to control everything. No magic numbers in code. Seed = reproducible randomness.</p>
+</blockquote>
+<hr />
+<h2 id="3-where-does-the-data-come-from-data-generators">3. Where Does the Data Come From? (Data Generators)</h2>
+<h3 id="in-real-life-vs-our-project">In Real Life vs Our Project</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>REAL COMPANY (Ola/Uber):                    OUR PROJECT:
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>────────────────────────                     ──────────────
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>Customer registers on app                    Faker generates fake name/email/phone
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>  → data goes to User Database               → we write it to CSV file
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>Driver accepts a ride                        Random picks a customer + driver
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>  → GPS sends location data                  → random generates coordinates
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>  → payment service charges card              → random generates fare amount
+</span></code></pre></div>
+<p>We're <strong>simulating</strong> what a real company's systems would produce.</p>
+<h3 id="the-faker-library">The Faker Library</h3>
+<p><code>Faker</code> is a Python library that generates realistic fake data:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">faker</span><span class="w"> </span><span class="kn">import</span> <span class="n">Faker</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">fake</span> <span class="o">=</span> <span class="n">Faker</span><span class="p">(</span><span class="s2">"en_IN"</span><span class="p">)</span>    <span class="c1"># "en_IN" = English, India locale</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="n">fake</span><span class="o">.</span><span class="n">first_name</span><span class="p">()</span>   <span class="err">→</span>  <span class="s2">"Rajesh"</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="n">fake</span><span class="o">.</span><span class="n">last_name</span><span class="p">()</span>    <span class="err">→</span>  <span class="s2">"Sharma"</span>  
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="n">fake</span><span class="o">.</span><span class="n">email</span><span class="p">()</span>        <span class="err">→</span>  <span class="s2">"rajesh.sharma@gmail.com"</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="n">fake</span><span class="o">.</span><span class="n">phone_number</span><span class="p">()</span> <span class="err">→</span>  <span class="s2">"+91 98765 43210"</span>
+</span></code></pre></div>
+<p>The <code>"en_IN"</code> locale means it generates <strong>Indian names</strong> instead of "John Smith".</p>
+<h3 id="the-four-generators-what-each-one-does">The Four Generators — What Each One Does</h3>
+<p>We have 4 data generators. They must run in a <strong>specific order</strong> because they depend on each other:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>STEP 1: Generate Customers    (no dependencies — can run first)
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>STEP 2: Generate Drivers      (no dependencies — can run first)
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>         │                │
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>         └────────┬───────┘
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>                  ↓
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>STEP 3: Generate Rides         (NEEDS customer_ids AND driver_ids)
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>                  │
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>                  ↓
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>STEP 4: Generate Payments      (NEEDS ride_ids and ride fares)
+</span></code></pre></div>
+<p><strong>Why this order?</strong> Because a ride must say "Customer C0042 took a ride with Driver D0108". If we haven't generated customers yet, we don't have C0042 to reference!</p>
+<p>This concept of "Task B depends on Task A" is called a <strong>DAG</strong> (Directed Acyclic Graph). You'll see this same pattern in:
+- Phase 10 (Airflow — orchestrating pipeline tasks)
+- Any data pipeline in the real world</p>
+<hr />
+<h2 id="4-lets-walk-through-each-generator">4. Let's Walk Through Each Generator</h2>
+<h3 id="4a-customer-generator-customerspy">4a. Customer Generator (customers.py)</h3>
+<p><strong>What it does</strong>: Creates 1000 fake customers.</p>
+<p><strong>Each customer has:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Example</th>
+<th>How It's Generated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>customer_id</td>
+<td><code>C0001</code></td>
+<td>Sequential: C0001, C0002, C0003...</td>
+</tr>
+<tr>
+<td>first_name</td>
+<td><code>Priya</code></td>
+<td>Faker generates realistic Indian name</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td><code>Patel</code></td>
+<td>Faker</td>
+</tr>
+<tr>
+<td>email</td>
+<td><code>priya.patel@gmail.com</code></td>
+<td>Faker</td>
+</tr>
+<tr>
+<td>phone</td>
+<td><code>+91 98765 43210</code></td>
+<td>Faker</td>
+</tr>
+<tr>
+<td>city</td>
+<td><code>Mumbai</code></td>
+<td>Randomly picked from our 6 cities</td>
+</tr>
+<tr>
+<td>signup_date</td>
+<td><code>2025-03-15</code></td>
+<td>Random date in the last 2 years</td>
+</tr>
+<tr>
+<td>is_active</td>
+<td><code>True</code></td>
+<td>95% active, 5% inactive (realistic churn)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key code explained:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># This creates a customer ID like "C0001", "C0042", "C0999"</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">customer_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"C</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">04d</span><span class="si">}</span><span class="s2">"</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="c1"># f"..." is an f-string (format string)</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># {i:04d} means: take number i, pad it to 4 digits</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="c1"># So if i=1  → "C0001"</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="c1"># If i=42 → "C0042"</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="c1"># If i=999 → "C0999"</span>
+</span></code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Why 5% inactive?</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">is_active</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">0.05</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="c1"># random.random() gives a number between 0 and 1</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># If it's &gt; 0.05 (95% chance) → True (active)</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="c1"># If it's ≤ 0.05 (5% chance)  → False (inactive)</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="c1"># This simulates real user churn — not everyone stays active</span>
+</span></code></pre></div>
+<p><strong>Output:</strong> A list of 1000 dictionaries, each looking like:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="p">{</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    <span class="s2">"customer_id"</span><span class="p">:</span> <span class="s2">"C0001"</span><span class="p">,</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    <span class="s2">"first_name"</span><span class="p">:</span> <span class="s2">"Priya"</span><span class="p">,</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>    <span class="s2">"last_name"</span><span class="p">:</span> <span class="s2">"Patel"</span><span class="p">,</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>    <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"priya.patel@example.com"</span><span class="p">,</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>    <span class="s2">"phone"</span><span class="p">:</span> <span class="s2">"+91 98765 43210"</span><span class="p">,</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>    <span class="s2">"city"</span><span class="p">:</span> <span class="s2">"Mumbai"</span><span class="p">,</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>    <span class="s2">"signup_date"</span><span class="p">:</span> <span class="s2">"2025-03-15"</span><span class="p">,</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>    <span class="s2">"is_active"</span><span class="p">:</span> <span class="kc">True</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="p">}</span>
+</span></code></pre></div></p>
+<hr />
+<h3 id="4b-driver-generator-driverspy">4b. Driver Generator (drivers.py)</h3>
+<p><strong>What it does</strong>: Creates 500 fake drivers.</p>
+<p><strong>Special thing — Weighted Random Selection:</strong></p>
+<p>In reality, not all vehicle types are equally common. There are more Sedans than Bikes on the road. We simulate this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>What we DON'T do (equal probability):
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>  Sedan: 20% | Hatchback: 20% | SUV: 20% | Auto: 20% | Bike: 20%
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>What we DO (weighted probability — realistic):
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>  Sedan: 35% ████████
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>  Hatchback: 30% ██████
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>  SUV: 20% ████
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>  Auto: 10% ██
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>  Bike: 5% █
+</span></code></pre></div>
+<p><strong>How?</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">vehicle_types</span>   <span class="o">=</span> <span class="p">[</span><span class="s2">"Sedan"</span><span class="p">,</span> <span class="s2">"Hatchback"</span><span class="p">,</span> <span class="s2">"SUV"</span><span class="p">,</span> <span class="s2">"Auto"</span><span class="p">,</span> <span class="s2">"Bike"</span><span class="p">]</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="n">vehicle_weights</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.35</span><span class="p">,</span>    <span class="mf">0.30</span><span class="p">,</span>        <span class="mf">0.20</span><span class="p">,</span>  <span class="mf">0.10</span><span class="p">,</span>   <span class="mf">0.05</span><span class="p">]</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="c1"># random.choices picks based on weights</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="n">vehicle_type</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">vehicle_types</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">vehicle_weights</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="c1"># "Sedan" has 35% chance, "Bike" has 5% chance</span>
+</span></code></pre></div>
+<p><strong>Ratings use Beta Distribution:</strong></p>
+<p>Driver ratings aren't uniform 3.0–5.0. Most drivers are rated 4.0+. We use a mathematical distribution called "beta" to skew ratings higher:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>What we DON'T do:        What we DO:
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>3.0 ████                 3.0 █
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>3.5 ████                 3.5 ██
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>4.0 ████                 4.0 ████████
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>4.5 ████                 4.5 ██████████████
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>5.0 ████                 5.0 ██████████
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>(Uniform — unrealistic)  (Beta — realistic, skewed high)
+</span></code></pre></div>
+<p><strong>Our actual results: Average rating was 4.43</strong> — which feels realistic!</p>
+<hr />
+<h3 id="4c-ride-generator-ridespy">4c. Ride Generator (rides.py)</h3>
+<p>This is the <strong>most complex</strong> generator and the <strong>core dataset</strong>.</p>
+<p><strong>What it does</strong>: Creates 10,000 ride records.</p>
+<p><strong>Referential Integrity — The Most Important Concept:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># We don't do this (WRONG):</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="n">customer_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"C</span><span class="si">{</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">9999</span><span class="p">)</span><span class="si">:</span><span class="s2">04d</span><span class="si">}</span><span class="s2">"</span>  <span class="c1"># Random ID — might not exist!</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="c1"># We do this (RIGHT):</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="n">customer_id</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">customer_ids</span><span class="p">)</span>  <span class="c1"># Pick from ACTUAL generated customers</span>
+</span></code></pre></div>
+<p>Why does this matter? Because later (Phase 5), we'll JOIN rides with customers:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>"Show me rides by customers from Mumbai"
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>  Ride R00742: customer_id = C0231
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>       ↓ JOIN
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>  Customer C0231: city = Mumbai  ✅ FOUND!
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>  If C0231 didn't exist in customers, the join would FAIL.
+</span></code></pre></div>
+<p><strong>Peak Hour Simulation:</strong></p>
+<p>In reality, ride demand isn't uniform throughout the day. More people book rides during commute hours:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>Hour:  1AM  5AM  8AM  12PM  5PM  8PM  11PM
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>       ▁    ▁    ████  ██   ████ ████  ▂
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>       Low  Low  PEAK  Med  PEAK PEAK  Low
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>We simulate this with weighted hour selection:
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>  8-10 AM: weight 1.0 (high demand — morning commute)
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>  5-9 PM:  weight 0.9-1.0 (high — evening commute)
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>  2-4 AM:  weight 0.08-0.1 (very low — most people sleeping)
+</span></code></pre></div>
+<p><strong>Intentionally Bad Data (THIS IS ON PURPOSE!):</strong></p>
+<p>We deliberately create ~3% "dirty" data:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># ~2% of rides have NEGATIVE distances (like a GPS error)</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.02</span><span class="p">:</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>    <span class="n">distance_km</span> <span class="o">=</span> <span class="o">-</span><span class="mf">12.5</span>  <span class="c1"># This is WRONG and should be caught</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="c1"># ~1% have ZERO fare (like a payment bug)</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">:</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>    <span class="n">fare</span> <span class="o">=</span> <span class="mf">0.0</span>  <span class="c1"># This is WRONG</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="c1"># ~3% have messy city names</span>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="n">messy_variants</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>    <span class="s2">"Mumbai"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Mumbai"</span><span class="p">,</span> <span class="s2">"mumbai"</span><span class="p">,</span> <span class="s2">"MUMBAI"</span><span class="p">,</span> <span class="s2">"mumbai "</span><span class="p">],</span>
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>    <span class="s2">"Pune"</span><span class="p">:</span>   <span class="p">[</span><span class="s2">"Pune"</span><span class="p">,</span> <span class="s2">"pune"</span><span class="p">,</span> <span class="s2">"PUNE"</span><span class="p">,</span> <span class="s2">"pune "</span><span class="p">],</span>
+</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="p">}</span>
+</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a><span class="c1"># So some rides say "mumbai" instead of "Mumbai"</span>
+</span></code></pre></div>
+<p><strong>Why inject bad data?</strong> Because in Phase 4, we build the <strong>Silver layer</strong> that CLEANS this data. If our test data is already perfect, we can't demonstrate that our cleaning code works!</p>
+<p><strong>NULL values for incomplete rides:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>Status = "completed"  → has pickup_time AND dropoff_time
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>Status = "ongoing"    → has pickup_time, NO dropoff_time (still driving)
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>Status = "cancelled"  → MAYBE has pickup_time (50/50), NO dropoff_time
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>Status = "no_show"    → NO pickup_time, NO dropoff_time
+</span></code></pre></div>
+<p>This is realistic — not all rides have complete data.</p>
+<hr />
+<h3 id="4d-payment-generator-paymentspy">4d. Payment Generator (payments.py)</h3>
+<p><strong>What it does</strong>: Creates ~8000 payment records linked to rides.</p>
+<p><strong>Key logic — Not every ride gets a payment:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>Ride completed  → ALWAYS has a payment (you pay for your ride)
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>Ride cancelled  → 30% chance of payment (cancellation fee)
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>Ride ongoing    → NO payment (ride isn't finished yet)
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>Ride no_show    → 50% chance of payment (no-show penalty)
+</span></code></pre></div>
+<p>This is why we generated 7,965 payments instead of 8,000 — there weren't enough eligible rides.</p>
+<p><strong>Payment amount logic:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>Completed ride:  payment amount = ride fare (full price)
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>Cancelled ride:  payment amount = 10-30% of fare (cancellation fee)
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>Failed payment:  payment amount = ₹0 (charge didn't go through)
+</span></code></pre></div>
+<p><strong>20% of completed rides include a tip</strong> (random ₹10–₹100).</p>
+<hr />
+<h2 id="5-schemas-schemaspy-the-data-contract">5. Schemas (schemas.py) — The Data Contract</h2>
+<h3 id="whats-a-schema">What's a Schema?</h3>
+<p>A schema defines the <strong>shape</strong> of your data — what columns exist and what type they should be.</p>
+<p>Think of it like a <strong>form template</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>┌─────────────────────────────────┐
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>│ CUSTOMER REGISTRATION FORM      │
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>│                                 │
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>│ Customer ID: _______ (text)     │
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>│ First Name:  _______ (text)     │
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>│ Last Name:   _______ (text)     │
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>│ Email:       _______ (text)     │
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>│ Phone:       _______ (text)     │
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>│ City:        _______ (text)     │
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>│ Signup Date: _______ (date)     │
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>│ Active:      _______ (yes/no)   │
+</span><span id="__span-28-12"><a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>└─────────────────────────────────┘
+</span></code></pre></div>
+<p>In Python, we express this using <strong>dataclasses</strong>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="nd">@dataclass</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">Customer</span><span class="p">:</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>    <span class="n">customer_id</span><span class="p">:</span> <span class="nb">str</span>      <span class="c1"># "C0001" — text</span>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>    <span class="n">first_name</span><span class="p">:</span> <span class="nb">str</span>       <span class="c1"># "Priya" — text</span>
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>    <span class="n">last_name</span><span class="p">:</span> <span class="nb">str</span>        <span class="c1"># "Patel" — text</span>
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>    <span class="n">email</span><span class="p">:</span> <span class="nb">str</span>            <span class="c1"># "priya@email.com" — text</span>
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>    <span class="n">phone</span><span class="p">:</span> <span class="nb">str</span>            <span class="c1"># "+91..." — text</span>
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>    <span class="n">city</span><span class="p">:</span> <span class="nb">str</span>             <span class="c1"># "Mumbai" — text</span>
+</span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>    <span class="n">signup_date</span><span class="p">:</span> <span class="n">date</span>     <span class="c1"># 2025-03-15 — date (not text!)</span>
+</span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>    <span class="n">is_active</span><span class="p">:</span> <span class="nb">bool</span>       <span class="c1"># True or False — boolean</span>
+</span></code></pre></div>
+<p><strong>Why do we need this?</strong></p>
+<p>Without a schema, anything can happen:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>Row 1: customer_id="C0001", fare=500.00        ← fare is a number ✅
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>Row 2: customer_id="C0002", fare="five hundred" ← fare is TEXT! ❌
+</span></code></pre></div></p>
+<p>The schema is a <strong>contract</strong>: "Every customer MUST have these exact fields with these exact types." If the data doesn't match, something is wrong.</p>
+<p>This same schema will be reused in:
+- Phase 2: To create PostgreSQL tables
+- Phase 4: To define PySpark column types
+- Phase 7: To configure AWS Glue catalog
+- Phase 9: To create Redshift warehouse tables</p>
+<hr />
+<h2 id="6-config-loader-config_loaderpy-reading-the-settings">6. Config Loader (config_loader.py) — Reading the Settings</h2>
+<p>This reads the <code>config.yaml</code> file and makes it accessible from any Python file.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1"># Without config loader (BAD — hardcoded)</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="n">num_customers</span> <span class="o">=</span> <span class="mi">1000</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="c1"># With config loader (GOOD — reads from config.yaml)</span>
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="n">config</span> <span class="o">=</span> <span class="n">ConfigLoader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="n">num_customers</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"data_generation"</span><span class="p">,</span> <span class="s2">"num_customers"</span><span class="p">)</span>  <span class="c1"># → 1000</span>
+</span></code></pre></div>
+<p><strong>How <code>config.get("data_generation", "num_customers")</code> works:</strong></p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c1"># config.yaml has nested structure:</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="nt">data_generation</span><span class="p">:</span><span class="w">          </span><span class="l l-Scalar l-Scalar-Plain">← Level 1 key</span>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">num_customers</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000     ← Level 2 key → value</span>
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">num_drivers</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500</span>
+</span></code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"data_generation"</span><span class="p">,</span> <span class="s2">"num_customers"</span><span class="p">)</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="c1">#           ↑ Level 1           ↑ Level 2</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="c1"># Goes to data_generation → then gets num_customers → returns 1000</span>
+</span></code></pre></div>
+<p>It's like giving directions: "Go to the <strong>data_generation</strong> section, then find <strong>num_customers</strong>."</p>
+<hr />
+<h2 id="7-logger-loggerpy-recording-what-happened">7. Logger (logger.py) — Recording What Happened</h2>
+<h3 id="why-not-just-print">Why Not Just <code>print()</code>?</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="c1"># Using print() — BAD for production</span>
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Generated 1000 customers"</span><span class="p">)</span>
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="c1"># Problems:</span>
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="c1"># - No timestamp (WHEN did this happen?)</span>
+</span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a><span class="c1"># - No severity (is this info or an error?)</span>
+</span><span id="__span-34-6"><a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a><span class="c1"># - Disappears when terminal closes</span>
+</span><span id="__span-34-7"><a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a><span class="c1"># - Can't search through it later</span>
+</span></code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># Using logger — GOOD</span>
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Generated 1000 customers"</span><span class="p">)</span>
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="c1"># Output: 2026-09-01 21:19:18 | INFO | customers | Generated 1000 customers</span>
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="c1">#         ↑ WHEN              ↑ LEVEL ↑ WHERE     ↑ WHAT</span>
+</span></code></pre></div>
+<p><strong>Log Levels</strong> (from least to most severe):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>DEBUG   → Tiny details (usually only during development)
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>INFO    → Normal operations ("Generated 1000 records" ✅)
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>WARNING → Something unusual but not broken ("47 rides had missing data" ⚠️)
+</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>ERROR   → Something failed ("Could not write to S3" ❌)
+</span></code></pre></div>
+<p>Our logger writes to TWO places:
+1. <strong>Console</strong> (your terminal) — see logs while developing
+2. <strong>File</strong> (<code>logs/mobility_platform.log</code>) — permanent record, searchable later</p>
+<hr />
+<h2 id="8-the-orchestrator-generatorpy-putting-it-all-together">8. The Orchestrator (generator.py) — Putting It All Together</h2>
+<p>This is the <strong>conductor</strong> of the orchestra. It doesn't generate data itself — it coordinates the four generators in the right order.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">run_data_generation</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>    <span class="c1"># Step 1: Generate customers (no dependencies)</span>
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>    <span class="n">customers</span> <span class="o">=</span> <span class="n">generate_customers</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">cities</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>
+</span><span id="__span-37-5"><a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>    <span class="c1"># Step 2: Generate drivers (no dependencies)  </span>
+</span><span id="__span-37-6"><a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>    <span class="n">drivers</span> <span class="o">=</span> <span class="n">generate_drivers</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="n">cities</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</span><span id="__span-37-7"><a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a>
+</span><span id="__span-37-8"><a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a>    <span class="c1"># Step 3: Generate rides (NEEDS customer_ids + driver_ids)</span>
+</span><span id="__span-37-9"><a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a>    <span class="n">customer_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s2">"customer_id"</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">customers</span><span class="p">]</span>  <span class="c1"># ["C0001", "C0002", ...]</span>
+</span><span id="__span-37-10"><a id="__codelineno-37-10" name="__codelineno-37-10" href="#__codelineno-37-10"></a>    <span class="n">driver_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="s2">"driver_id"</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">drivers</span><span class="p">]</span>         <span class="c1"># ["D0001", "D0002", ...]</span>
+</span><span id="__span-37-11"><a id="__codelineno-37-11" name="__codelineno-37-11" href="#__codelineno-37-11"></a>    <span class="n">rides</span> <span class="o">=</span> <span class="n">generate_rides</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="n">customer_ids</span><span class="p">,</span> <span class="n">driver_ids</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</span><span id="__span-37-12"><a id="__codelineno-37-12" name="__codelineno-37-12" href="#__codelineno-37-12"></a>
+</span><span id="__span-37-13"><a id="__codelineno-37-13" name="__codelineno-37-13" href="#__codelineno-37-13"></a>    <span class="c1"># Step 4: Generate payments (NEEDS rides data)</span>
+</span><span id="__span-37-14"><a id="__codelineno-37-14" name="__codelineno-37-14" href="#__codelineno-37-14"></a>    <span class="n">payments</span> <span class="o">=</span> <span class="n">generate_payments</span><span class="p">(</span><span class="mi">8000</span><span class="p">,</span> <span class="n">rides</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</span><span id="__span-37-15"><a id="__codelineno-37-15" name="__codelineno-37-15" href="#__codelineno-37-15"></a>
+</span><span id="__span-37-16"><a id="__codelineno-37-16" name="__codelineno-37-16" href="#__codelineno-37-16"></a>    <span class="c1"># Step 5: Write everything to files</span>
+</span><span id="__span-37-17"><a id="__codelineno-37-17" name="__codelineno-37-17" href="#__codelineno-37-17"></a>    <span class="n">write_csv</span><span class="p">(</span><span class="n">customers</span><span class="p">,</span> <span class="s2">"data/raw/customers/customers.csv"</span><span class="p">)</span>
+</span><span id="__span-37-18"><a id="__codelineno-37-18" name="__codelineno-37-18" href="#__codelineno-37-18"></a>    <span class="n">write_csv</span><span class="p">(</span><span class="n">drivers</span><span class="p">,</span> <span class="s2">"data/raw/drivers/drivers.csv"</span><span class="p">)</span>
+</span><span id="__span-37-19"><a id="__codelineno-37-19" name="__codelineno-37-19" href="#__codelineno-37-19"></a>    <span class="n">write_csv</span><span class="p">(</span><span class="n">rides</span><span class="p">,</span> <span class="s2">"data/raw/rides/rides.csv"</span><span class="p">)</span>
+</span><span id="__span-37-20"><a id="__codelineno-37-20" name="__codelineno-37-20" href="#__codelineno-37-20"></a>    <span class="n">write_csv</span><span class="p">(</span><span class="n">payments</span><span class="p">,</span> <span class="s2">"data/raw/payments/payments.csv"</span><span class="p">)</span>
+</span><span id="__span-37-21"><a id="__codelineno-37-21" name="__codelineno-37-21" href="#__codelineno-37-21"></a>    <span class="c1"># Also writes JSON versions of each</span>
+</span></code></pre></div>
+<p><strong>It also writes JSON files</strong> because some systems prefer JSON over CSV. Having both formats demonstrates working with multiple data formats.</p>
+<hr />
+<h2 id="9-the-entry-point-mainpy-the-start-button">9. The Entry Point (main.py) — The "Start" Button</h2>
+<p>When you type <code>python main.py generate</code>, this is what happens:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>YOU type: python main.py generate
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>              │         │
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>              ↓         ↓
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>         runs main.py   "generate" is the command argument
+</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>              │
+</span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a>              ↓
+</span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a>         Loads config.yaml
+</span><span id="__span-38-8"><a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a>              │
+</span><span id="__span-38-9"><a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a>              ↓
+</span><span id="__span-38-10"><a id="__codelineno-38-10" name="__codelineno-38-10" href="#__codelineno-38-10"></a>         Sets up logging
+</span><span id="__span-38-11"><a id="__codelineno-38-11" name="__codelineno-38-11" href="#__codelineno-38-11"></a>              │
+</span><span id="__span-38-12"><a id="__codelineno-38-12" name="__codelineno-38-12" href="#__codelineno-38-12"></a>              ↓
+</span><span id="__span-38-13"><a id="__codelineno-38-13" name="__codelineno-38-13" href="#__codelineno-38-13"></a>         Calls run_data_generation()
+</span><span id="__span-38-14"><a id="__codelineno-38-14" name="__codelineno-38-14" href="#__codelineno-38-14"></a>              │
+</span><span id="__span-38-15"><a id="__codelineno-38-15" name="__codelineno-38-15" href="#__codelineno-38-15"></a>              ↓
+</span><span id="__span-38-16"><a id="__codelineno-38-16" name="__codelineno-38-16" href="#__codelineno-38-16"></a>         Prints summary to screen
+</span></code></pre></div>
+<p><strong>Why use commands like <code>generate</code>?</strong> Because as we add phases, main.py grows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>Phase 1: python main.py generate          ← Generate fake data
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>Phase 2: python main.py load-postgres     ← Load into database
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>Phase 3: python main.py upload-bronze     ← Upload to S3
+</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>Phase 4: python main.py transform-silver  ← Clean the data
+</span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a>...
+</span></code></pre></div>
+<p>One entry point, many commands. This is called a <strong>CLI (Command Line Interface)</strong>.</p>
+<hr />
+<h2 id="10-tests-test_data_generatorpy-does-our-code-actually-work">10. Tests (test_data_generator.py) — Does Our Code Actually Work?</h2>
+<h3 id="why-test-a-data-generator">Why Test a Data Generator?</h3>
+<p><em>"But it's just generating random data. What's there to test?"</em></p>
+<p>A LOT. If the generator produces bad data, every later phase breaks:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>Generator makes rides with random customer_ids
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>  → Phase 4: PySpark join fails (customer not found)
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>  → Phase 5: Gold layer has missing dimensions
+</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>  → Phase 9: Redshift queries return wrong results
+</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>  → Phase 11: Dashboard shows wrong numbers
+</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a>  → Recruiter: "This project is broken" ❌
+</span></code></pre></div>
+<h3 id="what-our-27-tests-check">What Our 27 Tests Check</h3>
+<p><strong>Shape tests</strong> — "Is the data the right shape?"
+<div class="language-python highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_correct_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customers</span><span class="p">):</span>
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">customers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">100</span>  <span class="c1"># Did we get exactly 100?</span>
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>
+</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_correct_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customers</span><span class="p">):</span>
+</span><span id="__span-41-5"><a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a>    <span class="c1"># Does each record have ALL required columns?</span>
+</span><span id="__span-41-6"><a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>    <span class="n">expected</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"customer_id"</span><span class="p">,</span> <span class="s2">"first_name"</span><span class="p">,</span> <span class="s2">"last_name"</span><span class="p">,</span> <span class="o">...</span><span class="p">}</span>
+</span><span id="__span-41-7"><a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a>    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">customers</span><span class="p">:</span>
+</span><span id="__span-41-8"><a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a>        <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="n">expected</span>
+</span></code></pre></div></p>
+<p><strong>Uniqueness tests</strong> — "Are IDs unique?"
+<div class="language-python highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_unique_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customers</span><span class="p">):</span>
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>    <span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s2">"customer_id"</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">customers</span><span class="p">]</span>
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">ids</span><span class="p">))</span>  <span class="c1"># set removes duplicates</span>
+</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a>    <span class="c1"># If these lengths match → no duplicates ✅</span>
+</span></code></pre></div></p>
+<p><strong>Referential integrity tests</strong> — "Do references actually point to real things?"
+<div class="language-python highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_referential_integrity_customers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rides</span><span class="p">,</span> <span class="n">customers</span><span class="p">):</span>
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>    <span class="n">valid_customer_ids</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">[</span><span class="s2">"customer_id"</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">customers</span><span class="p">}</span>
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rides</span><span class="p">:</span>
+</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a>        <span class="k">assert</span> <span class="n">r</span><span class="p">[</span><span class="s2">"customer_id"</span><span class="p">]</span> <span class="ow">in</span> <span class="n">valid_customer_ids</span>
+</span><span id="__span-43-5"><a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a>        <span class="c1"># Every ride's customer_id MUST exist in the customer list</span>
+</span></code></pre></div></p>
+<p><strong>Distribution tests</strong> — "Is the data realistically distributed?"
+<div class="language-python highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_status_distribution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rides</span><span class="p">):</span>
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>    <span class="n">statuses</span> <span class="o">=</span> <span class="p">{</span><span class="n">r</span><span class="p">[</span><span class="s2">"ride_status"</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rides</span><span class="p">}</span>
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">statuses</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span>
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>    <span class="c1"># Not all rides should be "completed" — some cancelled, etc.</span>
+</span></code></pre></div></p>
+<p><strong>Bad data tests</strong> — "Did we actually inject the intentional errors?"
+<div class="language-python highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_has_intentional_bad_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rides</span><span class="p">):</span>
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>    <span class="n">negative_distances</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rides</span> <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="s2">"distance_km"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">negative_distances</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>    <span class="c1"># We WANT bad data for testing our cleaning pipeline later</span>
+</span></code></pre></div></p>
+<hr />
+<h2 id="11-the-output-what-was-actually-generated">11. The Output — What Was Actually Generated?</h2>
+<p>When you ran <code>python main.py generate</code>, it created these files:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>data/raw/
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>├── customers/
+</span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a>│   ├── customers.csv      ← 1,000 rows, 0.08 MB
+</span><span id="__span-46-4"><a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a>│   └── customers.json     ← Same data in JSON format
+</span><span id="__span-46-5"><a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a>├── drivers/
+</span><span id="__span-46-6"><a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a>│   ├── drivers.csv        ← 500 rows, 0.04 MB
+</span><span id="__span-46-7"><a id="__codelineno-46-7" name="__codelineno-46-7" href="#__codelineno-46-7"></a>│   └── drivers.json
+</span><span id="__span-46-8"><a id="__codelineno-46-8" name="__codelineno-46-8" href="#__codelineno-46-8"></a>├── rides/
+</span><span id="__span-46-9"><a id="__codelineno-46-9" name="__codelineno-46-9" href="#__codelineno-46-9"></a>│   ├── rides.csv          ← 10,000 rows, 1.65 MB ← THE BIG ONE
+</span><span id="__span-46-10"><a id="__codelineno-46-10" name="__codelineno-46-10" href="#__codelineno-46-10"></a>│   └── rides.json
+</span><span id="__span-46-11"><a id="__codelineno-46-11" name="__codelineno-46-11" href="#__codelineno-46-11"></a>└── payments/
+</span><span id="__span-46-12"><a id="__codelineno-46-12" name="__codelineno-46-12" href="#__codelineno-46-12"></a>    ├── payments.csv       ← 7,965 rows, 0.52 MB
+</span><span id="__span-46-13"><a id="__codelineno-46-13" name="__codelineno-46-13" href="#__codelineno-46-13"></a>    └── payments.json
+</span></code></pre></div>
+<h3 id="what-does-the-data-look-like">What does the data look like?</h3>
+<p><strong>customers.csv</strong> (open this in Excel or VS Code):
+<div class="language-text highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>customer_id,first_name,last_name,email,phone,city,signup_date,is_active
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>C0001,Priya,Sharma,priya@email.com,+91 98765 43210,Mumbai,2025-03-15,True
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>C0002,Rahul,Patel,rahul@email.com,+91 87654 32109,Pune,2024-11-22,True
+</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a>C0003,Anjali,Gupta,anjali@email.com,+91 76543 21098,Bangalore,2025-07-08,False
+</span><span id="__span-47-5"><a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a>...
+</span></code></pre></div></p>
+<p><strong>rides.csv:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>ride_id,customer_id,driver_id,pickup_city,pickup_area,...,distance_km,fare,ride_status
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>R00001,C0231,D0089,Mumbai,Andheri,...,12.5,487.30,completed
+</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>R00002,C0742,D0156,mumbai,Bandra,...,-3.2,0.00,cancelled    ← BAD DATA (intentional)
+</span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a>R00003,C0088,D0341,Pune,Hinjewadi,...,28.7,891.50,completed
+</span><span id="__span-48-5"><a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a>...
+</span></code></pre></div></p>
+<h3 id="summary-of-what-was-generated">Summary of what was generated:</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>Customers: 1,000  (956 active, 44 inactive)
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>Drivers:   500    (avg rating 4.43)
+</span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>                  (181 Sedans, 143 Hatchbacks, 104 SUVs, 48 Autos, 24 Bikes)
+</span><span id="__span-49-4"><a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a>Rides:     10,000 (7,274 completed, 1,413 cancelled, 802 ongoing, 511 no-show)
+</span><span id="__span-49-5"><a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a>                  (200 with negative distances, 104 with zero fare — intentional)
+</span><span id="__span-49-6"><a id="__codelineno-49-6" name="__codelineno-49-6" href="#__codelineno-49-6"></a>Payments:  7,965  (₹38.4 lakh total revenue, ₹73.8K in tips)
+</span><span id="__span-49-7"><a id="__codelineno-49-7" name="__codelineno-49-7" href="#__codelineno-49-7"></a>                  (3,128 UPI, 1,625 Credit Card, 1,236 Cash, 1,166 Debit Card, 810 Wallet)
+</span><span id="__span-49-8"><a id="__codelineno-49-8" name="__codelineno-49-8" href="#__codelineno-49-8"></a>                  (6,950 completed, 593 failed, 238 refunded, 184 pending)
+</span></code></pre></div>
+<hr />
+<h2 id="12-the-gitignore-file-what-not-to-share">12. The <code>.gitignore</code> File — What NOT to Share</h2>
+<p>When you put code on GitHub, you don't want to share:
+- <code>venv/</code> — everyone creates their own virtual environment
+- <code>.env</code> — contains passwords and API keys!
+- <code>data/raw/</code> — generated data is large and regeneratable
+- <code>logs/</code> — your local logs aren't useful to others
+- <code>__pycache__/</code> — Python's compiled cache files</p>
+<p>The <code>.gitignore</code> file lists all these. Git will ignore them.</p>
+<hr />
+<h2 id="13-how-it-all-connects-the-full-picture">13. How It All Connects — The Full Picture</h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>YOU type: python main.py generate
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>              │
+</span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>              ↓
+</span><span id="__span-50-4"><a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a>    ┌─── main.py ───┐
+</span><span id="__span-50-5"><a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a>    │                │
+</span><span id="__span-50-6"><a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a>    │  1. Load       │──→ config/config.yaml (settings)
+</span><span id="__span-50-7"><a id="__codelineno-50-7" name="__codelineno-50-7" href="#__codelineno-50-7"></a>    │     config     │
+</span><span id="__span-50-8"><a id="__codelineno-50-8" name="__codelineno-50-8" href="#__codelineno-50-8"></a>    │                │
+</span><span id="__span-50-9"><a id="__codelineno-50-9" name="__codelineno-50-9" href="#__codelineno-50-9"></a>    │  2. Setup      │──→ logs/mobility_platform.log
+</span><span id="__span-50-10"><a id="__codelineno-50-10" name="__codelineno-50-10" href="#__codelineno-50-10"></a>    │     logger     │
+</span><span id="__span-50-11"><a id="__codelineno-50-11" name="__codelineno-50-11" href="#__codelineno-50-11"></a>    │                │
+</span><span id="__span-50-12"><a id="__codelineno-50-12" name="__codelineno-50-12" href="#__codelineno-50-12"></a>    │  3. Call       │──→ generator.py (orchestrator)
+</span><span id="__span-50-13"><a id="__codelineno-50-13" name="__codelineno-50-13" href="#__codelineno-50-13"></a>    │     generator  │        │
+</span><span id="__span-50-14"><a id="__codelineno-50-14" name="__codelineno-50-14" href="#__codelineno-50-14"></a>    │                │        ├→ customers.py → 1000 customers
+</span><span id="__span-50-15"><a id="__codelineno-50-15" name="__codelineno-50-15" href="#__codelineno-50-15"></a>    │                │        ├→ drivers.py   → 500 drivers
+</span><span id="__span-50-16"><a id="__codelineno-50-16" name="__codelineno-50-16" href="#__codelineno-50-16"></a>    │                │        ├→ rides.py     → 10000 rides
+</span><span id="__span-50-17"><a id="__codelineno-50-17" name="__codelineno-50-17" href="#__codelineno-50-17"></a>    │                │        └→ payments.py  → 7965 payments
+</span><span id="__span-50-18"><a id="__codelineno-50-18" name="__codelineno-50-18" href="#__codelineno-50-18"></a>    │                │              │
+</span><span id="__span-50-19"><a id="__codelineno-50-19" name="__codelineno-50-19" href="#__codelineno-50-19"></a>    │  4. Write      │              ↓
+</span><span id="__span-50-20"><a id="__codelineno-50-20" name="__codelineno-50-20" href="#__codelineno-50-20"></a>    │     files      │──→ data/raw/customers/customers.csv + .json
+</span><span id="__span-50-21"><a id="__codelineno-50-21" name="__codelineno-50-21" href="#__codelineno-50-21"></a>    │                │──→ data/raw/drivers/drivers.csv + .json
+</span><span id="__span-50-22"><a id="__codelineno-50-22" name="__codelineno-50-22" href="#__codelineno-50-22"></a>    │                │──→ data/raw/rides/rides.csv + .json
+</span><span id="__span-50-23"><a id="__codelineno-50-23" name="__codelineno-50-23" href="#__codelineno-50-23"></a>    │                │──→ data/raw/payments/payments.csv + .json
+</span><span id="__span-50-24"><a id="__codelineno-50-24" name="__codelineno-50-24" href="#__codelineno-50-24"></a>    │                │
+</span><span id="__span-50-25"><a id="__codelineno-50-25" name="__codelineno-50-25" href="#__codelineno-50-25"></a>    │  5. Print      │──→ Summary to your terminal
+</span><span id="__span-50-26"><a id="__codelineno-50-26" name="__codelineno-50-26" href="#__codelineno-50-26"></a>    │     summary    │
+</span><span id="__span-50-27"><a id="__codelineno-50-27" name="__codelineno-50-27" href="#__codelineno-50-27"></a>    └────────────────┘
+</span></code></pre></div>
+<hr />
+<h2 id="14-what-happens-next-phase-2-preview">14. What Happens Next (Phase 2 Preview)</h2>
+<p>Right now our data sits in CSV files on your laptop. That's not very useful. You can't easily ask: <em>"What's the average fare in Mumbai?"</em></p>
+<p>In <strong>Phase 2</strong>, we'll:
+1. Install Docker (a tool that runs a database on your laptop)
+2. Start PostgreSQL (a relational database)
+3. Create tables matching our schemas
+4. Load our CSV data INTO the database
+5. Write SQL queries to answer business questions</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>Phase 1 (done):  Python → CSV files (sitting on disk)
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>Phase 2 (next):  CSV files → PostgreSQL → SQL queries → answers!
+</span></code></pre></div>
+<hr />
+<h2 id="try-these-things-now">Try These Things Now</h2>
+<ol>
+<li>
+<p><strong>Open the CSV files</strong> — Go to <code>data/raw/rides/rides.csv</code> and look at the data in VS Code or Excel</p>
+</li>
+<li>
+<p><strong>Find the bad data</strong> — Search for negative distances or zero fares in the rides CSV</p>
+</li>
+<li>
+<p><strong>Re-run with different volume</strong> — Try generating more data:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>.<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>python<span class="w"> </span>main.py<span class="w"> </span>generate<span class="w"> </span>--count<span class="w"> </span><span class="m">50000</span>
+</span></code></pre></div></p>
+</li>
+<li>
+<p><strong>Run the tests</strong> — See all 27 pass:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>pytest<span class="w"> </span>tests/<span class="w"> </span>-v
+</span></code></pre></div></p>
+</li>
+<li>
+<p><strong>Read the log</strong> — Open <code>logs/mobility_platform.log</code> and see the structured output</p>
+</li>
+<li>
+<p><strong>Change config</strong> — Edit <code>config/config.yaml</code>, change <code>num_rides</code> to 500, re-run, see fewer rides generated</p>
+</li>
+</ol>
+<p>Tell me when you're ready for Phase 2, or ask any questions about Phase 1! 🚀</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

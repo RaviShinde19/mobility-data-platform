@@ -1,0 +1,1196 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../data_dictionary/">
+      
+      
+        <link rel="next" href="../v1_v2_metrics_reference/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Governance & Security - Mobility Data Platform</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-governance-security-architecture-mobility-platform" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mobility Data Platform" class="md-header__button md-logo" aria-label="Mobility Data Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mobility Data Platform
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Governance & Security
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mobility Data Platform" class="md-nav__button md-logo" aria-label="Mobility Data Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mobility Data Platform
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../implementation_plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_dictionary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Dictionary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governance & Security
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governance & Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary-core-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Executive Summary &amp; Core Rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-7-foundational-pillars-implemented-in-the-mobility-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The 7 Foundational Pillars (Implemented in the Mobility Project)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The 7 Foundational Pillars (Implemented in the Mobility Project)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pillar-1-aws-iam-fundamentals-least-privilege" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pillar 1: AWS IAM Fundamentals &amp; Least Privilege
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pillar-2-s3-bucket-security-prefix-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pillar 2: S3 Bucket Security &amp; Prefix Policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pillar-3-encryption-everywhere-rest-transit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pillar 3: Encryption Everywhere (Rest &amp; Transit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pillar-4-pii-handling-masking-tokenization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pillar 4: PII Handling, Masking &amp; Tokenization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pillar-5-database-level-access-control-rbac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pillar 5: Database-Level Access Control &amp; RBAC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pillar-6-glue-data-catalog-lineage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pillar 6: Glue Data Catalog &amp; Lineage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pillar-7-data-quality-quarantine-dlq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pillar 7: Data Quality &amp; Quarantine (DLQ)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-advanced-additions-to-implement-next-level-upgrades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Advanced Additions to Implement (Next-Level Upgrades)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Advanced Additions to Implement (Next-Level Upgrades)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-geospatial-privacy-obfuscation-h3-hexagonal-indexing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Geospatial Privacy &amp; Obfuscation (H3 Hexagonal Indexing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-s3-lifecycle-tiering-cost-governance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. S3 Lifecycle Tiering &amp; Cost Governance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-automated-audit-logging-compliance-trails-cloudtrail-access-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Automated Audit Logging &amp; Compliance Trails (CloudTrail + Access Logs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-secrets-management-zero-trust-credential-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Secrets Management &amp; Zero-Trust Credential Rotation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-automated-data-quality-anomaly-alerting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Automated Data Quality &amp; Anomaly Alerting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-end-to-end-lineage-with-openlineage-marquez" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. End-to-End Lineage with OpenLineage &amp; Marquez
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-dynamic-data-masking-ddm-column-level-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Dynamic Data Masking (DDM) &amp; Column-Level Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-synthetic-data-privacy-anonymity-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Synthetic Data Privacy &amp; Anonymity Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-infrastructure-as-code-terraform-cloudformation-security-baseline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Infrastructure-as-Code (Terraform / CloudFormation) Security Baseline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-automated-pre-commit-cicd-security-guardrails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Automated Pre-Commit &amp; CI/CD Security Guardrails
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v1_v2_metrics_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metrics Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase1_walkthrough/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 1 Walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary-core-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Executive Summary &amp; Core Rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-7-foundational-pillars-implemented-in-the-mobility-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The 7 Foundational Pillars (Implemented in the Mobility Project)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The 7 Foundational Pillars (Implemented in the Mobility Project)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pillar-1-aws-iam-fundamentals-least-privilege" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pillar 1: AWS IAM Fundamentals &amp; Least Privilege
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pillar-2-s3-bucket-security-prefix-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pillar 2: S3 Bucket Security &amp; Prefix Policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pillar-3-encryption-everywhere-rest-transit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pillar 3: Encryption Everywhere (Rest &amp; Transit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pillar-4-pii-handling-masking-tokenization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pillar 4: PII Handling, Masking &amp; Tokenization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pillar-5-database-level-access-control-rbac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pillar 5: Database-Level Access Control &amp; RBAC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pillar-6-glue-data-catalog-lineage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pillar 6: Glue Data Catalog &amp; Lineage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pillar-7-data-quality-quarantine-dlq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pillar 7: Data Quality &amp; Quarantine (DLQ)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-advanced-additions-to-implement-next-level-upgrades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Advanced Additions to Implement (Next-Level Upgrades)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Advanced Additions to Implement (Next-Level Upgrades)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-geospatial-privacy-obfuscation-h3-hexagonal-indexing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Geospatial Privacy &amp; Obfuscation (H3 Hexagonal Indexing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-s3-lifecycle-tiering-cost-governance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. S3 Lifecycle Tiering &amp; Cost Governance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-automated-audit-logging-compliance-trails-cloudtrail-access-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Automated Audit Logging &amp; Compliance Trails (CloudTrail + Access Logs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-secrets-management-zero-trust-credential-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Secrets Management &amp; Zero-Trust Credential Rotation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-automated-data-quality-anomaly-alerting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Automated Data Quality &amp; Anomaly Alerting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-end-to-end-lineage-with-openlineage-marquez" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. End-to-End Lineage with OpenLineage &amp; Marquez
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-dynamic-data-masking-ddm-column-level-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Dynamic Data Masking (DDM) &amp; Column-Level Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-synthetic-data-privacy-anonymity-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Synthetic Data Privacy &amp; Anonymity Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-infrastructure-as-code-terraform-cloudformation-security-baseline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Infrastructure-as-Code (Terraform / CloudFormation) Security Baseline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-automated-pre-commit-cicd-security-guardrails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Automated Pre-Commit &amp; CI/CD Security Guardrails
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="data-governance-security-architecture-mobility-platform">Data Governance &amp; Security Architecture — Mobility Platform</h1>
+<blockquote>
+<p><strong>Status</strong>: Active Project Directive &amp; Architecture Blueprint<br />
+<strong>Applicability</strong>: Enforced across all pipeline layers (Bronze, Silver, Gold, Ingestion, Storage, Processing, Warehouse, Orchestration)</p>
+</blockquote>
+<hr />
+<h2 id="1-executive-summary-core-rules">1. Executive Summary &amp; Core Rules</h2>
+<p>Data governance sets the policies, data quality rules, lineage, and catalogs; data security provides the technical enforcement (encryption, least-privilege access, PII protection, and network isolation).</p>
+<p>In this mobility platform (processing 14M+ records across Customers, Drivers, Rides, and Payments), governance and security are embedded into every layer of our medallion lakehouse.</p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph INGESTION ["1. Ingestion Layer"]
+        SRC["Raw APIs / Simulators"] --&gt;|TLS 1.2+ HTTPS| INGEST["Python Ingest Job\n(mobility-ingestion-role)"]
+    end
+
+    subgraph S3_LAKE ["2. Amazon S3 Data Lake (KMS / SSE-S3 Encrypted)"]
+        INGEST --&gt;|Write Only| BRONZE["s3://.../bronze/\n(Raw Landing, Restricted PII)"]
+        BRONZE --&gt;|Read| GLUE["AWS Glue / PySpark ETL\n(mobility-glue-etl-role)"]
+        GLUE --&gt;|Validation Failures| QUARANTINE["s3://.../quarantine/\n(DLQ + Audit Metadata)"]
+        GLUE --&gt;|Masked &amp; Cleaned| SILVER["s3://.../silver/\n(Parquet, PII Tokenized, Snappy)"]
+        GLUE --&gt;|Dimensional Star Schema| GOLD["s3://.../gold/\n(Parquet, Fact &amp; Dim Tables)"]
+    end
+
+    subgraph GOVERNANCE ["3. Governance &amp; Metadata"]
+        CATALOG["AWS Glue Data Catalog\n(Databases, Schemas, Column Tags)"]
+        LINEAGE["OpenLineage / Airflow Metadata\n(Dataset &amp; Job Lineage)"]
+        QUALITY["Great Expectations Suite\n(15+ Validation Rules)"]
+    end
+
+    subgraph CONSUMPTION ["4. Consumption &amp; Warehouse"]
+        GOLD --&gt;|Catalog Mount| ATHENA["Amazon Athena\n(Serverless Ad-hoc Analytics)"]
+        GOLD --&gt;|COPY / External Schema| REDSHIFT["Amazon Redshift / Postgres\n(RBAC + Row-Level Security)"]
+        REDSHIFT --&gt; BI["Metabase / Superset / PowerBI\n(bi_reader_role)"]
+    end
+
+    GLUE -.-&gt; CATALOG
+    GLUE -.-&gt; LINEAGE
+    GLUE -.-&gt; QUALITY</code></pre>
+<hr />
+<h2 id="2-the-7-foundational-pillars-implemented-in-the-mobility-project">2. The 7 Foundational Pillars (Implemented in the Mobility Project)</h2>
+<h3 id="pillar-1-aws-iam-fundamentals-least-privilege">Pillar 1: AWS IAM Fundamentals &amp; Least Privilege</h3>
+<p>Every pipeline component runs with a dedicated IAM role restricted to the exact actions and resources it requires:</p>
+<ul>
+<li><strong><code>mobility-ingestion-role</code></strong>:</li>
+<li>Actions: <code>s3:PutObject</code> restricted to <code>arn:aws:s3:::mobility-data-lake/bronze/*</code></li>
+<li>Zero access to Silver, Gold, or production databases.</li>
+<li><strong><code>mobility-glue-etl-role</code></strong>:</li>
+<li>Actions: <code>s3:GetObject</code> on <code>bronze/*</code>, <code>s3:PutObject</code> on <code>silver/*</code>, <code>gold/*</code>, and <code>quarantine/*</code>.</li>
+<li>Permissions for Glue Data Catalog database management (<code>glue:GetDatabase</code>, <code>glue:CreateTable</code>, <code>glue:UpdateTable</code>).</li>
+<li><strong><code>mobility-analytics-role</code></strong> (Athena &amp; Redshift Spectrum):</li>
+<li>Read-only (<code>s3:GetObject</code>, <code>s3:ListBucket</code>) scoped exclusively to <code>silver/*</code> and <code>gold/*</code>.</li>
+<li>Explicit <code>Deny</code> on <code>bronze/*</code> and <code>quarantine/*</code>.</li>
+<li><strong><code>mobility-airflow-role</code></strong>:</li>
+<li>Permissions to trigger Glue Jobs, launch EMR steps, and trigger SQL queries, without direct S3 write access.</li>
+</ul>
+<h3 id="pillar-2-s3-bucket-security-prefix-policy">Pillar 2: S3 Bucket Security &amp; Prefix Policy</h3>
+<p>All data lake buckets enforce:
+1. <strong>Block Public Access</strong>: All 4 settings enabled (<code>BlockPublicAcls</code>, <code>IgnorePublicAcls</code>, <code>BlockPublicPolicy</code>, <code>RestrictPublicBuckets</code>).
+2. <strong>In-Transit Encryption Enforcement</strong>:
+   <div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">"Sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EnforceTLSRequestsOnly"</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deny"</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">"Principal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"s3:*"</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="s2">"arn:aws:s3:::mobility-data-lake"</span><span class="p">,</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="s2">"arn:aws:s3:::mobility-data-lake/*"</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="p">],</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="nt">"Condition"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nt">"Bool"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"aws:SecureTransport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="p">}</span>
+</span></code></pre></div>
+3. <strong>Prefix Isolation</strong>: Separate ACLs and lifecycle rules on <code>/bronze/</code>, <code>/silver/</code>, <code>/gold/</code>, and <code>/quarantine/</code>.</p>
+<h3 id="pillar-3-encryption-everywhere-rest-transit">Pillar 3: Encryption Everywhere (Rest &amp; Transit)</h3>
+<ul>
+<li><strong>At Rest</strong>:</li>
+<li>S3 Buckets: SSE-S3 (<code>AES256</code>) or AWS KMS Customer Managed Keys (<code>aws:kms</code>).</li>
+<li>Redshift &amp; RDS: Storage encryption enabled via AWS KMS.</li>
+<li>Glue Job Scratch: Glue security configuration enabled with local disk and shuffle data encryption.</li>
+<li><strong>In Transit</strong>:</li>
+<li>Enforce TLS 1.2+ for all AWS SDK calls, API calls, and JDBC/ODBC connections (<code>sslmode=require</code>).</li>
+</ul>
+<h3 id="pillar-4-pii-handling-masking-tokenization">Pillar 4: PII Handling, Masking &amp; Tokenization</h3>
+<ul>
+<li><strong>Bronze Layer</strong>: Retains raw records for auditability and backfill reproducibility, but access is restricted exclusively to ETL service roles.</li>
+<li><strong>Silver Layer</strong>:</li>
+<li><strong>Names</strong>: Scrubbed or transformed to initials.</li>
+<li><strong>Email</strong>: Masked (<code>j***@example.com</code>) or SHA-256 salted hash (<code>sha256(email + salt)</code>).</li>
+<li><strong>Phone Number</strong>: Redacted to last 4 digits (<code>+1-***-***-1234</code>).</li>
+<li><strong>Payment Data</strong>: PCI-DSS compliance — never store raw credit card numbers. Only store <code>payment_token</code>, <code>payment_method</code> (<code>CARD</code>, <code>UPI</code>, <code>WALLET</code>), and <code>card_last_four</code>.</li>
+<li><strong>Gold Layer</strong>:</li>
+<li>Dimensional models expose surrogate keys (<code>customer_key</code>, <code>driver_key</code>, <code>ride_key</code>) generated from deterministic hashing, completely removing raw identifiers from analyst tables.</li>
+</ul>
+<h3 id="pillar-5-database-level-access-control-rbac">Pillar 5: Database-Level Access Control &amp; RBAC</h3>
+<p>In PostgreSQL and Amazon Redshift, access is governed via dedicated database roles:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">-- 1. Create specialized roles</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">etl_writer</span><span class="p">;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">data_analyst</span><span class="p">;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">bi_reader</span><span class="p">;</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1">-- 2. Scoped permissions</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">GRANT</span><span class="w"> </span><span class="k">USAGE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">gold</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">data_analyst</span><span class="p">,</span><span class="w"> </span><span class="n">bi_reader</span><span class="p">;</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="n">TABLES</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">gold</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">data_analyst</span><span class="p">,</span><span class="w"> </span><span class="n">bi_reader</span><span class="p">;</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">silver</span><span class="p">,</span><span class="w"> </span><span class="n">gold</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">etl_writer</span><span class="p">;</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="c1">-- 3. Row-Level Security (RLS) for City Operations</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">gold</span><span class="p">.</span><span class="n">fact_rides</span><span class="w"> </span><span class="n">ENABLE</span><span class="w"> </span><span class="k">ROW</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">SECURITY</span><span class="p">;</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="n">city_ops_policy</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">gold</span><span class="p">.</span><span class="n">fact_rides</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="k">FOR</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">regional_analyst</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="k">USING</span><span class="w"> </span><span class="p">(</span><span class="n">city_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CURRENT_SETTING</span><span class="p">(</span><span class="s1">'app.current_city_id'</span><span class="p">));</span>
+</span></code></pre></div>
+<h3 id="pillar-6-glue-data-catalog-lineage">Pillar 6: Glue Data Catalog &amp; Lineage</h3>
+<ul>
+<li><strong>Central Catalog</strong>: Datasets registered in <code>mobility_bronze_db</code>, <code>mobility_silver_db</code>, and <code>mobility_gold_db</code>.</li>
+<li><strong>Partitioning &amp; Pruning</strong>: Partitioned by <code>city</code> and date (<code>year=YYYY/month=MM/day=DD</code>) to minimize Athena query scan costs.</li>
+<li><strong>Data Lineage</strong>: Transformation metadata attached to output datasets:</li>
+<li><code>_source_file_uri</code>: Location of source Bronze object.</li>
+<li><code>_pipeline_run_id</code>: Unique Airflow run ID.</li>
+<li><code>_processed_timestamp</code>: UTC timestamp of transformation.</li>
+</ul>
+<h3 id="pillar-7-data-quality-quarantine-dlq">Pillar 7: Data Quality &amp; Quarantine (DLQ)</h3>
+<ul>
+<li><strong>15+ Validation Rules</strong>: Enforced via Great Expectations or PySpark schema checks (e.g., <code>fare_amount &gt;= 0</code>, <code>distance_km &gt; 0</code>, <code>status IN ('COMPLETED', 'CANCELLED', 'FAILED')</code>).</li>
+<li><strong>Quarantine Routing</strong>: Records failing validation are filtered out and written to <code>s3://.../quarantine/{dataset}/dt=YYYY-MM-DD/</code> with error metadata:
+  <div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">"raw_record"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{...}"</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">"error_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INVALID_COORDINATES"</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">"error_message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pickup_latitude must be between -90 and 90"</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nt">"ingestion_timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-09-12T10:00:00Z"</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">}</span>
+</span></code></pre></div></li>
+</ul>
+<hr />
+<h2 id="3-advanced-additions-to-implement-next-level-upgrades">3. Advanced Additions to Implement (Next-Level Upgrades)</h2>
+<p>Beyond the 7 baseline steps, the following capabilities elevate the mobility platform to enterprise production grade:</p>
+<h3 id="1-geospatial-privacy-obfuscation-h3-hexagonal-indexing">1. Geospatial Privacy &amp; Obfuscation (H3 Hexagonal Indexing)</h3>
+<p><em>Why mobility needs it:</em> Exact GPS coordinates (latitude/longitude) of rider pickup and dropoff locations expose sensitive private locations (homes, workplaces, hospitals).<br />
+<em>Implementation:</em> In the Silver/Gold layer, convert raw <code>(pickup_latitude, pickup_longitude)</code> into <strong>Uber H3 spatial indices</strong> (e.g. resolution 7 ~1.2 km² or resolution 8 ~0.4 km²) or <strong>GeoHash</strong>.
+- Enables rich geospatial analytics (heatmaps, surge pricing zones, demand clustering).
+- Guarantees individual rider privacy by eliminating pinpoint residential tracking.</p>
+<h3 id="2-s3-lifecycle-tiering-cost-governance">2. S3 Lifecycle Tiering &amp; Cost Governance</h3>
+<p><em>Why it matters:</em> Storing millions of raw CSV files indefinitely in S3 Standard is expensive.
+<em>Implementation:</em> Automated S3 Lifecycle rules:
+- <code>bronze/</code>: Move to <strong>S3 Standard-IA</strong> after 30 days; transition to <strong>S3 Glacier Flexible Retrieval</strong> after 90 days.
+- <code>quarantine/</code>: Expire and delete bad records after 30 days (once reviewed/reprocessed).
+- <code>silver/</code> &amp; <code>gold/</code>: Retain in S3 Standard with Glacier tiering after 365 days.
+- Result: <strong>60–80% reduction in cloud storage expenditure</strong>.</p>
+<h3 id="3-automated-audit-logging-compliance-trails-cloudtrail-access-logs">3. Automated Audit Logging &amp; Compliance Trails (CloudTrail + Access Logs)</h3>
+<p><em>Implementation:</em>
+- Enable <strong>S3 Server Access Logging</strong> targeting a dedicated logging bucket <code>s3://mobility-audit-logs/</code>.
+- Enable <strong>AWS CloudTrail Data Events</strong> on the lakehouse bucket to capture every <code>GetObject</code>, <code>PutObject</code>, and <code>DeleteObject</code> API call with caller identity and IP.
+- Query audit logs via Athena to generate audit reports for GDPR, CCPA, or SOC-2 compliance.</p>
+<h3 id="4-secrets-management-zero-trust-credential-rotation">4. Secrets Management &amp; Zero-Trust Credential Rotation</h3>
+<p><em>Implementation:</em>
+- Store database credentials, Redshift admin passwords, and API keys in <strong>AWS Secrets Manager</strong> or <strong>AWS Systems Manager (SSM) Parameter Store</strong>.
+- Python and PySpark fetch secrets dynamically at runtime using IAM authentication, eliminating <code>.env</code> file vulnerability risks.
+- Automatic password rotation enabled on 30-day schedules.</p>
+<h3 id="5-automated-data-quality-anomaly-alerting">5. Automated Data Quality &amp; Anomaly Alerting</h3>
+<p><em>Implementation:</em>
+- Integrate Slack / Webhook / Amazon SNS alerting into Airflow DAG failure callbacks and Great Expectations validation checkpoints.
+- Alerts trigger when:
+  - Daily rejected record rate exceeds 5%.
+  - Total daily ride volume drops by &gt;30% compared to historical rolling 7-day average.
+  - Payment mismatch occurs between <code>fact_rides</code> and <code>fact_payments</code>.</p>
+<h3 id="6-end-to-end-lineage-with-openlineage-marquez">6. End-to-End Lineage with OpenLineage &amp; Marquez</h3>
+<p><em>Implementation:</em>
+- Embed OpenLineage listeners into Apache Airflow and PySpark jobs.
+- Visual lineage graph dynamically maps every column from:
+  <code>Raw CSV -&gt; Bronze S3 -&gt; Silver Parquet -&gt; Gold Star Schema -&gt; Redshift Marts -&gt; BI Dashboard</code>.
+- Immediate impact analysis: if a schema changes in raw rides, instantly see which dashboards will be affected.</p>
+<h3 id="7-dynamic-data-masking-ddm-column-level-security">7. Dynamic Data Masking (DDM) &amp; Column-Level Security</h3>
+<p><em>Implementation:</em>
+- In Amazon Redshift or PostgreSQL, define masking policies on columns like <code>driver_ssn_or_nid</code>, <code>rider_email</code>, and <code>payment_card_last_four</code>:
+  <div class="language-sql highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">-- Redshift Dynamic Data Masking example:</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">MASKING</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="n">mask_email_policy</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="n">val</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">256</span><span class="p">))</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">CASE</span><span class="w"> </span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="k">WHEN</span><span class="w"> </span><span class="n">pg_has_role</span><span class="p">(</span><span class="k">CURRENT_USER</span><span class="p">,</span><span class="w"> </span><span class="s1">'data_protection_officer'</span><span class="p">,</span><span class="w"> </span><span class="s1">'MEMBER'</span><span class="p">)</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">val</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="k">ELSE</span><span class="w"> </span><span class="n">REGEXP_REPLACE</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="s1">'(^.).*(@.*$)'</span><span class="p">,</span><span class="w"> </span><span class="s1">'\\1***\\2'</span><span class="p">)</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">END</span><span class="p">;</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="n">ATTACH</span><span class="w"> </span><span class="n">MASKING</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="n">mask_email_policy</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">gold</span><span class="p">.</span><span class="n">dim_customers</span><span class="p">(</span><span class="n">email</span><span class="p">);</span>
+</span></code></pre></div></p>
+<h3 id="8-synthetic-data-privacy-anonymity-validation">8. Synthetic Data Privacy &amp; Anonymity Validation</h3>
+<p><em>Implementation:</em>
+- Run differential privacy and k-anonymity validation checks on the synthetic data generator (<code>src/data_generator/</code>) to verify that generated data does not replicate real telephone numbers or existing customer identities.</p>
+<h3 id="9-infrastructure-as-code-terraform-cloudformation-security-baseline">9. Infrastructure-as-Code (Terraform / CloudFormation) Security Baseline</h3>
+<p><em>Implementation:</em>
+- Codify all IAM roles, S3 bucket policies, KMS keys, security groups, and Glue databases in Terraform (<code>infra/terraform/</code>).
+- Enforce peer code review and automated linting (<code>tflint</code>, <code>checkov</code>, <code>tfsec</code>) to guarantee zero security regressions.</p>
+<h3 id="10-automated-pre-commit-cicd-security-guardrails">10. Automated Pre-Commit &amp; CI/CD Security Guardrails</h3>
+<p><em>Implementation:</em>
+- Integrate <strong>Trufflehog</strong> or <strong>GitGuardian</strong> in pre-commit hooks to block accidental secret commits.
+- Run <strong>Bandit</strong> (Python AST static security linter) and <strong>Safety</strong> (vulnerable dependencies checker) in GitHub Actions on every pull request.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
