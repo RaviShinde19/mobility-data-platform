@@ -51,7 +51,48 @@ graph TD
     class Spark,Athena,Redshift compute;
 ```
 
-## Current Phase: Phase 1 — Data Generation
+## Phase 2 Database Schema (ERD)
+
+```mermaid
+erDiagram
+    CUSTOMERS ||--o{ RIDES : "requests"
+    DRIVERS ||--o{ RIDES : "drives"
+    RIDES ||--o| PAYMENTS : "paid via"
+
+    CUSTOMERS {
+        varchar customer_id PK
+        varchar email UK
+        boolean is_active
+    }
+    DRIVERS {
+        varchar driver_id PK
+        varchar license_number UK
+        decimal rating
+    }
+    RIDES {
+        varchar ride_id PK
+        varchar customer_id FK
+        varchar driver_id FK
+        decimal fare
+        varchar ride_status
+    }
+    PAYMENTS {
+        varchar payment_id PK
+        varchar ride_id FK
+        decimal amount
+        varchar payment_status
+    }
+```
+
+### Access Control (RBAC)
+
+| Role | Access Level | Purpose |
+|------|-------------|---------|
+| `etl_writer` | **Full (Read/Write)** | Used by Python pipelines to load and modify data |
+| `data_analyst` | **Read-Only** | Used by Analysts to query raw tables for reporting |
+| `bi_reader` | **Views Only** | Used by BI tools (No direct access to raw PII data) |
+
+## Current Phase: Phase 2 — PostgreSQL Local Store
 
 ### Quick Start
 
@@ -63,8 +104,12 @@ venv\Scripts\activate        # Windows
 # 2. Install dependencies
 pip install -r requirements.txt
 
-# 3. Generate data
+# 3. Phase 1: Generate synthetic data
 python main.py generate
+
+# 4. Phase 2: Start PostgreSQL & Load Data (Docker required)
+docker compose -f docker/docker-compose.yml up -d
+python main.py load-postgres
 
 # 4. Run tests
 pytest tests/ -v
@@ -92,18 +137,14 @@ You can view the live documentation here: [https://RaviShinde19.github.io/mobili
 ```
 mobility-platform/
 ├── config/config.yaml           # All configurable parameters
+├── docker/                      # Phase 2: PostgreSQL infrastructure
+├── sql/                         # Phase 2: DDL and Queries
+├── docs/                        # MkDocs documentation
 ├── src/
 │   ├── data_generator/          # Phase 1: Synthetic data generation
-│   │   ├── generator.py         # Orchestrator
-│   │   ├── customers.py         # Customer generator
-│   │   ├── drivers.py           # Driver generator
-│   │   ├── rides.py             # Ride generator
-│   │   └── payments.py          # Payment generator
-│   ├── utils/
-│   │   ├── config_loader.py     # YAML config management
-│   │   └── logger.py            # Logging setup
-│   └── models/
-│       └── schemas.py           # Data schemas (dataclasses)
+│   ├── database/                # Phase 2: Database connections and loading
+│   ├── utils/                   # Shared utilities (logging, config)
+│   └── models/                  # Data schemas (dataclasses)
 ├── data/raw/                    # Generated data output
 ├── tests/                       # Test suite
 ├── main.py                      # CLI entry point
@@ -113,7 +154,7 @@ mobility-platform/
 ## Phases
 
 - [x] **Phase 1**: Project Setup & Data Generation
-- [ ] **Phase 2**: PostgreSQL — Local Relational Store
+- [x] **Phase 2**: PostgreSQL — Local Relational Store
 - [ ] **Phase 3**: Amazon S3 — Bronze Layer Ingestion
 - [ ] **Phase 4**: PySpark — Bronze → Silver Transformations
 - [ ] **Phase 5**: PySpark — Silver → Gold (Dimensional Model)
