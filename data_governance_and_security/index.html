@@ -645,6 +645,53 @@
   
   
   
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase Walkthroughs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Phase Walkthroughs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="../phase1_walkthrough/" class="md-nav__link">
         
@@ -653,7 +700,7 @@
   <span class="md-ellipsis">
     
   
-    Phase 1 Walkthrough
+    Phase 1 — Data Generation
   
 
     
@@ -662,6 +709,70 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase2_planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 2 — PostgreSQL Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase2_walkthrough/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 2 — PostgreSQL Walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -941,13 +1052,13 @@
 
 
 
-<h1 id="data-governance-security-architecture-mobility-platform">Data Governance &amp; Security Architecture — Mobility Platform</h1>
+<h1 id="data-governance-security-architecture-mobility-platform">Data Governance &amp; Security Architecture — Mobility Platform<a class="headerlink" href="#data-governance-security-architecture-mobility-platform" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Status</strong>: Active Project Directive &amp; Architecture Blueprint<br />
 <strong>Applicability</strong>: Enforced across all pipeline layers (Bronze, Silver, Gold, Ingestion, Storage, Processing, Warehouse, Orchestration)</p>
 </blockquote>
 <hr />
-<h2 id="1-executive-summary-core-rules">1. Executive Summary &amp; Core Rules</h2>
+<h2 id="1-executive-summary-core-rules">1. Executive Summary &amp; Core Rules<a class="headerlink" href="#1-executive-summary-core-rules" title="Permanent link">&para;</a></h2>
 <p>Data governance sets the policies, data quality rules, lineage, and catalogs; data security provides the technical enforcement (encryption, least-privilege access, PII protection, and network isolation).</p>
 <p>In this mobility platform (processing 14M+ records across Customers, Drivers, Rides, and Payments), governance and security are embedded into every layer of our medallion lakehouse.</p>
 <pre class="mermaid"><code>flowchart TD
@@ -979,8 +1090,8 @@
     GLUE -.-&gt; LINEAGE
     GLUE -.-&gt; QUALITY</code></pre>
 <hr />
-<h2 id="2-the-7-foundational-pillars-implemented-in-the-mobility-project">2. The 7 Foundational Pillars (Implemented in the Mobility Project)</h2>
-<h3 id="pillar-1-aws-iam-fundamentals-least-privilege">Pillar 1: AWS IAM Fundamentals &amp; Least Privilege</h3>
+<h2 id="2-the-7-foundational-pillars-implemented-in-the-mobility-project">2. The 7 Foundational Pillars (Implemented in the Mobility Project)<a class="headerlink" href="#2-the-7-foundational-pillars-implemented-in-the-mobility-project" title="Permanent link">&para;</a></h2>
+<h3 id="pillar-1-aws-iam-fundamentals-least-privilege">Pillar 1: AWS IAM Fundamentals &amp; Least Privilege<a class="headerlink" href="#pillar-1-aws-iam-fundamentals-least-privilege" title="Permanent link">&para;</a></h3>
 <p>Every pipeline component runs with a dedicated IAM role restricted to the exact actions and resources it requires:</p>
 <ul>
 <li><strong><code>mobility-ingestion-role</code></strong>:</li>
@@ -995,26 +1106,26 @@
 <li><strong><code>mobility-airflow-role</code></strong>:</li>
 <li>Permissions to trigger Glue Jobs, launch EMR steps, and trigger SQL queries, without direct S3 write access.</li>
 </ul>
-<h3 id="pillar-2-s3-bucket-security-prefix-policy">Pillar 2: S3 Bucket Security &amp; Prefix Policy</h3>
+<h3 id="pillar-2-s3-bucket-security-prefix-policy">Pillar 2: S3 Bucket Security &amp; Prefix Policy<a class="headerlink" href="#pillar-2-s3-bucket-security-prefix-policy" title="Permanent link">&para;</a></h3>
 <p>All data lake buckets enforce:
 1. <strong>Block Public Access</strong>: All 4 settings enabled (<code>BlockPublicAcls</code>, <code>IgnorePublicAcls</code>, <code>BlockPublicPolicy</code>, <code>RestrictPublicBuckets</code>).
 2. <strong>In-Transit Encryption Enforcement</strong>:
    <div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">"Sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EnforceTLSRequestsOnly"</span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deny"</span><span class="p">,</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">"Principal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span><span class="p">,</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"s3:*"</span><span class="p">,</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="s2">"arn:aws:s3:::mobility-data-lake"</span><span class="p">,</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="s2">"arn:aws:s3:::mobility-data-lake/*"</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;Sid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EnforceTLSRequestsOnly&quot;</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Deny&quot;</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">&quot;Principal&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;s3:*&quot;</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="s2">&quot;arn:aws:s3:::mobility-data-lake&quot;</span><span class="p">,</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="s2">&quot;arn:aws:s3:::mobility-data-lake/*&quot;</span>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="p">],</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="nt">"Condition"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nt">"Bool"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"aws:SecureTransport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="nt">&quot;Condition&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nt">&quot;Bool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;aws:SecureTransport&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;false&quot;</span><span class="w"> </span><span class="p">}</span>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="p">}</span>
 </span></code></pre></div>
 3. <strong>Prefix Isolation</strong>: Separate ACLs and lifecycle rules on <code>/bronze/</code>, <code>/silver/</code>, <code>/gold/</code>, and <code>/quarantine/</code>.</p>
-<h3 id="pillar-3-encryption-everywhere-rest-transit">Pillar 3: Encryption Everywhere (Rest &amp; Transit)</h3>
+<h3 id="pillar-3-encryption-everywhere-rest-transit">Pillar 3: Encryption Everywhere (Rest &amp; Transit)<a class="headerlink" href="#pillar-3-encryption-everywhere-rest-transit" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>At Rest</strong>:</li>
 <li>S3 Buckets: SSE-S3 (<code>AES256</code>) or AWS KMS Customer Managed Keys (<code>aws:kms</code>).</li>
@@ -1023,7 +1134,7 @@
 <li><strong>In Transit</strong>:</li>
 <li>Enforce TLS 1.2+ for all AWS SDK calls, API calls, and JDBC/ODBC connections (<code>sslmode=require</code>).</li>
 </ul>
-<h3 id="pillar-4-pii-handling-masking-tokenization">Pillar 4: PII Handling, Masking &amp; Tokenization</h3>
+<h3 id="pillar-4-pii-handling-masking-tokenization">Pillar 4: PII Handling, Masking &amp; Tokenization<a class="headerlink" href="#pillar-4-pii-handling-masking-tokenization" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Bronze Layer</strong>: Retains raw records for auditability and backfill reproducibility, but access is restricted exclusively to ETL service roles.</li>
 <li><strong>Silver Layer</strong>:</li>
@@ -1034,7 +1145,7 @@
 <li><strong>Gold Layer</strong>:</li>
 <li>Dimensional models expose surrogate keys (<code>customer_key</code>, <code>driver_key</code>, <code>ride_key</code>) generated from deterministic hashing, completely removing raw identifiers from analyst tables.</li>
 </ul>
-<h3 id="pillar-5-database-level-access-control-rbac">Pillar 5: Database-Level Access Control &amp; RBAC</h3>
+<h3 id="pillar-5-database-level-access-control-rbac">Pillar 5: Database-Level Access Control &amp; RBAC<a class="headerlink" href="#pillar-5-database-level-access-control-rbac" title="Permanent link">&para;</a></h3>
 <p>In PostgreSQL and Amazon Redshift, access is governed via dedicated database roles:</p>
 <div class="language-sql highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">-- 1. Create specialized roles</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">etl_writer</span><span class="p">;</span>
@@ -1052,9 +1163,9 @@
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
 </span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="n">city_ops_policy</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">gold</span><span class="p">.</span><span class="n">fact_rides</span>
 </span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="k">FOR</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">regional_analyst</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="k">USING</span><span class="w"> </span><span class="p">(</span><span class="n">city_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CURRENT_SETTING</span><span class="p">(</span><span class="s1">'app.current_city_id'</span><span class="p">));</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="k">USING</span><span class="w"> </span><span class="p">(</span><span class="n">city_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CURRENT_SETTING</span><span class="p">(</span><span class="s1">&#39;app.current_city_id&#39;</span><span class="p">));</span>
 </span></code></pre></div>
-<h3 id="pillar-6-glue-data-catalog-lineage">Pillar 6: Glue Data Catalog &amp; Lineage</h3>
+<h3 id="pillar-6-glue-data-catalog-lineage">Pillar 6: Glue Data Catalog &amp; Lineage<a class="headerlink" href="#pillar-6-glue-data-catalog-lineage" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Central Catalog</strong>: Datasets registered in <code>mobility_bronze_db</code>, <code>mobility_silver_db</code>, and <code>mobility_gold_db</code>.</li>
 <li><strong>Partitioning &amp; Pruning</strong>: Partitioned by <code>city</code> and date (<code>year=YYYY/month=MM/day=DD</code>) to minimize Athena query scan costs.</li>
@@ -1063,77 +1174,77 @@
 <li><code>_pipeline_run_id</code>: Unique Airflow run ID.</li>
 <li><code>_processed_timestamp</code>: UTC timestamp of transformation.</li>
 </ul>
-<h3 id="pillar-7-data-quality-quarantine-dlq">Pillar 7: Data Quality &amp; Quarantine (DLQ)</h3>
+<h3 id="pillar-7-data-quality-quarantine-dlq">Pillar 7: Data Quality &amp; Quarantine (DLQ)<a class="headerlink" href="#pillar-7-data-quality-quarantine-dlq" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>15+ Validation Rules</strong>: Enforced via Great Expectations or PySpark schema checks (e.g., <code>fare_amount &gt;= 0</code>, <code>distance_km &gt; 0</code>, <code>status IN ('COMPLETED', 'CANCELLED', 'FAILED')</code>).</li>
 <li><strong>Quarantine Routing</strong>: Records failing validation are filtered out and written to <code>s3://.../quarantine/{dataset}/dt=YYYY-MM-DD/</code> with error metadata:
   <div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">"raw_record"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{...}"</span><span class="p">,</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">"error_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INVALID_COORDINATES"</span><span class="p">,</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">"error_message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pickup_latitude must be between -90 and 90"</span><span class="p">,</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nt">"ingestion_timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-09-12T10:00:00Z"</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;raw_record&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{...}&quot;</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">&quot;error_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INVALID_COORDINATES&quot;</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">&quot;error_message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pickup_latitude must be between -90 and 90&quot;</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nt">&quot;ingestion_timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-09-12T10:00:00Z&quot;</span>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">}</span>
 </span></code></pre></div></li>
 </ul>
 <hr />
-<h2 id="3-advanced-additions-to-implement-next-level-upgrades">3. Advanced Additions to Implement (Next-Level Upgrades)</h2>
+<h2 id="3-advanced-additions-to-implement-next-level-upgrades">3. Advanced Additions to Implement (Next-Level Upgrades)<a class="headerlink" href="#3-advanced-additions-to-implement-next-level-upgrades" title="Permanent link">&para;</a></h2>
 <p>Beyond the 7 baseline steps, the following capabilities elevate the mobility platform to enterprise production grade:</p>
-<h3 id="1-geospatial-privacy-obfuscation-h3-hexagonal-indexing">1. Geospatial Privacy &amp; Obfuscation (H3 Hexagonal Indexing)</h3>
+<h3 id="1-geospatial-privacy-obfuscation-h3-hexagonal-indexing">1. Geospatial Privacy &amp; Obfuscation (H3 Hexagonal Indexing)<a class="headerlink" href="#1-geospatial-privacy-obfuscation-h3-hexagonal-indexing" title="Permanent link">&para;</a></h3>
 <p><em>Why mobility needs it:</em> Exact GPS coordinates (latitude/longitude) of rider pickup and dropoff locations expose sensitive private locations (homes, workplaces, hospitals).<br />
 <em>Implementation:</em> In the Silver/Gold layer, convert raw <code>(pickup_latitude, pickup_longitude)</code> into <strong>Uber H3 spatial indices</strong> (e.g. resolution 7 ~1.2 km² or resolution 8 ~0.4 km²) or <strong>GeoHash</strong>.
 - Enables rich geospatial analytics (heatmaps, surge pricing zones, demand clustering).
 - Guarantees individual rider privacy by eliminating pinpoint residential tracking.</p>
-<h3 id="2-s3-lifecycle-tiering-cost-governance">2. S3 Lifecycle Tiering &amp; Cost Governance</h3>
+<h3 id="2-s3-lifecycle-tiering-cost-governance">2. S3 Lifecycle Tiering &amp; Cost Governance<a class="headerlink" href="#2-s3-lifecycle-tiering-cost-governance" title="Permanent link">&para;</a></h3>
 <p><em>Why it matters:</em> Storing millions of raw CSV files indefinitely in S3 Standard is expensive.
 <em>Implementation:</em> Automated S3 Lifecycle rules:
 - <code>bronze/</code>: Move to <strong>S3 Standard-IA</strong> after 30 days; transition to <strong>S3 Glacier Flexible Retrieval</strong> after 90 days.
 - <code>quarantine/</code>: Expire and delete bad records after 30 days (once reviewed/reprocessed).
 - <code>silver/</code> &amp; <code>gold/</code>: Retain in S3 Standard with Glacier tiering after 365 days.
 - Result: <strong>60–80% reduction in cloud storage expenditure</strong>.</p>
-<h3 id="3-automated-audit-logging-compliance-trails-cloudtrail-access-logs">3. Automated Audit Logging &amp; Compliance Trails (CloudTrail + Access Logs)</h3>
+<h3 id="3-automated-audit-logging-compliance-trails-cloudtrail-access-logs">3. Automated Audit Logging &amp; Compliance Trails (CloudTrail + Access Logs)<a class="headerlink" href="#3-automated-audit-logging-compliance-trails-cloudtrail-access-logs" title="Permanent link">&para;</a></h3>
 <p><em>Implementation:</em>
 - Enable <strong>S3 Server Access Logging</strong> targeting a dedicated logging bucket <code>s3://mobility-audit-logs/</code>.
 - Enable <strong>AWS CloudTrail Data Events</strong> on the lakehouse bucket to capture every <code>GetObject</code>, <code>PutObject</code>, and <code>DeleteObject</code> API call with caller identity and IP.
 - Query audit logs via Athena to generate audit reports for GDPR, CCPA, or SOC-2 compliance.</p>
-<h3 id="4-secrets-management-zero-trust-credential-rotation">4. Secrets Management &amp; Zero-Trust Credential Rotation</h3>
+<h3 id="4-secrets-management-zero-trust-credential-rotation">4. Secrets Management &amp; Zero-Trust Credential Rotation<a class="headerlink" href="#4-secrets-management-zero-trust-credential-rotation" title="Permanent link">&para;</a></h3>
 <p><em>Implementation:</em>
 - Store database credentials, Redshift admin passwords, and API keys in <strong>AWS Secrets Manager</strong> or <strong>AWS Systems Manager (SSM) Parameter Store</strong>.
 - Python and PySpark fetch secrets dynamically at runtime using IAM authentication, eliminating <code>.env</code> file vulnerability risks.
 - Automatic password rotation enabled on 30-day schedules.</p>
-<h3 id="5-automated-data-quality-anomaly-alerting">5. Automated Data Quality &amp; Anomaly Alerting</h3>
+<h3 id="5-automated-data-quality-anomaly-alerting">5. Automated Data Quality &amp; Anomaly Alerting<a class="headerlink" href="#5-automated-data-quality-anomaly-alerting" title="Permanent link">&para;</a></h3>
 <p><em>Implementation:</em>
 - Integrate Slack / Webhook / Amazon SNS alerting into Airflow DAG failure callbacks and Great Expectations validation checkpoints.
 - Alerts trigger when:
   - Daily rejected record rate exceeds 5%.
   - Total daily ride volume drops by &gt;30% compared to historical rolling 7-day average.
   - Payment mismatch occurs between <code>fact_rides</code> and <code>fact_payments</code>.</p>
-<h3 id="6-end-to-end-lineage-with-openlineage-marquez">6. End-to-End Lineage with OpenLineage &amp; Marquez</h3>
+<h3 id="6-end-to-end-lineage-with-openlineage-marquez">6. End-to-End Lineage with OpenLineage &amp; Marquez<a class="headerlink" href="#6-end-to-end-lineage-with-openlineage-marquez" title="Permanent link">&para;</a></h3>
 <p><em>Implementation:</em>
 - Embed OpenLineage listeners into Apache Airflow and PySpark jobs.
 - Visual lineage graph dynamically maps every column from:
   <code>Raw CSV -&gt; Bronze S3 -&gt; Silver Parquet -&gt; Gold Star Schema -&gt; Redshift Marts -&gt; BI Dashboard</code>.
 - Immediate impact analysis: if a schema changes in raw rides, instantly see which dashboards will be affected.</p>
-<h3 id="7-dynamic-data-masking-ddm-column-level-security">7. Dynamic Data Masking (DDM) &amp; Column-Level Security</h3>
+<h3 id="7-dynamic-data-masking-ddm-column-level-security">7. Dynamic Data Masking (DDM) &amp; Column-Level Security<a class="headerlink" href="#7-dynamic-data-masking-ddm-column-level-security" title="Permanent link">&para;</a></h3>
 <p><em>Implementation:</em>
 - In Amazon Redshift or PostgreSQL, define masking policies on columns like <code>driver_ssn_or_nid</code>, <code>rider_email</code>, and <code>payment_card_last_four</code>:
   <div class="language-sql highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">-- Redshift Dynamic Data Masking example:</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">MASKING</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="n">mask_email_policy</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="n">val</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">256</span><span class="p">))</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">CASE</span><span class="w"> </span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="k">WHEN</span><span class="w"> </span><span class="n">pg_has_role</span><span class="p">(</span><span class="k">CURRENT_USER</span><span class="p">,</span><span class="w"> </span><span class="s1">'data_protection_officer'</span><span class="p">,</span><span class="w"> </span><span class="s1">'MEMBER'</span><span class="p">)</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">val</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="k">ELSE</span><span class="w"> </span><span class="n">REGEXP_REPLACE</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="s1">'(^.).*(@.*$)'</span><span class="p">,</span><span class="w"> </span><span class="s1">'\\1***\\2'</span><span class="p">)</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="k">WHEN</span><span class="w"> </span><span class="n">pg_has_role</span><span class="p">(</span><span class="k">CURRENT_USER</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;data_protection_officer&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;MEMBER&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">val</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="k">ELSE</span><span class="w"> </span><span class="n">REGEXP_REPLACE</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;(^.).*(@.*$)&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;\\1***\\2&#39;</span><span class="p">)</span>
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">END</span><span class="p">;</span>
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="n">ATTACH</span><span class="w"> </span><span class="n">MASKING</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="n">mask_email_policy</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">gold</span><span class="p">.</span><span class="n">dim_customers</span><span class="p">(</span><span class="n">email</span><span class="p">);</span>
 </span></code></pre></div></p>
-<h3 id="8-synthetic-data-privacy-anonymity-validation">8. Synthetic Data Privacy &amp; Anonymity Validation</h3>
+<h3 id="8-synthetic-data-privacy-anonymity-validation">8. Synthetic Data Privacy &amp; Anonymity Validation<a class="headerlink" href="#8-synthetic-data-privacy-anonymity-validation" title="Permanent link">&para;</a></h3>
 <p><em>Implementation:</em>
 - Run differential privacy and k-anonymity validation checks on the synthetic data generator (<code>src/data_generator/</code>) to verify that generated data does not replicate real telephone numbers or existing customer identities.</p>
-<h3 id="9-infrastructure-as-code-terraform-cloudformation-security-baseline">9. Infrastructure-as-Code (Terraform / CloudFormation) Security Baseline</h3>
+<h3 id="9-infrastructure-as-code-terraform-cloudformation-security-baseline">9. Infrastructure-as-Code (Terraform / CloudFormation) Security Baseline<a class="headerlink" href="#9-infrastructure-as-code-terraform-cloudformation-security-baseline" title="Permanent link">&para;</a></h3>
 <p><em>Implementation:</em>
 - Codify all IAM roles, S3 bucket policies, KMS keys, security groups, and Glue databases in Terraform (<code>infra/terraform/</code>).
 - Enforce peer code review and automated linting (<code>tflint</code>, <code>checkov</code>, <code>tfsec</code>) to guarantee zero security regressions.</p>
-<h3 id="10-automated-pre-commit-cicd-security-guardrails">10. Automated Pre-Commit &amp; CI/CD Security Guardrails</h3>
+<h3 id="10-automated-pre-commit-cicd-security-guardrails">10. Automated Pre-Commit &amp; CI/CD Security Guardrails<a class="headerlink" href="#10-automated-pre-commit-cicd-security-guardrails" title="Permanent link">&para;</a></h3>
 <p><em>Implementation:</em>
 - Integrate <strong>Trufflehog</strong> or <strong>GitGuardian</strong> in pre-commit hooks to block accidental secret commits.
 - Run <strong>Bandit</strong> (Python AST static security linter) and <strong>Safety</strong> (vulnerable dependencies checker) in GitHub Actions on every pull request.</p>
