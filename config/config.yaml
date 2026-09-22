@@ -10,6 +10,16 @@ project:
   version: "1.0.0"
   environment: "development"          # development | staging | production
 
+# ── Database (Phase 2) ──────────────────────────────────────
+# Non-sensitive defaults only. Password MUST come from env vars
+# or docker/.env (AGENTS.md Rule 1: Zero Hardcoded Secrets)
+database:
+  host: "localhost"
+  port: 5432
+  dbname: "mobility_db"
+  user: "mobility_admin"
+  # password: loaded from POSTGRES_PASSWORD env var (never in config)
+
 # ── Data Generation ──────────────────────────────────────────
 data_generation:
   # Volume controls — adjust these to scale up/down

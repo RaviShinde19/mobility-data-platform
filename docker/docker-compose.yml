@@ -1,0 +1,50 @@
+# ──────────────────────────────────────────────────────────────
+# Mobility Data Platform — PostgreSQL (Phase 2)
+# ──────────────────────────────────────────────────────────────
+# Usage:
+#   docker compose -f docker/docker-compose.yml up -d      Start
+#   docker compose -f docker/docker-compose.yml down        Stop
+#   docker compose -f docker/docker-compose.yml down -v     Stop + delete data
+# ──────────────────────────────────────────────────────────────
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: mobility-postgres
+    restart: unless-stopped
+
+    # Credentials loaded from .env file (never hardcoded)
+    env_file:
+      - .env
+
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-mobility_db}
+      POSTGRES_USER: ${POSTGRES_USER:-mobility_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set in docker/.env}
+
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+
+    volumes:
+      # Named volume — data persists across container restarts
+      # Delete with: docker compose down -v
+      - pgdata:/var/lib/postgresql/data
+
+    # Health check — tells Docker (and us) when PostgreSQL is actually
+    # ready to accept connections, not just "container started"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-mobility_admin} -d ${POSTGRES_DB:-mobility_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+    # Resource limits — prevent runaway queries from eating all RAM
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+volumes:
+  pgdata:
+    name: mobility-pgdata

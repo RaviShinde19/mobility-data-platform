@@ -20,8 +20,9 @@ env/
 *.swp
 *.swo
 
-# Environment variables
+# Environment variables (credentials — NEVER commit these)
 .env
+docker/.env
 
 # Data files (generated — don't commit large datasets)
 data/raw/**/*.csv
@@ -48,3 +49,9 @@ docker/pgdata/
 .agents/
 AGENTS.md
 GEMINI.md
+
+# Local Scripts
+docs.bat
+
+# MkDocs
+site/

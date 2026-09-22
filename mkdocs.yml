@@ -28,9 +28,22 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.magiclink
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.mark
+  - pymdownx.keys
   - tables
   - admonition
   - pymdownx.details
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
 
 nav:
   - Home: index.md
@@ -38,4 +51,9 @@ nav:
   - Data Dictionary: data_dictionary.md
   - Governance & Security: data_governance_and_security.md
   - Metrics Reference: v1_v2_metrics_reference.md
-  - Phase 1 Walkthrough: phase1_walkthrough.md
+  - Phase Walkthroughs:
+    - Phase 1 — Data Generation: phase1_walkthrough.md
+    - Phase 2 — PostgreSQL Planning: phase2_planning.md
+    - Phase 2 — PostgreSQL Walkthrough: phase2_walkthrough.md
+    - Phase 2 — Complete Guide: phase2_complete_guide.md
+
