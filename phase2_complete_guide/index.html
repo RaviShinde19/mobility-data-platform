@@ -1,0 +1,2518 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A comprehensive chronological record of how Phase 2 was built, with architecture reasoning, code deep-dives, and a learning syllabus.">
+      
+      
+      
+      
+        <link rel="prev" href="../phase2_walkthrough/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Phase 2 — Complete Technical & Educational Documentation - Mobility Data Platform</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#phase-2-complete-technical-educational-documentation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mobility Data Platform" class="md-header__button md-logo" aria-label="Mobility Data Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mobility Data Platform
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Phase 2 — Complete Technical & Educational Documentation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mobility Data Platform" class="md-nav__button md-logo" aria-label="Mobility Data Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mobility Data Platform
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../implementation_plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_dictionary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Dictionary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_governance_and_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governance & Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v1_v2_metrics_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metrics Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase Walkthroughs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Phase Walkthroughs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase1_walkthrough/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 1 — Data Generation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase2_planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 2 — PostgreSQL Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase2_walkthrough/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 2 — PostgreSQL Walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 2 — Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 2 — Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-the-why-architecture-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1: The "Why" — Architecture &amp; Logic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1: The &#34;Why&#34; — Architecture &amp; Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-what-problem-are-we-solving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 What Problem Are We Solving?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-why-postgresql-decision-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Why PostgreSQL? (Decision Matrix)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-the-dependency-dag-why-build-order-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 The Dependency DAG — Why Build Order Matters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-the-staging-pattern-core-etl-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 The Staging Pattern — Core ETL Concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-the-developer-journey-chronological" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2: The Developer Journey (Chronological)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2: The Developer Journey (Chronological)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-1-installing-the-python-dependency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 1: Installing the Python Dependency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-2-docker-compose-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 2: Docker Compose + Credentials
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Journey Step 2: Docker Compose + Credentials">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-dockerdocker-composeyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File: docker/docker-compose.yml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-dockerenvexample-committed-to-git-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File: docker/.env.example (committed to git — template)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-dockerenv-gitignored-your-actual-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File: docker/.env (gitignored — your actual password)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updated-gitignore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updated: .gitignore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terminal-commands-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terminal commands run:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-3-sql-ddl-defining-table-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 3: SQL DDL — Defining Table Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-4-python-connection-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 4: Python Connection Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-5-schema-creation-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 5: Schema Creation Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-6-data-loader-module-the-biggest-hardest-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 6: Data Loader Module (The Biggest, Hardest File)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-7-rbac-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 7: RBAC Roles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-8-sample-analytical-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 8: Sample Analytical Queries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-9-cli-integration-mainpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 9: CLI Integration (main.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-10-integration-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 10: Integration Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-11-bug-fixes-during-the-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 11: Bug Fixes During the Process
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-infrastructure-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 3: Infrastructure &amp; Connections
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 3: Infrastructure &amp; Connections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-all-files-talk-to-each-other" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How All Files Talk to Each Other
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-outside-learning-syllabus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 4: Outside Learning Syllabus
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 4: Outside Learning Syllabus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tier-1-essential-must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tier 1: Essential (Must Know)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tier-2-important-should-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tier 2: Important (Should Know)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tier-3-advanced-good-to-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tier 3: Advanced (Good to Know)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-line-skills-to-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command-Line Skills to Practice
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-the-why-architecture-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1: The "Why" — Architecture &amp; Logic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1: The &#34;Why&#34; — Architecture &amp; Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-what-problem-are-we-solving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 What Problem Are We Solving?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-why-postgresql-decision-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Why PostgreSQL? (Decision Matrix)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-the-dependency-dag-why-build-order-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 The Dependency DAG — Why Build Order Matters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-the-staging-pattern-core-etl-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 The Staging Pattern — Core ETL Concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-the-developer-journey-chronological" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2: The Developer Journey (Chronological)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2: The Developer Journey (Chronological)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-1-installing-the-python-dependency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 1: Installing the Python Dependency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-2-docker-compose-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 2: Docker Compose + Credentials
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Journey Step 2: Docker Compose + Credentials">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-dockerdocker-composeyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File: docker/docker-compose.yml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-dockerenvexample-committed-to-git-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File: docker/.env.example (committed to git — template)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-dockerenv-gitignored-your-actual-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File: docker/.env (gitignored — your actual password)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updated-gitignore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updated: .gitignore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terminal-commands-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terminal commands run:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-3-sql-ddl-defining-table-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 3: SQL DDL — Defining Table Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-4-python-connection-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 4: Python Connection Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-5-schema-creation-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 5: Schema Creation Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-6-data-loader-module-the-biggest-hardest-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 6: Data Loader Module (The Biggest, Hardest File)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-7-rbac-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 7: RBAC Roles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-8-sample-analytical-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 8: Sample Analytical Queries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-9-cli-integration-mainpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 9: CLI Integration (main.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-10-integration-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 10: Integration Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-step-11-bug-fixes-during-the-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Journey Step 11: Bug Fixes During the Process
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-infrastructure-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 3: Infrastructure &amp; Connections
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 3: Infrastructure &amp; Connections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-all-files-talk-to-each-other" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How All Files Talk to Each Other
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-outside-learning-syllabus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 4: Outside Learning Syllabus
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 4: Outside Learning Syllabus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tier-1-essential-must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tier 1: Essential (Must Know)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tier-2-important-should-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tier 2: Important (Should Know)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tier-3-advanced-good-to-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tier 3: Advanced (Good to Know)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-line-skills-to-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command-Line Skills to Practice
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="phase-2-complete-technical-educational-documentation"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3C7.58 3 4 4.79 4 7s3.58 4 8 4 8-1.79 8-4-3.58-4-8-4M4 9v3c0 2.21 3.58 4 8 4s8-1.79 8-4V9c0 2.21-3.58 4-8 4s-8-1.79-8-4m0 5v3c0 2.21 3.58 4 8 4s8-1.79 8-4v-3c0 2.21-3.58 4-8 4s-8-1.79-8-4"/></svg></span> Phase 2 — Complete Technical &amp; Educational Documentation<a class="headerlink" href="#phase-2-complete-technical-educational-documentation" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Purpose</strong>: After studying this document, you should be able to rebuild Phase 2 entirely on your own — from an empty folder to 52 passing tests — without any help.</p>
+<p><strong>Reading time</strong>: ~45 minutes (but worth every minute)</p>
+</blockquote>
+<hr />
+<h2 id="part-1-the-why-architecture-logic"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.33 12.91c.09 1.55-.62 3.04-1.89 3.95l.77 1.49c.23.45.26.98.06 1.45-.19.47-.58.84-1.06 1l-.79.25a1.687 1.687 0 0 1-1.86-.55L14.44 18c-.89-.15-1.73-.53-2.44-1.1-.5.15-1 .23-1.5.23-.88 0-1.76-.27-2.5-.79-.53.16-1.07.23-1.62.22-.79.01-1.57-.15-2.3-.45a4.1 4.1 0 0 1-2.43-3.61c-.08-.72.04-1.45.35-2.11-.29-.75-.32-1.57-.07-2.33C2.3 7.11 3 6.32 3.87 5.82c.58-1.69 2.21-2.82 4-2.7 1.6-1.5 4.05-1.66 5.83-.37.42-.11.86-.17 1.3-.17 1.36-.03 2.65.57 3.5 1.64 2.04.53 3.5 2.35 3.58 4.47.05 1.11-.25 2.2-.86 3.13.07.36.11.72.11 1.09m-5-1.41c.57.07 1.02.5 1.02 1.07a1 1 0 0 1-1 1h-.63c-.32.9-.88 1.69-1.62 2.29.25.09.51.14.77.21 5.13-.07 4.53-3.2 4.53-3.25a2.59 2.59 0 0 0-2.69-2.49 1 1 0 0 1-1-1 1 1 0 0 1 1-1c1.23.03 2.41.49 3.33 1.3.05-.29.08-.59.08-.89-.06-1.24-.62-2.32-2.87-2.53-1.25-2.96-4.4-1.32-4.4-.4-.03.23.21.72.25.75a1 1 0 0 1 1 1c0 .55-.45 1-1 1-.53-.02-1.03-.22-1.43-.56-.48.31-1.03.5-1.6.56-.57.05-1.04-.35-1.07-.9a.97.97 0 0 1 .88-1.1c.16-.02.94-.14.94-.77 0-.66.25-1.29.68-1.79-.92-.25-1.91.08-2.91 1.29C6.75 5 6 5.25 5.45 7.2 4.5 7.67 4 8 3.78 9c1.08-.22 2.19-.13 3.22.25.5.19.78.75.59 1.29-.19.52-.77.78-1.29.59-.73-.32-1.55-.34-2.3-.06-.32.27-.32.83-.32 1.27 0 .74.37 1.43 1 1.83.53.27 1.12.41 1.71.4q-.225-.39-.39-.81a1.038 1.038 0 0 1 1.96-.68c.4 1.14 1.42 1.92 2.62 2.05 1.37-.07 2.59-.88 3.19-2.13.23-1.38 1.34-1.5 2.56-1.5m2 7.47-.62-1.3-.71.16 1 1.25zm-4.65-8.61a1 1 0 0 0-.91-1.03c-.71-.04-1.4.2-1.93.67-.57.58-.87 1.38-.84 2.19a1 1 0 0 0 1 1c.57 0 1-.45 1-1 0-.27.07-.54.23-.76.12-.1.27-.15.43-.15.55.03 1.02-.38 1.02-.92"/></svg></span> Part 1: The "Why" — Architecture &amp; Logic<a class="headerlink" href="#part-1-the-why-architecture-logic" title="Permanent link">&para;</a></h2>
+<h3 id="11-what-problem-are-we-solving">1.1 What Problem Are We Solving?<a class="headerlink" href="#11-what-problem-are-we-solving" title="Permanent link">&para;</a></h3>
+<p>After Phase 1, our data lives in <strong>flat CSV files</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>data/raw/
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── customers/customers.csv    → 1,000 rows
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── drivers/drivers.csv        → 500 rows
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── rides/rides.csv            → 10,000 rows
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>└── payments/payments.csv      → 7,965 rows
+</span></code></pre></div>
+<p>These CSVs have <strong>zero enforcement</strong>. The <code>fare</code> column could contain the word <code>"banana"</code> and the file wouldn't complain. A <code>customer_id</code> could point to a person who doesn't exist. There's no way to query across tables efficiently.</p>
+<p><strong>We need a relational database</strong> to solve three critical problems:</p>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>CSV Reality</th>
+<th>Database Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>No type safety</strong></td>
+<td><code>fare</code> is just a string</td>
+<td><code>fare DECIMAL(10,2)</code> — must be a number</td>
+</tr>
+<tr>
+<td><strong>No referential integrity</strong></td>
+<td>A ride can reference <code>customer_id = "XXXXX"</code> (doesn't exist)</td>
+<td>Foreign Key rejects it</td>
+</tr>
+<tr>
+<td><strong>No query engine</strong></td>
+<td>Finding "average fare in Mumbai" requires a Python script</td>
+<td>One SQL query: <code>SELECT AVG(fare) FROM rides WHERE pickup_city = 'Mumbai'</code></td>
+</tr>
+<tr>
+<td><strong>No access control</strong></td>
+<td>Anyone can open/edit the CSV</td>
+<td>RBAC: analysts can read, only ETL can write</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12-why-postgresql-decision-matrix">1.2 Why PostgreSQL? (Decision Matrix)<a class="headerlink" href="#12-why-postgresql-decision-matrix" title="Permanent link">&para;</a></h3>
+<p>Before writing any code, I evaluated three options:</p>
+<table>
+<thead>
+<tr>
+<th>Criteria</th>
+<th style="text-align: center;">PostgreSQL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.45 4.73L5.82 21z"/></svg></span></th>
+<th style="text-align: center;">SQLite</th>
+<th style="text-align: center;">MySQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RBAC (roles/permissions)</td>
+<td style="text-align: center;">✅ Full RBAC</td>
+<td style="text-align: center;">❌ None</td>
+<td style="text-align: center;">⚠️ Basic</td>
+</tr>
+<tr>
+<td>COPY bulk loading</td>
+<td style="text-align: center;">✅ Native</td>
+<td style="text-align: center;">❌ No</td>
+<td style="text-align: center;">⚠️ LOAD DATA</td>
+</tr>
+<tr>
+<td>Same SQL as Redshift (Phase 9)</td>
+<td style="text-align: center;">✅ Yes</td>
+<td style="text-align: center;">❌ No</td>
+<td style="text-align: center;">❌ No</td>
+</tr>
+<tr>
+<td>CHECK constraints</td>
+<td style="text-align: center;">✅ Enforced</td>
+<td style="text-align: center;">⚠️ Parsed but ignored</td>
+<td style="text-align: center;">⚠️ Partial</td>
+</tr>
+<tr>
+<td>Setup complexity</td>
+<td style="text-align: center;">Docker needed</td>
+<td style="text-align: center;">Zero setup</td>
+<td style="text-align: center;">Docker needed</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Verdict</strong>: PostgreSQL wins because skills transfer directly to Phase 9 (AWS Redshift uses PostgreSQL's SQL dialect). SQLite has zero RBAC. MySQL uses a different SQL dialect.</p>
+<h3 id="13-the-dependency-dag-why-build-order-matters">1.3 The Dependency DAG — Why Build Order Matters<a class="headerlink" href="#13-the-dependency-dag-why-build-order-matters" title="Permanent link">&para;</a></h3>
+<p>Before touching any file, I mapped out what depends on what:</p>
+<pre class="mermaid"><code>graph TD
+    A["1. docker-compose.yml&lt;br/&gt;(PostgreSQL exists)"] --&gt; B["3. connection.py&lt;br/&gt;(Python can talk to DB)"]
+    C["2. create_tables.sql&lt;br/&gt;(just a file, no deps)"] --&gt; D["4. schema.py&lt;br/&gt;(executes DDL via connection)"]
+    B --&gt; D
+    D --&gt; E["5. loader.py&lt;br/&gt;(needs tables to exist)"]
+    B --&gt; E
+    F["6. create_roles.sql&lt;br/&gt;(just a file, no deps)"] --&gt; G["7. schema.py → create_roles()&lt;br/&gt;(executes RBAC via connection)"]
+    B --&gt; G
+    E --&gt; H["8. main.py&lt;br/&gt;(orchestrates everything)"]
+    D --&gt; H
+    G --&gt; H
+    H --&gt; I["9. test_database.py&lt;br/&gt;(verifies everything)"]
+
+    style A fill:#E53935,color:#fff,stroke:none
+    style B fill:#FB8C00,color:#fff,stroke:none
+    style C fill:#43A047,color:#fff,stroke:none
+    style D fill:#1E88E5,color:#fff,stroke:none
+    style E fill:#8E24AA,color:#fff,stroke:none
+    style F fill:#43A047,color:#fff,stroke:none
+    style G fill:#1E88E5,color:#fff,stroke:none
+    style H fill:#00897B,color:#fff,stroke:none
+    style I fill:#6D4C41,color:#fff,stroke:none</code></pre>
+<div class="admonition danger">
+<p class="admonition-title">Golden Rule</p>
+<p>You CANNOT build things out of order. <code>loader.py</code> needs <code>connection.py</code> (for database access) and <code>schema.py</code> (tables must exist before loading). If you try to write the loader first, you'll have nothing to test against.</p>
+</div>
+<h3 id="14-the-staging-pattern-core-etl-concept">1.4 The Staging Pattern — Core ETL Concept<a class="headerlink" href="#14-the-staging-pattern-core-etl-concept" title="Permanent link">&para;</a></h3>
+<p>This is the most important architectural decision in Phase 2.</p>
+<p><strong>The Problem</strong>: PostgreSQL's <code>COPY</code> command is all-or-nothing. If you COPY 10,000 rows and row #5,001 has a negative fare, the <strong>entire COPY fails</strong>. Zero rows loaded. 9,999 good rows wasted.</p>
+<p><strong>The Solution</strong>: A temporary "staging" table with no constraints:</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant CSV as CSV File&lt;br/&gt;(10,000 rows)
+    participant STG as Staging Table&lt;br/&gt;(no constraints)
+    participant FIN as Final Table&lt;br/&gt;(all constraints)
+    participant REJ as Rejection Log
+
+    CSV-&gt;&gt;STG: COPY all 10,000 rows (accepts everything)
+    Note over STG: All 10,000 rows are now in staging
+    STG-&gt;&gt;FIN: INSERT INTO final SELECT * WHERE constraints pass
+    Note over FIN: ~9,780 valid rows inserted
+    STG-&gt;&gt;REJ: Log: "220 rows rejected — negative distance, orphan FK"
+    STG-&gt;&gt;STG: DROP staging table (cleanup)</code></pre>
+<p><strong>Why not just INSERT row-by-row and skip bad ones?</strong> Speed.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th style="text-align: center;">10,000 rows</th>
+<th style="text-align: center;">1,000,000 rows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INSERT one-by-one</td>
+<td style="text-align: center;">~20 seconds</td>
+<td style="text-align: center;">~2,000 seconds (33 min)</td>
+</tr>
+<tr>
+<td>COPY + staging</td>
+<td style="text-align: center;">~0.5 seconds</td>
+<td style="text-align: center;">~10 seconds</td>
+</tr>
+</tbody>
+</table>
+<p>The staging pattern gives you the speed of COPY with the flexibility of row-level filtering.</p>
+<hr />
+<h2 id="part-2-the-developer-journey-chronological"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 2v6H2V2zM2 22v-6h2v6zm3-10c0 1.11-.89 2-2 2a2 2 0 1 1 2-2m19-6v12c0 1.11-.89 2-2 2H10a2 2 0 0 1-2-2v-4l-2-2 2-2V6a2 2 0 0 1 2-2h12c1.11 0 2 .89 2 2"/></svg></span> Part 2: The Developer Journey (Chronological)<a class="headerlink" href="#part-2-the-developer-journey-chronological" title="Permanent link">&para;</a></h2>
+<p>This is the exact sequence of what was done, in the exact order. Each step builds on the previous one.</p>
+<hr />
+<h3 id="journey-step-1-installing-the-python-dependency">Journey Step 1: Installing the Python Dependency<a class="headerlink" href="#journey-step-1-installing-the-python-dependency" title="Permanent link">&para;</a></h3>
+<p><strong>Timestamp</strong>: Before any files were created</p>
+<p><strong>What I did</strong>: Added <code>psycopg2-binary</code> to <code>requirements.txt</code> and installed it.</p>
+<p><strong>Why this came first</strong>: You can't import <code>psycopg2</code> in Python code if it's not installed. Every file we're about to write (<code>connection.py</code>, <code>schema.py</code>, <code>loader.py</code>) imports this library.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Added to requirements.txt:</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>psycopg2-binary<span class="o">==</span><span class="m">2</span>.9.10
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Then installed:</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>.<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ip.exe<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Why <code>psycopg2-binary</code> and not <code>psycopg2</code>?</p>
+<p><code>psycopg2</code> compiles from C source code — requires PostgreSQL development headers on your machine (painful on Windows). <code>psycopg2-binary</code> ships pre-compiled. Identical API, zero compile hassle.</p>
+</div>
+<hr />
+<h3 id="journey-step-2-docker-compose-credentials">Journey Step 2: Docker Compose + Credentials<a class="headerlink" href="#journey-step-2-docker-compose-credentials" title="Permanent link">&para;</a></h3>
+<p><strong>Files created</strong>: <code>docker/docker-compose.yml</code>, <code>docker/.env</code>, <code>docker/.env.example</code></p>
+<p><strong>Why this came second</strong>: We need a running PostgreSQL instance before we can test ANY Python code. Docker is the infrastructure foundation.</p>
+<p><strong>What I navigated</strong>: Created the <code>docker/</code> directory (it didn't exist yet).</p>
+<h4 id="file-dockerdocker-composeyml">File: <code>docker/docker-compose.yml</code><a class="headerlink" href="#file-dockerdocker-composeyml" title="Permanent link">&para;</a></h4>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">services</span><span class="p">:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">postgres</span><span class="p">:</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres:16-alpine</span><span class="w">           </span><span class="c1"># [1]</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mobility-postgres</span><span class="w">    </span><span class="c1"># [2]</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unless-stopped</span><span class="w">              </span><span class="c1"># [3]</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nt">env_file</span><span class="p">:</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env</span><span class="w">                            </span><span class="c1"># [4]</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">      </span><span class="nt">POSTGRES_DB</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${POSTGRES_DB:-mobility_db}</span><span class="w">           </span><span class="c1"># [5]</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">      </span><span class="nt">POSTGRES_USER</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${POSTGRES_USER:-mobility_admin}</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">      </span><span class="nt">POSTGRES_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set in docker/.env}</span><span class="w">  </span><span class="c1"># [6]</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"${POSTGRES_PORT:-5432}:5432"</span><span class="w">    </span><span class="c1"># [7]</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pgdata:/var/lib/postgresql/data</span><span class="w">  </span><span class="c1"># [8]</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span><span class="w">                         </span><span class="c1"># [9]</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"CMD-SHELL"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"pg_isready</span><span class="nv"> </span><span class="s">-U</span><span class="nv"> </span><span class="s">${POSTGRES_USER:-mobility_admin}</span><span class="nv"> </span><span class="s">-d</span><span class="nv"> </span><span class="s">${POSTGRES_DB:-mobility_db}"</span><span class="p p-Indicator">]</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">      </span><span class="nt">start_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">    </span><span class="nt">deploy</span><span class="p">:</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">        </span><span class="nt">limits</span><span class="p">:</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512M</span><span class="w">                   </span><span class="c1"># [10]</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="nt">volumes</span><span class="p">:</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="w">  </span><span class="nt">pgdata</span><span class="p">:</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mobility-pgdata</span><span class="w">               </span><span class="c1"># [11]</span>
+</span></code></pre></div>
+<p><strong>Line-by-line explanation:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Line</th>
+<th>Code</th>
+<th>What it does</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">[1]</td>
+<td><code>postgres:16-alpine</code></td>
+<td>Uses PostgreSQL 16 on Alpine Linux</td>
+<td>Alpine is ~80MB vs ~400MB for full image. Version 16 matches Redshift's dialect.</td>
+</tr>
+<tr>
+<td style="text-align: center;">[2]</td>
+<td><code>container_name: mobility-postgres</code></td>
+<td>Gives the container a readable name</td>
+<td>So <code>docker ps</code> shows <code>mobility-postgres</code>, not <code>random-hex-abc123</code></td>
+</tr>
+<tr>
+<td style="text-align: center;">[3]</td>
+<td><code>restart: unless-stopped</code></td>
+<td>Auto-restarts if it crashes</td>
+<td>Unless you explicitly ran <code>docker compose down</code></td>
+</tr>
+<tr>
+<td style="text-align: center;">[4]</td>
+<td><code>env_file: .env</code></td>
+<td>Reads password from <code>.env</code> file</td>
+<td>AGENTS.md Rule 1: zero hardcoded secrets</td>
+</tr>
+<tr>
+<td style="text-align: center;">[5]</td>
+<td><code>${POSTGRES_DB:-mobility_db}</code></td>
+<td>Uses env var, defaults to <code>mobility_db</code></td>
+<td>The <code>:-</code> syntax means "use default if not set"</td>
+</tr>
+<tr>
+<td style="text-align: center;">[6]</td>
+<td><code>${POSTGRES_PASSWORD:?...must be set}</code></td>
+<td>FAILS if password not set</td>
+<td>The <code>:?</code> syntax means "error if not set" — prevents running without a password</td>
+</tr>
+<tr>
+<td style="text-align: center;">[7]</td>
+<td><code>5432:5432</code></td>
+<td>Maps laptop port 5432 → container port 5432</td>
+<td>Left is YOUR machine, right is INSIDE the container</td>
+</tr>
+<tr>
+<td style="text-align: center;">[8]</td>
+<td><code>pgdata:/var/lib/postgresql/data</code></td>
+<td>Stores database files in a Docker volume</td>
+<td>Without this, <code>docker compose down</code> DELETES all your data</td>
+</tr>
+<tr>
+<td style="text-align: center;">[9]</td>
+<td><code>healthcheck: pg_isready</code></td>
+<td>Checks if PostgreSQL is actually accepting connections</td>
+<td>Container "running" ≠ PostgreSQL "ready". It takes 2-3 seconds to initialize.</td>
+</tr>
+<tr>
+<td style="text-align: center;">[10]</td>
+<td><code>memory: 512M</code></td>
+<td>Limits RAM usage to 512MB</td>
+<td>Prevents a runaway query from eating all your laptop's memory</td>
+</tr>
+<tr>
+<td style="text-align: center;">[11]</td>
+<td><code>name: mobility-pgdata</code></td>
+<td>Names the volume</td>
+<td>So <code>docker volume ls</code> shows a readable name</td>
+</tr>
+</tbody>
+</table>
+<h4 id="file-dockerenvexample-committed-to-git-template">File: <code>docker/.env.example</code> (committed to git — template)<a class="headerlink" href="#file-dockerenvexample-committed-to-git-template" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nv">POSTGRES_DB</span><span class="o">=</span>mobility_db
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nv">POSTGRES_USER</span><span class="o">=</span>mobility_admin
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span>CHANGE_ME_TO_A_REAL_PASSWORD
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nv">POSTGRES_PORT</span><span class="o">=</span><span class="m">5432</span>
+</span></code></pre></div>
+<h4 id="file-dockerenv-gitignored-your-actual-password">File: <code>docker/.env</code> (gitignored — your actual password)<a class="headerlink" href="#file-dockerenv-gitignored-your-actual-password" title="Permanent link">&para;</a></h4>
+<p>Same structure but with a real password. This file is in <code>.gitignore</code> so it never goes to GitHub.</p>
+<h4 id="updated-gitignore">Updated: <code>.gitignore</code><a class="headerlink" href="#updated-gitignore" title="Permanent link">&para;</a></h4>
+<p>Added <code>docker/.env</code> to prevent accidentally committing secrets.</p>
+<h4 id="terminal-commands-run">Terminal commands run:<a class="headerlink" href="#terminal-commands-run" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Start PostgreSQL</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker/docker-compose.yml<span class="w"> </span>up<span class="w"> </span>-d
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Verify it's running and healthy</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker/docker-compose.yml<span class="w"> </span>ps
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1"># → mobility-postgres   running (healthy)</span>
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Bug Encountered: Docker Hub Timeout</p>
+<p><strong>Error</strong>: Image download timed out on standard Wi-Fi.
+<strong>Root cause</strong>: Indian ISPs sometimes throttle Docker Hub connections.
+<strong>Fix</strong>: Switched to mobile hotspot. Also configured Google DNS (<code>8.8.8.8</code>) in Docker Desktop settings.
+<strong>Lesson</strong>: Network issues are the #1 DevOps headache. Always have fallback DNS and mirrors.</p>
+</div>
+<hr />
+<h3 id="journey-step-3-sql-ddl-defining-table-structure">Journey Step 3: SQL DDL — Defining Table Structure<a class="headerlink" href="#journey-step-3-sql-ddl-defining-table-structure" title="Permanent link">&para;</a></h3>
+<p><strong>File created</strong>: <code>sql/ddl/create_tables.sql</code></p>
+<p><strong>Why this came third</strong>: PostgreSQL is now running (Step 2), but it's an empty database. We need to define the SHAPE of our tables before writing any Python loading code.</p>
+<p><strong>Why pure SQL, not Python strings?</strong></p>
+<ul>
+<li>SQL files get syntax highlighting in your editor</li>
+<li>A DBA can review the SQL without knowing Python</li>
+<li>Same SQL can be run directly via <code>psql</code> for debugging</li>
+<li>Industry standard: DDL lives in <code>sql/ddl/</code> directories</li>
+</ul>
+<p><strong>Table creation order matters (DAG again):</strong></p>
+<pre class="mermaid"><code>graph LR
+    C["1. customers&lt;br/&gt;(no FK deps)"] --&gt; R["3. rides&lt;br/&gt;(FK → customers, drivers)"]
+    D["2. drivers&lt;br/&gt;(no FK deps)"] --&gt; R
+    R --&gt; P["4. payments&lt;br/&gt;(FK → rides, customers)"]
+
+    style C fill:#43A047,color:#fff,stroke:none
+    style D fill:#43A047,color:#fff,stroke:none
+    style R fill:#FB8C00,color:#fff,stroke:none
+    style P fill:#E53935,color:#fff,stroke:none</code></pre>
+<p>If <code>rides</code> is defined BEFORE <code>customers</code>, PostgreSQL will error:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ERROR: relation "customers" does not exist
+</span></code></pre></div>
+Because <code>REFERENCES customers(customer_id)</code> points to a table that doesn't exist yet.</p>
+<p><strong>Key SQL constructs explained:</strong></p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">customers</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="n">customer_id</span><span class="w">     </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w">     </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">     </span><span class="c1">-- [A]</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">first_name</span><span class="w">      </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w">    </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">        </span><span class="c1">-- [B]</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="n">email</span><span class="w">           </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="w">    </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="n">signup_date</span><span class="w">     </span><span class="nb">DATE</span><span class="w">            </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="n">is_active</span><span class="w">       </span><span class="nb">BOOLEAN</span><span class="w">         </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">TRUE</span><span class="p">,</span><span class="w">  </span><span class="c1">-- [C]</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">uq_customer_email</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w"> </span><span class="p">(</span><span class="n">email</span><span class="p">)</span><span class="w">      </span><span class="c1">-- [D]</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="p">);</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">idx_customers_city</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">customers</span><span class="p">(</span><span class="n">city</span><span class="p">);</span><span class="w">  </span><span class="c1">-- [E]</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Tag</th>
+<th>Concept</th>
+<th>What it does</th>
+<th>Real-world analogy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">[A]</td>
+<td><code>PRIMARY KEY</code></td>
+<td>Unique identifier for each row. No NULLs, no duplicates.</td>
+<td>Your Aadhaar number — unique to you</td>
+</tr>
+<tr>
+<td style="text-align: center;">[B]</td>
+<td><code>NOT NULL</code></td>
+<td>This column MUST have a value. Cannot be empty.</td>
+<td>A required field on a form</td>
+</tr>
+<tr>
+<td style="text-align: center;">[C]</td>
+<td><code>DEFAULT TRUE</code></td>
+<td>If no value is provided, use <code>TRUE</code></td>
+<td>A checkbox that starts checked</td>
+</tr>
+<tr>
+<td style="text-align: center;">[D]</td>
+<td><code>UNIQUE</code></td>
+<td>No two rows can have the same email</td>
+<td>You can't register twice with the same email</td>
+</tr>
+<tr>
+<td style="text-align: center;">[E]</td>
+<td><code>INDEX</code></td>
+<td>Creates a lookup structure for fast queries</td>
+<td>A book's index vs reading every page</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The rides table — where constraints get serious:</strong></p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">rides</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="c1">-- Foreign Keys: ride must reference REAL customer and driver</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">fk_rides_customer</span><span class="w"> </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">customer_id</span><span class="p">)</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">        </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">customers</span><span class="p">(</span><span class="n">customer_id</span><span class="p">),</span><span class="w">           </span><span class="c1">-- [F]</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="c1">-- Data validation: catch bad source data</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">chk_ride_distance</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">distance_km</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span><span class="w">  </span><span class="c1">-- [G]</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">chk_ride_fare</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">fare</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">chk_surge</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">surge_multiplier</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">chk_ride_status</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">        </span><span class="n">ride_status</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'completed'</span><span class="p">,</span><span class="w"> </span><span class="s1">'cancelled'</span><span class="p">,</span><span class="w"> </span><span class="s1">'ongoing'</span><span class="p">,</span><span class="w"> </span><span class="s1">'no_show'</span><span class="p">)</span><span class="w">  </span><span class="c1">-- [H]</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="p">);</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Tag</th>
+<th>Concept</th>
+<th>What it does</th>
+<th>Why we need it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">[F]</td>
+<td><code>FOREIGN KEY</code></td>
+<td><code>customer_id</code> must exist in the <code>customers</code> table</td>
+<td>Prevents "ghost rides" for non-existent customers</td>
+</tr>
+<tr>
+<td style="text-align: center;">[G]</td>
+<td><code>CHECK</code></td>
+<td><code>distance_km</code> must be ≥ 0</td>
+<td>Our Phase 1 data has ~200 intentional negative distances — this catches them</td>
+</tr>
+<tr>
+<td style="text-align: center;">[H]</td>
+<td><code>IN (...)</code></td>
+<td>Status must be one of 4 known values</td>
+<td>Prevents typos like "completd" from entering the database</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Summary of what this DDL creates:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th style="text-align: center;">Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tables</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr>
+<td>Primary Keys</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr>
+<td>Foreign Keys</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr>
+<td>CHECK constraints</td>
+<td style="text-align: center;">8</td>
+</tr>
+<tr>
+<td>UNIQUE constraints</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr>
+<td>Indexes</td>
+<td style="text-align: center;">13</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="journey-step-4-python-connection-module">Journey Step 4: Python Connection Module<a class="headerlink" href="#journey-step-4-python-connection-module" title="Permanent link">&para;</a></h3>
+<p><strong>File created</strong>: <code>src/database/connection.py</code></p>
+<p><strong>Why this came fourth</strong>: We need Python to TALK to PostgreSQL. This module is the bridge. Every other module (<code>schema.py</code>, <code>loader.py</code>) will import from this file.</p>
+<p><strong>Also created</strong>: <code>src/database/__init__.py</code> (empty file that tells Python "this is a package")</p>
+<p><strong>Concept: Context Manager</strong> (First Encounter)</p>
+<p>A context manager is Python's way of saying "do this, and when you're done (even if there's an error), automatically clean up."</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># WITHOUT context manager — DANGEROUS</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">"localhost"</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"SELECT * FROM nonexistent_table"</span><span class="p">)</span>  <span class="c1"># 💥 Error!</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># ❌ This line NEVER runs. Connection leaked!</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="c1"># WITH context manager — SAFE</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="k">with</span> <span class="n">get_connection</span><span class="p">()</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    <span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"SELECT * FROM nonexistent_table"</span><span class="p">)</span>  <span class="c1"># 💥 Error!</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="c1"># ✅ conn.close() runs AUTOMATICALLY, even after the error</span>
+</span></code></pre></div>
+<p><strong>Real-world analogy</strong>: A context manager is like a hotel's automatic door. You walk in (the <code>with</code> block starts), do your business, and when you walk out (the block ends — even if you trip and fall), the door closes itself. You never have to worry about leaving it open.</p>
+<p><strong>The code, block by block:</strong></p>
+<p><strong>Block 1: Loading credentials (the priority chain)</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">load_dotenv</span><span class="p">(</span><span class="n">dotenv_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="s1">'docker'</span><span class="p">,</span> <span class="s1">'.env'</span><span class="p">))</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">_get_db_config</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigLoader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">db_config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"database"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    <span class="k">return</span> <span class="p">{</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>        <span class="s2">"host"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"POSTGRES_HOST"</span><span class="p">,</span> <span class="n">db_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"host"</span><span class="p">,</span> <span class="s2">"localhost"</span><span class="p">)),</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>        <span class="s2">"port"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"POSTGRES_PORT"</span><span class="p">,</span> <span class="n">db_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"port"</span><span class="p">,</span> <span class="mi">5432</span><span class="p">))),</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>        <span class="s2">"dbname"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"POSTGRES_DB"</span><span class="p">,</span> <span class="n">db_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"dbname"</span><span class="p">,</span> <span class="s2">"mobility_db"</span><span class="p">)),</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>        <span class="s2">"user"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"POSTGRES_USER"</span><span class="p">,</span> <span class="n">db_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"user"</span><span class="p">,</span> <span class="s2">"mobility_admin"</span><span class="p">)),</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>        <span class="s2">"password"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"POSTGRES_PASSWORD"</span><span class="p">,</span> <span class="n">db_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"password"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)),</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>    <span class="p">}</span>
+</span></code></pre></div>
+<p><strong>What this does step by step:</strong></p>
+<ol>
+<li><code>load_dotenv()</code> reads <code>docker/.env</code> and puts <code>POSTGRES_PASSWORD=xxx</code> into the process environment</li>
+<li><code>os.getenv("POSTGRES_PASSWORD", ...)</code> checks: is there an environment variable? If yes, use it. If no, fall back to <code>config.yaml</code>.</li>
+<li>Priority: <strong>Environment variable</strong> &gt; <strong>config.yaml</strong> &gt; <strong>hardcoded default</strong></li>
+</ol>
+<p><strong>Why this priority chain?</strong></p>
+<ul>
+<li>On your laptop: <code>docker/.env</code> provides the password via <code>load_dotenv()</code></li>
+<li>In Docker/CI: The orchestrator sets <code>POSTGRES_PASSWORD</code> as a real env var</li>
+<li>The code works in BOTH environments without any changes</li>
+</ul>
+<p><strong>Block 2: The <code>get_connection()</code> context manager</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nd">@contextmanager</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_connection</span><span class="p">(</span><span class="n">autocommit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="n">conn</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>        <span class="n">conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="p">)</span>   <span class="c1"># Open the door</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        <span class="n">conn</span><span class="o">.</span><span class="n">autocommit</span> <span class="o">=</span> <span class="n">autocommit</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        <span class="k">yield</span> <span class="n">conn</span>                           <span class="c1"># Hand it to the caller</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    <span class="k">except</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">OperationalError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to connect: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>        <span class="k">raise</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>        <span class="k">if</span> <span class="n">conn</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">conn</span><span class="o">.</span><span class="n">closed</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">autocommit</span><span class="p">:</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>            <span class="n">conn</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>                  <span class="c1"># Undo any partial work</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>        <span class="k">raise</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>    <span class="k">finally</span><span class="p">:</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>        <span class="k">if</span> <span class="n">conn</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">conn</span><span class="o">.</span><span class="n">closed</span><span class="p">:</span>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>            <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>                     <span class="c1"># Always close the door</span>
+</span></code></pre></div>
+<p><strong>What <code>yield</code> does</strong> (First Encounter):</p>
+<p><code>yield</code> pauses the function and gives control back to the caller. When the caller is done, execution returns here.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>1. Caller says:   with get_connection() as conn:
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>2. get_connection: Opens connection, reaches `yield conn`
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>3. get_connection: PAUSES. Gives `conn` to the caller.
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>4. Caller:        Uses conn to run queries...
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>5. Caller:        Exits the `with` block
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>6. get_connection: RESUMES at `finally:`, closes connection
+</span></code></pre></div>
+<p><strong>What <code>autocommit</code> means:</strong></p>
+<ul>
+<li><code>autocommit=False</code> (default): Changes are tentative. You must call <code>conn.commit()</code> to make them permanent. If something fails, you <code>conn.rollback()</code> to undo everything. <strong>Used for data loading</strong> — if row 5000 fails, you want to undo rows 1-4999.</li>
+<li><code>autocommit=True</code>: Every statement is immediately permanent. <strong>Used for DDL</strong> (CREATE TABLE) because PostgreSQL doesn't allow rolling back DDL anyway.</li>
+</ul>
+<p><strong>Block 3: The <code>test_connection()</code> health check</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_connection</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>        <span class="k">with</span> <span class="n">get_connection</span><span class="p">()</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>            <span class="k">with</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cur</span><span class="p">:</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>                <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"SELECT version();"</span><span class="p">)</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>                <span class="k">return</span> <span class="kc">True</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>        <span class="k">return</span> <span class="kc">False</span>
+</span></code></pre></div>
+<p>Simple: try to connect and run <code>SELECT version()</code>. If it works → <code>True</code>. If anything fails → <code>False</code>. This is used by <code>main.py</code> and <code>test_database.py</code> to gracefully handle "Docker not running".</p>
+<hr />
+<h3 id="journey-step-5-schema-creation-module">Journey Step 5: Schema Creation Module<a class="headerlink" href="#journey-step-5-schema-creation-module" title="Permanent link">&para;</a></h3>
+<p><strong>File created</strong>: <code>src/database/schema.py</code></p>
+<p><strong>Why this came fifth</strong>: <code>connection.py</code> (Step 4) gives us database access. <code>create_tables.sql</code> (Step 3) has the DDL. This module reads one and executes via the other.</p>
+<p><strong>What <code>schema.py</code> does:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>1. Find the SQL file:  sql/ddl/create_tables.sql
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>2. Read it as a string: ddl_sql = f.read()
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>3. Connect to PostgreSQL: with get_connection(autocommit=True) as conn:
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>4. Execute the SQL: cur.execute(ddl_sql)
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>5. Report what happened: "Created 4 new tables" or "4 tables already existed"
+</span></code></pre></div>
+<p><strong>Key function: <code>create_tables()</code></strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">create_tables</span><span class="p">(</span><span class="n">sql_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    <span class="c1"># Get tables BEFORE running DDL</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="n">existing_before</span> <span class="o">=</span> <span class="n">_get_existing_tables</span><span class="p">()</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="c1"># Execute the DDL</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    <span class="k">with</span> <span class="n">get_connection</span><span class="p">(</span><span class="n">autocommit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>        <span class="k">with</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cur</span><span class="p">:</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>            <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">ddl_sql</span><span class="p">)</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>    <span class="c1"># Get tables AFTER running DDL</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>    <span class="n">existing_after</span> <span class="o">=</span> <span class="n">_get_existing_tables</span><span class="p">()</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>    <span class="c1"># Difference = what was newly created</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>    <span class="n">new_tables</span> <span class="o">=</span> <span class="n">existing_after</span> <span class="o">-</span> <span class="n">existing_before</span>
+</span></code></pre></div>
+<p><strong>Why check before AND after?</strong> So we can report: "Created <code>customers</code>, <code>drivers</code>" vs "All 4 tables already existed." This makes the output informative on both first run and re-runs.</p>
+<p><strong>Why <code>autocommit=True</code> for DDL?</strong>
+PostgreSQL auto-commits DDL statements (CREATE TABLE) regardless. They can't be rolled back. Making it explicit prevents confusion.</p>
+<p><strong>Key function: <code>drop_all_tables()</code></strong> — For the <code>--reset</code> flag</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">tables_to_drop</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"payments"</span><span class="p">,</span> <span class="s2">"rides"</span><span class="p">,</span> <span class="s2">"drivers"</span><span class="p">,</span> <span class="s2">"customers"</span><span class="p">]</span>
+</span></code></pre></div>
+<p>Notice the <strong>reverse order</strong>: payments first, customers last. Why?</p>
+<ul>
+<li>You can't DROP <code>customers</code> while <code>rides</code> still has a FOREIGN KEY referencing it</li>
+<li>PostgreSQL would say: <code>ERROR: cannot drop table "customers" because other objects depend on it</code></li>
+<li>So we drop the dependents first: payments → rides → drivers → customers</li>
+</ul>
+<p>This is the <strong>reverse of the creation order</strong>. Creation goes leaf→root. Deletion goes root→leaf.</p>
+<hr />
+<h3 id="journey-step-6-data-loader-module-the-biggest-hardest-file">Journey Step 6: Data Loader Module (The Biggest, Hardest File)<a class="headerlink" href="#journey-step-6-data-loader-module-the-biggest-hardest-file" title="Permanent link">&para;</a></h3>
+<p><strong>File created</strong>: <code>src/database/loader.py</code> (436 lines — the largest file in Phase 2)</p>
+<p><strong>Why this came sixth</strong>: Tables exist (Step 5). Connection works (Step 4). Now we fill the tables with CSV data.</p>
+<p><strong>Architecture: The <code>_load_table()</code> function</strong></p>
+<p>This is the heart of the loader. Every table goes through the same 6-step pipeline:</p>
+<pre class="mermaid"><code>graph TD
+    A["Step 1: CREATE staging table&lt;br/&gt;(no constraints)"] --&gt; B["Step 2: COPY csv → staging&lt;br/&gt;(fast bulk load)"]
+    B --&gt; C["Step 3: Count rejection reasons&lt;br/&gt;(for reporting)"]
+    C --&gt; D["Step 4: TRUNCATE final table&lt;br/&gt;(idempotent clean slate)"]
+    D --&gt; E["Step 5: INSERT valid rows&lt;br/&gt;(staging → final with WHERE clause)"]
+    E --&gt; F["Step 6: DROP staging table&lt;br/&gt;(cleanup)"]
+
+    style A fill:#43A047,color:#fff,stroke:none
+    style B fill:#1E88E5,color:#fff,stroke:none
+    style C fill:#FB8C00,color:#fff,stroke:none
+    style D fill:#E53935,color:#fff,stroke:none
+    style E fill:#8E24AA,color:#fff,stroke:none
+    style F fill:#6D4C41,color:#fff,stroke:none</code></pre>
+<p><strong>The data flow for rides (concrete example):</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>CSV file (10,000 rows)
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    ↓ COPY (accepts everything)
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>staging_rides (10,000 rows — no constraints)
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    ↓ INSERT INTO rides SELECT * WHERE:
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    │   distance_km &gt;= 0        ← filters out ~200 negative distances
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>    │   fare &gt;= 0               ← filters out zero fares
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>    │   customer_id EXISTS      ← filters out orphan references
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>    │   driver_id EXISTS        ← filters out orphan references
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>    ↓
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>rides (9,780 rows — all valid)
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>Rejected: 220 rows (logged with reasons)
+</span></code></pre></div>
+<p><strong>Concept: <code>copy_expert()</code> (First Encounter)</strong></p>
+<p><code>copy_expert()</code> is psycopg2's way of using PostgreSQL's <code>COPY</code> protocol — a high-speed binary transfer that's 40-100x faster than INSERT.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    <span class="n">copy_sql</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="s2">        COPY staging_rides (</span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2">)</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="s2">        FROM STDIN WITH (FORMAT csv, HEADER true, NULL '')</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="s2">    """</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>    <span class="n">cur</span><span class="o">.</span><span class="n">copy_expert</span><span class="p">(</span><span class="n">copy_sql</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FROM STDIN</code></td>
+<td>Read from the Python file object (not a server-side file path)</td>
+</tr>
+<tr>
+<td><code>FORMAT csv</code></td>
+<td>Input is CSV format</td>
+</tr>
+<tr>
+<td><code>HEADER true</code></td>
+<td>First row is column names — skip it</td>
+</tr>
+<tr>
+<td><code>NULL ''</code></td>
+<td>Empty strings in CSV should become SQL NULL</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Concept: <code>DISTINCT ON</code> — Deduplication (First Encounter)</strong></p>
+<p>Our CSV has 2 customers with the same email. The UNIQUE constraint rejects duplicates. Solution:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">customers</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="p">(</span><span class="n">email</span><span class="p">)</span><span class="w">           </span><span class="c1">-- Keep only ONE row per email</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="n">customer_id</span><span class="p">,</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="p">...</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="k">FROM</span><span class="w"> </span><span class="n">staging_customers</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">customer_id</span><span class="w">          </span><span class="c1">-- Determines WHICH duplicate to keep (lowest ID)</span>
+</span></code></pre></div>
+<p><code>DISTINCT ON (email)</code> is PostgreSQL-specific (not standard SQL). It says: "For each unique email, keep only the first row (based on ORDER BY)."</p>
+<div class="admonition warning">
+<p class="admonition-title">Bug Encountered: Duplicate Email UNIQUE Violation</p>
+<p><strong>Error</strong>: <code>UniqueViolation: duplicate key value violates unique constraint "uq_customer_email"</code>
+<strong>Root cause</strong>: CSV had 2 rows with email <code>wkohli@example.com</code>. The INSERT tried to load both → second one violated UNIQUE.
+<strong>Fix</strong>: Added <code>DISTINCT ON (email)</code> to the staging → final INSERT query.
+<strong>Lesson</strong>: Source data ALWAYS has duplicates. Your loader must handle dedup.</p>
+</div>
+<p><strong>Concept: <code>EXISTS</code> subquery — FK validation without the database doing it</strong></p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">AND</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">customers</span><span class="w"> </span><span class="k">c</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">customer_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">customer_id</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="p">)</span>
+</span></code></pre></div>
+<p>This checks: "Does this ride's customer_id actually exist in the customers table?" If not, the row is filtered out BEFORE the INSERT, avoiding a FK violation error.</p>
+<p><strong>Why not let the FK constraint catch it?</strong> Because FK violations abort the entire INSERT statement. With the <code>EXISTS</code> check in our WHERE clause, we skip bad rows gracefully while loading the good ones.</p>
+<p><strong>The <code>LoadResult</code> dataclass:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nd">@dataclass</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">LoadResult</span><span class="p">:</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>    <span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>    <span class="n">rows_staged</span><span class="p">:</span> <span class="nb">int</span>        <span class="c1"># How many rows the CSV had</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>    <span class="n">rows_loaded</span><span class="p">:</span> <span class="nb">int</span>        <span class="c1"># How many passed all validations</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>    <span class="n">rows_rejected</span><span class="p">:</span> <span class="nb">int</span>      <span class="c1"># staged - loaded</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>    <span class="n">rejection_reasons</span><span class="p">:</span> <span class="nb">dict</span> <span class="c1"># {"negative_distance": 200, "orphan_customer": 15}</span>
+</span></code></pre></div>
+<p>This gives us a clean report:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>rides: 9,780 loaded, 220 rejected (of 10,000 staged)
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>  └─ negative_distance: 200
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>  └─ orphan_customer: 15
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>  └─ orphan_driver: 5
+</span></code></pre></div></p>
+<hr />
+<h3 id="journey-step-7-rbac-roles">Journey Step 7: RBAC Roles<a class="headerlink" href="#journey-step-7-rbac-roles" title="Permanent link">&para;</a></h3>
+<p><strong>File created</strong>: <code>sql/ddl/create_roles.sql</code></p>
+<p><strong>Why this came seventh</strong>: Data is loaded (Step 6). Now we restrict WHO can do WHAT with it. Required by AGENTS.md Rule 5.</p>
+<p><strong>Three roles, three levels of access:</strong></p>
+<pre class="mermaid"><code>graph TD
+    A["etl_writer&lt;br/&gt;Full access&lt;br/&gt;(SELECT, INSERT, UPDATE, DELETE)"] --&gt; T["All 4 Tables"]
+    B["data_analyst&lt;br/&gt;Read only&lt;br/&gt;(SELECT only)"] --&gt; T
+    C["bi_reader&lt;br/&gt;Views only&lt;br/&gt;(No direct table access)"] --&gt; V["4 Aggregated Views"]
+
+    style A fill:#E53935,color:#fff,stroke:none
+    style B fill:#FB8C00,color:#fff,stroke:none
+    style C fill:#43A047,color:#fff,stroke:none
+    style T fill:#37474F,color:#fff,stroke:none
+    style V fill:#37474F,color:#fff,stroke:none</code></pre>
+<p><strong>Why views for <code>bi_reader</code>?</strong></p>
+<p>The <code>customers</code> table contains PII (email, phone, name). A BI dashboard doesn't need individual customer data — it needs aggregated metrics. Views provide pre-computed aggregations:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">v_rides_by_city</span><span class="w"> </span><span class="k">AS</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">pickup_city</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_rides</span><span class="p">,</span><span class="w"> </span><span class="n">ROUND</span><span class="p">(</span><span class="k">AVG</span><span class="p">(</span><span class="n">fare</span><span class="p">)::</span><span class="nb">numeric</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">avg_fare</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">rides</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">pickup_city</span><span class="p">;</span>
+</span></code></pre></div>
+<p><code>bi_reader</code> can query <code>v_rides_by_city</code> but gets <code>PERMISSION DENIED</code> on <code>SELECT * FROM customers</code>.</p>
+<hr />
+<h3 id="journey-step-8-sample-analytical-queries">Journey Step 8: Sample Analytical Queries<a class="headerlink" href="#journey-step-8-sample-analytical-queries" title="Permanent link">&para;</a></h3>
+<p><strong>File created</strong>: <code>sql/queries/sample_queries.sql</code></p>
+<p><strong>Why this came eighth</strong>: Database is loaded and secured. Now we write business queries to prove the data is useful.</p>
+<p>10 queries covering key SQL concepts:</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Business Question</th>
+<th>SQL Concept</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Total rides per city</td>
+<td><code>GROUP BY</code>, <code>COUNT</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Average fare by status</td>
+<td><code>GROUP BY</code>, <code>AVG</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Peak demand hours</td>
+<td><code>EXTRACT(HOUR FROM ...)</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Revenue by payment method</td>
+<td><code>SUM</code>, <code>JOIN</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Top 10 drivers</td>
+<td><code>JOIN</code>, <code>ORDER BY</code>, <code>LIMIT</code></td>
+</tr>
+<tr>
+<td>6</td>
+<td>Cancellation rate</td>
+<td><code>CASE WHEN</code>, calculated fields</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Monthly trend</td>
+<td><code>DATE_TRUNC</code></td>
+</tr>
+<tr>
+<td>8</td>
+<td>Average trip distance</td>
+<td><code>AVG</code> with <code>WHERE</code></td>
+</tr>
+<tr>
+<td>9</td>
+<td>Customers with most rides</td>
+<td><code>JOIN</code>, <code>COUNT</code></td>
+</tr>
+<tr>
+<td>10</td>
+<td>Payment success rate</td>
+<td><code>CASE WHEN</code>, percentage</td>
+</tr>
+</tbody>
+</table>
+<p>These same queries will be reused in Phase 8 (Athena) and Phase 9 (Redshift) — the SQL is nearly identical.</p>
+<hr />
+<h3 id="journey-step-9-cli-integration-mainpy">Journey Step 9: CLI Integration (<code>main.py</code>)<a class="headerlink" href="#journey-step-9-cli-integration-mainpy" title="Permanent link">&para;</a></h3>
+<p><strong>File modified</strong>: <code>main.py</code> — Added <code>load-postgres</code> subcommand</p>
+<p><strong>Why this came ninth</strong>: All modules work individually. Now we wire them into a single CLI command.</p>
+<p><strong>The orchestration flow:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">_handle_load_postgres</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">logger</span><span class="p">):</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>    <span class="c1"># Step 0: Can we even reach the database?</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">test_connection</span><span class="p">():</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"❌ Cannot connect to PostgreSQL!"</span><span class="p">)</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>    <span class="c1"># Step 1: Optional reset (drop everything)</span>
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">reset</span><span class="p">:</span>
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>        <span class="n">drop_all_tables</span><span class="p">()</span>
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>    <span class="c1"># Step 2: Create tables (DDL)</span>
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>    <span class="n">create_tables</span><span class="p">()</span>
+</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a>
+</span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a>    <span class="c1"># Step 3: Load data (staging pattern)</span>
+</span><span id="__span-23-15"><a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a>    <span class="n">load_all_tables</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">data_dir</span><span class="p">)</span>
+</span><span id="__span-23-16"><a id="__codelineno-23-16" name="__codelineno-23-16" href="#__codelineno-23-16"></a>
+</span><span id="__span-23-17"><a id="__codelineno-23-17" name="__codelineno-23-17" href="#__codelineno-23-17"></a>    <span class="c1"># Step 4: Set up RBAC</span>
+</span><span id="__span-23-18"><a id="__codelineno-23-18" name="__codelineno-23-18" href="#__codelineno-23-18"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">skip_rbac</span><span class="p">:</span>
+</span><span id="__span-23-19"><a id="__codelineno-23-19" name="__codelineno-23-19" href="#__codelineno-23-19"></a>        <span class="n">create_roles</span><span class="p">()</span>
+</span></code></pre></div>
+<p><strong>Why <code>test_connection()</code> first?</strong> User experience. If Docker isn't running, instead of a scary Python traceback, they see:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>❌ Cannot connect to PostgreSQL!
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>   Make sure Docker is running:
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>   docker compose -f docker/docker-compose.yml up -d
+</span></code></pre></div>
+<p><strong>Why lazy imports?</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">_handle_load_postgres</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">logger</span><span class="p">):</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">src.database.connection</span><span class="w"> </span><span class="kn">import</span> <span class="n">test_connection</span>  <span class="c1"># imported HERE, not at top</span>
+</span></code></pre></div>
+<p>If <code>psycopg2</code> isn't installed, <code>import psycopg2</code> crashes. By importing inside the function, the <code>generate</code> command (Phase 1) still works even if psycopg2 isn't installed.</p>
+<hr />
+<h3 id="journey-step-10-integration-tests">Journey Step 10: Integration Tests<a class="headerlink" href="#journey-step-10-integration-tests" title="Permanent link">&para;</a></h3>
+<p><strong>File created</strong>: <code>tests/test_database.py</code> (25 tests)</p>
+<p><strong>Why this came last</strong>: Everything must be built and running before tests can verify it.</p>
+<p><strong>Test organization:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th style="text-align: center;">Tests</th>
+<th>What it proves</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TestConnection</code></td>
+<td style="text-align: center;">2</td>
+<td>Database is alive, correct database name</td>
+</tr>
+<tr>
+<td><code>TestSchema</code></td>
+<td style="text-align: center;">5</td>
+<td>Tables exist, columns are correct</td>
+</tr>
+<tr>
+<td><code>TestDataLoading</code></td>
+<td style="text-align: center;">6</td>
+<td>Row counts right, no bad data in DB</td>
+</tr>
+<tr>
+<td><code>TestConstraints</code></td>
+<td style="text-align: center;">3</td>
+<td>FK rejects fake customer, CHECK rejects negative fare, PK rejects duplicates</td>
+</tr>
+<tr>
+<td><code>TestReferentialIntegrity</code></td>
+<td style="text-align: center;">3</td>
+<td>No orphan rides or payments</td>
+</tr>
+<tr>
+<td><code>TestRBAC</code></td>
+<td style="text-align: center;">5</td>
+<td>Roles exist, analyst can't write, bi_reader can't see PII</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The auto-skip fixture:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"session"</span><span class="p">,</span> <span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">require_postgres</span><span class="p">():</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">test_connection</span><span class="p">():</span>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>        <span class="n">pytest</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="s2">"PostgreSQL is not running"</span><span class="p">)</span>
+</span></code></pre></div>
+<p>This says: "Before running ANY test in this file, check if PostgreSQL is available. If not, skip ALL 25 tests gracefully." This way, Phase 1's 27 tests still run even if Docker is off.</p>
+<p><strong>Terminal commands run at the end:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># Run Phase 2 tests only</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>.<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ytest.exe<span class="w"> </span>tests/test_database.py<span class="w"> </span>-v
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="c1"># Run ALL tests (Phase 1 + Phase 2) to check for regressions</span>
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>.<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ytest.exe<span class="w"> </span>tests/<span class="w"> </span>-v
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="c1"># Result: 52/52 passed ✅</span>
+</span></code></pre></div>
+<hr />
+<h3 id="journey-step-11-bug-fixes-during-the-process">Journey Step 11: Bug Fixes During the Process<a class="headerlink" href="#journey-step-11-bug-fixes-during-the-process" title="Permanent link">&para;</a></h3>
+<div class="admonition bug">
+<p class="admonition-title">Bug 1: Docker Hub Timeout</p>
+<p><strong>When</strong>: Step 2, trying to pull <code>postgres:16-alpine</code>
+<strong>Error</strong>: Connection timeout during image download
+<strong>Diagnosis</strong>: ISP throttling Docker Hub traffic
+<strong>Fix</strong>: Switched to mobile hotspot + configured Google DNS (<code>8.8.8.8</code>)
+<strong>Prevention</strong>: Add Docker registry mirrors to Docker Desktop settings</p>
+</div>
+<div class="admonition bug">
+<p class="admonition-title">Bug 2: Unicode Crash on Windows</p>
+<p><strong>When</strong>: Step 9, running <code>python main.py load-postgres</code>
+<strong>Error</strong>: <code>UnicodeEncodeError: 'charmap' codec can't encode character '\u2713'</code> (the ✓ symbol)
+<strong>Diagnosis</strong>: Windows PowerShell uses <code>cp1252</code> encoding, which can't display ✓
+<strong>Fix</strong>: <code>$env:PYTHONIOENCODING = "utf-8"</code> before running
+<strong>Prevention</strong>: Always set <code>PYTHONIOENCODING=utf-8</code> in your shell profile</p>
+</div>
+<div class="admonition bug">
+<p class="admonition-title">Bug 3: Duplicate Email UNIQUE Violation</p>
+<p><strong>When</strong>: Step 6, loading customers
+<strong>Error</strong>: <code>UniqueViolation: duplicate key value violates unique constraint "uq_customer_email"</code>
+<strong>Diagnosis</strong>: CSV had 2 customers sharing email <code>wkohli@example.com</code>
+<strong>Fix</strong>: Added <code>DISTINCT ON (email)</code> to the staging INSERT query
+<strong>Prevention</strong>: Always assume source data has duplicates. Build dedup into your loader.</p>
+</div>
+<hr />
+<h2 id="part-3-infrastructure-connections"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 11h-3.18C14.4 9.84 13.3 9 12 9s-2.4.84-2.82 2H6c-.33 0-2-.1-2-2V8c0-1.83 1.54-2 2-2h10.18C16.6 7.16 17.7 8 19 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3c-1.3 0-2.4.84-2.82 2H6C4.39 4 2 5.06 2 8v1c0 2.94 2.39 4 4 4h3.18c.42 1.16 1.52 2 2.82 2s2.4-.84 2.82-2H18c.33 0 2 .1 2 2v1c0 1.83-1.54 2-2 2H7.82C7.4 16.84 6.3 16 5 16a3 3 0 0 0-3 3 3 3 0 0 0 3 3c1.3 0 2.4-.84 2.82-2H18c1.61 0 4-1.07 4-4v-1c0-2.93-2.39-4-4-4m1-7a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1M5 20a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1"/></svg></span> Part 3: Infrastructure &amp; Connections<a class="headerlink" href="#part-3-infrastructure-connections" title="Permanent link">&para;</a></h2>
+<h3 id="how-all-files-talk-to-each-other">How All Files Talk to Each Other<a class="headerlink" href="#how-all-files-talk-to-each-other" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TD
+    subgraph "Configuration Layer"
+        ENV["docker/.env&lt;br/&gt;(POSTGRES_PASSWORD)"]
+        CFG["config/config.yaml&lt;br/&gt;(host, port, dbname)"]
+    end
+
+    subgraph "SQL Layer (no Python)"
+        DDL["sql/ddl/create_tables.sql"]
+        RBAC["sql/ddl/create_roles.sql"]
+        QRY["sql/queries/sample_queries.sql"]
+    end
+
+    subgraph "Python Database Layer"
+        CONN["src/database/connection.py&lt;br/&gt;get_connection()"]
+        SCHEMA["src/database/schema.py&lt;br/&gt;create_tables(), create_roles()"]
+        LOADER["src/database/loader.py&lt;br/&gt;load_all_tables()"]
+    end
+
+    subgraph "Entry Point"
+        MAIN["main.py&lt;br/&gt;load-postgres command"]
+    end
+
+    subgraph "Verification"
+        TEST["tests/test_database.py&lt;br/&gt;25 integration tests"]
+    end
+
+    subgraph "Infrastructure"
+        DOCKER["docker/docker-compose.yml"]
+        PG["PostgreSQL 16&lt;br/&gt;(running in Docker)"]
+    end
+
+    ENV --&gt; CONN
+    CFG --&gt; CONN
+    DOCKER --&gt; PG
+    CONN --&gt; SCHEMA
+    CONN --&gt; LOADER
+    CONN --&gt; TEST
+    DDL --&gt; SCHEMA
+    RBAC --&gt; SCHEMA
+    SCHEMA --&gt; MAIN
+    LOADER --&gt; MAIN
+    MAIN --&gt; TEST
+
+    style ENV fill:#E53935,color:#fff,stroke:none
+    style CFG fill:#FB8C00,color:#fff,stroke:none
+    style CONN fill:#1E88E5,color:#fff,stroke:none
+    style PG fill:#4051B5,color:#fff,stroke:none</code></pre>
+<p><strong>The import chain:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># main.py imports:</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">src.database.connection</span><span class="w"> </span><span class="kn">import</span> <span class="n">test_connection</span>    <span class="c1"># health check</span>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">src.database.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_tables</span><span class="p">,</span> <span class="n">create_roles</span>  <span class="c1"># DDL + RBAC</span>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">src.database.loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_all_tables</span>        <span class="c1"># data loading</span>
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="c1"># schema.py imports:</span>
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">src.database.connection</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_connection</span>     <span class="c1"># needs DB access</span>
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="c1"># loader.py imports:</span>
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="kn">from</span><span class="w"> </span><span class="nn">src.database.connection</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_connection</span>     <span class="c1"># needs DB access</span>
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>
+</span><span id="__span-28-12"><a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a><span class="c1"># test_database.py imports:</span>
+</span><span id="__span-28-13"><a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a><span class="kn">from</span><span class="w"> </span><span class="nn">src.database.connection</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_connection</span><span class="p">,</span> <span class="n">test_connection</span>
+</span><span id="__span-28-14"><a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a><span class="kn">from</span><span class="w"> </span><span class="nn">src.database.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_table_info</span>
+</span><span id="__span-28-15"><a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a><span class="kn">from</span><span class="w"> </span><span class="nn">src.database.loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_row_counts</span>
+</span></code></pre></div>
+<p><strong>connection.py is the hub</strong> — every database module depends on it. That's why it was built first (Journey Step 4).</p>
+<hr />
+<h2 id="part-4-outside-learning-syllabus"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg></span> Part 4: Outside Learning Syllabus<a class="headerlink" href="#part-4-outside-learning-syllabus" title="Permanent link">&para;</a></h2>
+<p>To truly master what was built in Phase 2, study these topics independently:</p>
+<h3 id="tier-1-essential-must-know">Tier 1: Essential (Must Know)<a class="headerlink" href="#tier-1-essential-must-know" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Resource</th>
+<th style="text-align: center;">Time</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SQL Fundamentals</td>
+<td><a href="https://sqlbolt.com/">SQLBolt</a> — Interactive lessons</td>
+<td style="text-align: center;">3-4 hrs</td>
+<td>You need to write queries confidently</td>
+</tr>
+<tr>
+<td>PostgreSQL Data Types</td>
+<td><a href="https://www.postgresql.org/docs/16/datatype.html">PostgreSQL Docs — Types</a></td>
+<td style="text-align: center;">1 hr</td>
+<td>Know when to use VARCHAR vs TEXT, DECIMAL vs FLOAT</td>
+</tr>
+<tr>
+<td>Docker Basics</td>
+<td><a href="https://www.youtube.com/watch?v=Gjnup-PuquQ">Docker in 100 Seconds</a> by Fireship</td>
+<td style="text-align: center;">3 min</td>
+<td>Understand images, containers, volumes</td>
+</tr>
+<tr>
+<td>Python Context Managers</td>
+<td><a href="https://realpython.com/python-with-statement/">Real Python — Context Managers</a></td>
+<td style="text-align: center;">30 min</td>
+<td>Understand <code>with</code> and <code>yield</code></td>
+</tr>
+<tr>
+<td>SQL Constraints</td>
+<td><a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-primary-key/">PostgreSQL Tutorial — Constraints</a></td>
+<td style="text-align: center;">1 hr</td>
+<td>PK, FK, CHECK, UNIQUE, NOT NULL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tier-2-important-should-know">Tier 2: Important (Should Know)<a class="headerlink" href="#tier-2-important-should-know" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Resource</th>
+<th style="text-align: center;">Time</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SQL JOINs</td>
+<td><a href="https://joins.spathon.com/">Visual SQL Joins</a></td>
+<td style="text-align: center;">1 hr</td>
+<td>Critical for Phase 5 (star schema)</td>
+</tr>
+<tr>
+<td>Docker Compose</td>
+<td><a href="https://docs.docker.com/compose/">Docker Compose Docs</a></td>
+<td style="text-align: center;">1 hr</td>
+<td>Multi-container setups in Phase 7 (Airflow)</td>
+</tr>
+<tr>
+<td>Python <code>argparse</code></td>
+<td><a href="https://realpython.com/command-line-interfaces-python-argparse/">Real Python — argparse</a></td>
+<td style="text-align: center;">30 min</td>
+<td>Building CLI tools</td>
+</tr>
+<tr>
+<td>psycopg2 Documentation</td>
+<td><a href="https://www.psycopg.org/docs/">psycopg2 Docs</a></td>
+<td style="text-align: center;">1 hr</td>
+<td>COPY, cursors, transactions</td>
+</tr>
+<tr>
+<td>Git .gitignore</td>
+<td><a href="https://git-scm.com/docs/gitignore">gitignore patterns</a></td>
+<td style="text-align: center;">20 min</td>
+<td>Keeping secrets out of git</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tier-3-advanced-good-to-know">Tier 3: Advanced (Good to Know)<a class="headerlink" href="#tier-3-advanced-good-to-know" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Resource</th>
+<th style="text-align: center;">Time</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Database Indexing</td>
+<td><a href="https://use-the-index-luke.com/">Use The Index, Luke</a></td>
+<td style="text-align: center;">2 hrs</td>
+<td>Understanding query performance</td>
+</tr>
+<tr>
+<td>SQL Injection</td>
+<td><a href="https://owasp.org/www-community/attacks/SQL_Injection">OWASP SQL Injection</a></td>
+<td style="text-align: center;">30 min</td>
+<td>Why we use parameterized queries</td>
+</tr>
+<tr>
+<td>PostgreSQL EXPLAIN</td>
+<td><a href="https://explain.dalibo.com/">PostgreSQL Explain Visualizer</a></td>
+<td style="text-align: center;">1 hr</td>
+<td>Reading query execution plans</td>
+</tr>
+<tr>
+<td>Connection Pooling</td>
+<td><a href="https://www.pgbouncer.org/">PgBouncer</a></td>
+<td style="text-align: center;">30 min</td>
+<td>Scaling database connections</td>
+</tr>
+</tbody>
+</table>
+<h3 id="command-line-skills-to-practice">Command-Line Skills to Practice<a class="headerlink" href="#command-line-skills-to-practice" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># Docker commands you should memorize</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w">              </span><span class="c1"># Start containers</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>docker<span class="w"> </span>compose<span class="w"> </span>down<span class="w">               </span><span class="c1"># Stop containers</span>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>docker<span class="w"> </span>compose<span class="w"> </span>ps<span class="w">                 </span><span class="c1"># List running containers</span>
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>postgres<span class="w">      </span><span class="c1"># View logs</span>
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>&lt;name&gt;<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>&lt;user&gt;<span class="w"> </span>-d<span class="w"> </span>&lt;db&gt;<span class="w"> </span>-c<span class="w"> </span><span class="s2">"SQL"</span><span class="w">  </span><span class="c1"># Run SQL</span>
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="c1"># PostgreSQL psql commands</span>
+</span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="se">\d</span>t<span class="w">                               </span><span class="c1"># List tables</span>
+</span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a><span class="se">\d</span><span class="w"> </span>tablename<span class="w">                      </span><span class="c1"># Describe a table's structure</span>
+</span><span id="__span-29-11"><a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a><span class="se">\d</span>u<span class="w">                               </span><span class="c1"># List roles</span>
+</span><span id="__span-29-12"><a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a><span class="se">\q</span><span class="w">                                </span><span class="c1"># Quit psql</span>
+</span><span id="__span-29-13"><a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a>
+</span><span id="__span-29-14"><a id="__codelineno-29-14" name="__codelineno-29-14" href="#__codelineno-29-14"></a><span class="c1"># pytest commands</span>
+</span><span id="__span-29-15"><a id="__codelineno-29-15" name="__codelineno-29-15" href="#__codelineno-29-15"></a>pytest<span class="w"> </span>tests/<span class="w"> </span>-v<span class="w">                  </span><span class="c1"># Run all tests, verbose</span>
+</span><span id="__span-29-16"><a id="__codelineno-29-16" name="__codelineno-29-16" href="#__codelineno-29-16"></a>pytest<span class="w"> </span>tests/test_database.py<span class="w"> </span>-v<span class="w">  </span><span class="c1"># Run one file</span>
+</span><span id="__span-29-17"><a id="__codelineno-29-17" name="__codelineno-29-17" href="#__codelineno-29-17"></a>pytest<span class="w"> </span>-k<span class="w"> </span><span class="s2">"test_customers"</span><span class="w">        </span><span class="c1"># Run tests matching a pattern</span>
+</span></code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -2153,6 +2153,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase2_complete_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 2 — Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4204,7 +4232,7 @@
 <h3 id="key-transformations">Key Transformations<a class="headerlink" href="#key-transformations" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Bronze CSV → Read into Spark DataFrame
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  → Cast data types (strings → timestamps, decimals, integers)
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  → Standardize city names (&quot;pune&quot; / &quot;PUNE&quot; → &quot;Pune&quot;)
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  → Standardize city names ("pune" / "PUNE" → "Pune")
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  → Handle nulls (reject vs. default vs. keep)
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  → Deduplicate on primary keys
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  → Filter invalid records (fare &gt; 0, distance &gt;= 0)
@@ -4212,7 +4240,7 @@
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>  → [NEW] Mask PII fields (hash emails, phones, names with salted SHA-256)
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>  → [NEW] Obfuscate GPS coordinates to H3 hex indices (resolution 7 ~1.2 km²)
 </span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>  → [NEW] Add lineage metadata (_source_file, _pipeline_run_id, _processed_at)
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>  → Write as Parquet to Silver (mode=&quot;overwrite&quot; per partition for idempotency)
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>  → Write as Parquet to Silver (mode="overwrite" per partition for idempotency)
 </span></code></pre></div>
 <h3 id="pii-masking-rules-applied-in-silver">PII Masking Rules (Applied in Silver)<a class="headerlink" href="#pii-masking-rules-applied-in-silver" title="Permanent link">&para;</a></h3>
 <table>
@@ -4357,13 +4385,13 @@
 </span></code></pre></div>
 <h3 id="performance-broadcast-joins">Performance: Broadcast Joins<a class="headerlink" href="#performance-broadcast-joins" title="Permanent link">&para;</a></h3>
 <p>Dimension tables (customers: ~1K rows, drivers: ~500 rows, locations: ~60 rows, dates: ~365 rows) are tiny compared to fact tables (rides: 10K-5M rows). Use <code>broadcast()</code> to avoid expensive shuffle joins:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">broadcast</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyspark.sql.functions</span><span class="w"> </span><span class="kn">import</span> <span class="n">broadcast</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># Instead of:</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">fact_rides</span> <span class="o">=</span> <span class="n">rides</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dim_customer</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;customer_key&quot;</span><span class="p">)</span>  <span class="c1"># SLOW — shuffles both tables</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">fact_rides</span> <span class="o">=</span> <span class="n">rides</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dim_customer</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"customer_key"</span><span class="p">)</span>  <span class="c1"># SLOW — shuffles both tables</span>
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
 </span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1"># Do:</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">fact_rides</span> <span class="o">=</span> <span class="n">rides</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">broadcast</span><span class="p">(</span><span class="n">dim_customer</span><span class="p">),</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;customer_key&quot;</span><span class="p">)</span>  <span class="c1"># FAST — sends dim to all executors</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">fact_rides</span> <span class="o">=</span> <span class="n">rides</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">broadcast</span><span class="p">(</span><span class="n">dim_customer</span><span class="p">),</span> <span class="n">on</span><span class="o">=</span><span class="s2">"customer_key"</span><span class="p">)</span>  <span class="c1"># FAST — sends dim to all executors</span>
 </span></code></pre></div>
 <h3 id="gold-layer-security">Gold Layer Security<a class="headerlink" href="#gold-layer-security" title="Permanent link">&para;</a></h3>
 <ul>
@@ -4428,25 +4456,25 @@
 <h3 id="quarantine-record-format">Quarantine Record Format<a class="headerlink" href="#quarantine-record-format" title="Permanent link">&para;</a></h3>
 <p>Every quarantined record includes error metadata for debugging:
 <div class="language-json highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">&quot;raw_record&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{...original record...}&quot;</span><span class="p">,</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">&quot;error_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NEGATIVE_DISTANCE&quot;</span><span class="p">,</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="nt">&quot;error_message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;distance_km must be &gt;= 0, got -12.5&quot;</span><span class="p">,</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="nt">&quot;source_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bronze/rides/year=2026/month=08/day=25/rides.csv&quot;</span><span class="p">,</span>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">  </span><span class="nt">&quot;pipeline_run_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;run-2026-09-01-0800&quot;</span><span class="p">,</span>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">  </span><span class="nt">&quot;quarantined_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-09-01T08:15:00Z&quot;</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">"raw_record"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{...original record...}"</span><span class="p">,</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">"error_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NEGATIVE_DISTANCE"</span><span class="p">,</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="nt">"error_message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"distance_km must be &gt;= 0, got -12.5"</span><span class="p">,</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="nt">"source_file"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bronze/rides/year=2026/month=08/day=25/rides.csv"</span><span class="p">,</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">  </span><span class="nt">"pipeline_run_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"run-2026-09-01-0800"</span><span class="p">,</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">  </span><span class="nt">"quarantined_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-09-01T08:15:00Z"</span>
 </span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="p">}</span>
 </span></code></pre></div></p>
 <h3 id="data-assertion-suite-runs-after-each-pipeline-stage">Data Assertion Suite (Runs After Each Pipeline Stage)<a class="headerlink" href="#data-assertion-suite-runs-after-each-pipeline-stage" title="Permanent link">&para;</a></h3>
 <p>Assertions that run automatically after Silver and Gold writes:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Post-Silver assertions</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">assert</span> <span class="n">silver_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">&quot;fare &lt; 0&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>           <span class="c1"># No negative fares</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">assert</span> <span class="n">silver_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">&quot;ride_id IS NULL&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>     <span class="c1"># No null PKs</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">assert</span> <span class="n">silver_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">"fare &lt; 0"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>           <span class="c1"># No negative fares</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">assert</span> <span class="n">silver_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">"ride_id IS NULL"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>     <span class="c1"># No null PKs</span>
 </span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">assert</span> <span class="n">silver_df</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span>                                 <span class="c1"># Not empty</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="k">assert</span> <span class="n">silver_df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;ride_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="n">silver_df</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>  <span class="c1"># No dupes</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="k">assert</span> <span class="n">silver_df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">"ride_id"</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="n">silver_df</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>  <span class="c1"># No dupes</span>
 </span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
 </span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># Post-Gold assertions</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="k">assert</span> <span class="n">fact_rides</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">&quot;customer_key IS NULL&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>  <span class="c1"># All FKs valid</span>
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="k">assert</span> <span class="n">dim_customer</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">&quot;email LIKE &#39;%@%&#39;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>    <span class="c1"># No raw emails in Gold</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="k">assert</span> <span class="n">fact_rides</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">"customer_key IS NULL"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>  <span class="c1"># All FKs valid</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="k">assert</span> <span class="n">dim_customer</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">"email LIKE '%@%'"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>    <span class="c1"># No raw emails in Gold</span>
 </span></code></pre></div>
 <h3 id="quality-alerting-thresholds">Quality Alerting Thresholds<a class="headerlink" href="#quality-alerting-thresholds" title="Permanent link">&para;</a></h3>
 <p>Define thresholds that trigger warnings:</p>
@@ -4610,7 +4638,7 @@
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1">-- Query 2: With partition filter → scans ~15 MB (92% less!)</span>
 </span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">fare</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">gold_fact_rides</span>
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2026&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">month</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;06&#39;</span><span class="p">;</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'2026'</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">month</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'06'</span><span class="p">;</span>
 </span></code></pre></div>
 <p>Athena charges $5/TB scanned. Partition pruning directly reduces your bill.</p>
 <h3 id="verification_7">Verification<a class="headerlink" href="#verification_7" title="Permanent link">&para;</a></h3>
@@ -4696,9 +4724,9 @@
 </table>
 <h3 id="redshift-rbac">Redshift RBAC<a class="headerlink" href="#redshift-rbac" title="Permanent link">&para;</a></h3>
 <div class="language-sql highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1">-- Same pattern as PostgreSQL (Phase 2), now in Redshift</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">etl_loader</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">&#39;from_secrets_manager&#39;</span><span class="p">;</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">analyst</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">&#39;from_secrets_manager&#39;</span><span class="p">;</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">bi_reader</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">&#39;from_secrets_manager&#39;</span><span class="p">;</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">etl_loader</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">'from_secrets_manager'</span><span class="p">;</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">analyst</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">'from_secrets_manager'</span><span class="p">;</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">bi_reader</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">'from_secrets_manager'</span><span class="p">;</span>
 </span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
 </span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="k">GRANT</span><span class="w"> </span><span class="k">USAGE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">gold</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">analyst</span><span class="p">,</span><span class="w"> </span><span class="n">bi_reader</span><span class="p">;</span>
 </span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="n">TABLES</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">gold</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">analyst</span><span class="p">,</span><span class="w"> </span><span class="n">bi_reader</span><span class="p">;</span>
@@ -4749,10 +4777,10 @@
 <h3 id="alerting-configuration">Alerting Configuration<a class="headerlink" href="#alerting-configuration" title="Permanent link">&para;</a></h3>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># In DAG definition:</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">default_args</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="s1">&#39;retries&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="s1">&#39;retry_delay&#39;</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>    <span class="s1">&#39;on_failure_callback&#39;</span><span class="p">:</span> <span class="n">alert_on_failure</span><span class="p">,</span>   <span class="c1"># Email or log alert</span>
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>    <span class="s1">&#39;on_retry_callback&#39;</span><span class="p">:</span> <span class="n">alert_on_retry</span><span class="p">,</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="s1">'retries'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="s1">'retry_delay'</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>    <span class="s1">'on_failure_callback'</span><span class="p">:</span> <span class="n">alert_on_failure</span><span class="p">,</span>   <span class="c1"># Email or log alert</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>    <span class="s1">'on_retry_callback'</span><span class="p">:</span> <span class="n">alert_on_retry</span><span class="p">,</span>
 </span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="p">}</span>
 </span></code></pre></div>
 <h3 id="idempotent-dag-design">Idempotent DAG Design<a class="headerlink" href="#idempotent-dag-design" title="Permanent link">&para;</a></h3>
