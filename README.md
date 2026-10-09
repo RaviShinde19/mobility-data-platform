@@ -135,37 +135,120 @@ This project treats **Data Governance and Security as a first-class citizen**, n
 
 ---
 
-## 🚀 Quick Start (Phases 1 - 3)
+## 🚀 Quick Start Guide
 
-Get the pipeline running locally in under 5 minutes.
+Experience the full pipeline locally. This guide will walk you through generating the data, loading the local database, and streaming it to the AWS Bronze Layer.
 
-> [!NOTE]
-> Phase 2 requires Docker Desktop. Phase 3 requires AWS CLI configured with valid credentials (`~/.aws/credentials`).
+### 📋 Prerequisites
+Before you begin, ensure you have the following installed and configured:
+* <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" width="16"/> **Python 3.12+**
+* <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" width="16"/> **Docker Desktop** *(Required for Phase 2 PostgreSQL)*
+* <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="16"/> **AWS CLI** *(Authenticated with `aws configure` for Phase 3)*
+
+### 🛠️ Step 1: Environment Setup
+First, clone the repository and install the required data engineering libraries (boto3, faker, psycopg2).
 
 ```bash
-# 1. Clone & Setup Environment
 git clone https://github.com/RaviShinde19/mobility-data-platform.git
 cd mobility-data-platform
 python -m venv venv
-venv\Scripts\activate
+venv\Scripts\activate      # On Windows
 pip install -r requirements.txt
+```
 
-# 2. Phase 1: Generate Synthetic Lake Data (10,000 rides)
+### 🧬 Step 2: Phase 1 — Generate Synthetic Data
+We use the `Faker` library to generate highly realistic, relationally-sound datasets for Customers, Drivers, Rides, and Payments.
+
+```bash
 python main.py generate
+```
+> **What this does:** Generates 10,000+ records and saves them as raw CSV files in `data/raw/`.
 
-# 3. Phase 2: Start PostgreSQL & Test Local Schemas
+### 🐘 Step 3: Phase 2 — Local Database Loading
+Spin up the local PostgreSQL data warehouse and load the generated data to verify schema integrity and foreign-key constraints.
+
+```bash
 docker compose -f docker/docker-compose.yml up -d
 python main.py load-postgres
+```
+> **What this does:** Provisions a Dockerized Postgres instance, creates schemas, applies RBAC roles (`etl_writer`, `data_analyst`), and executes bulk `COPY` commands.
 
-# 4. Phase 3: Spin up AWS Infrastructure (IaC)
-python main.py setup-s3      # Provisions bucket, AES256, TLS, Lifecycle policies
+### ☁️ Step 4: Phase 3 — AWS Data Lake Ingestion
+Provision the Bronze Layer infrastructure on AWS, strictly adhering to enterprise security standards, and stream the data.
 
-# 5. Phase 3: Execute Bronze Data Ingestion
-python main.py upload-bronze # Streams local CSVs to S3 with Hive-partitioning
+```bash
+python main.py setup-s3
+```
+> **Infrastructure as Code:** Automatically creates the S3 bucket and enforces AES-256 encryption, TLS-only transit policies, Block Public Access, and 30/90-day Glacier Lifecycle rules.
 
-# 6. Verify Infrastructure & Data Integrity against real AWS
+```bash
+python main.py upload-bronze
+```
+> **Ingestion:** Streams the local CSV files into AWS S3 using `Hive-style partitioning` (e.g., `bronze/rides/year=2026/month=10/day=09/`). Calculates MD5 checksums locally and verifies them against AWS ETags to guarantee zero data corruption.
+
+### 🧪 Step 5: Verification
+Run the integration test suite to verify the AWS infrastructure and data integrity.
+
+```bash
 pytest tests/ -v
 ```
+
+---
+
+## 📚 Comprehensive Documentation
+
+The full documentation for this project is hosted using MkDocs Material. It includes detailed Data Dictionaries, Architecture Decision Records (ADRs), and Business Logic rules.
+
+<div align="center">
+  <a href="https://RaviShinde19.github.io/mobility-data-platform/">
+    <img src="https://img.shields.io/badge/View_Live_Documentation-0052CC?style=for-the-badge&logo=readthedocs&logoColor=white" alt="Live Docs" />
+  </a>
+</div>
+
+<br>
+
+**To run the documentation locally:**
+```bash
+pip install mkdocs-material
+mkdocs serve
+# Navigate to http://127.0.0.1:8000
+```
+
+---
+
+## 📂 Repository Structure
+
+Clean separation of concerns between Infrastructure (IaC), Source Code, Testing, and Documentation.
+
+```text
+mobility-data-platform/
+├── config/                 # YAML configuration (AWS regions, DB credentials)
+├── docker/                 # docker-compose.yml for local PostgreSQL
+├── docs/                   # MkDocs source files (Architecture, Trade-offs)
+├── infrastructure/         # AWS IAM JSON Policies and S3 configurations
+├── scripts/                # Utility scripts (e.g., setup_s3.py, teardown_aws.py)
+├── src/                    # Core pipeline logic
+│   ├── data_generator/     # Phase 1: Python Faker synthetic data engine
+│   ├── database/           # Phase 2: PostgreSQL connection & loading logic
+│   ├── ingestion/          # Phase 3: Boto3 S3 uploaders & partitioners
+│   └── models/             # Shared dataclasses & schemas
+├── tests/                  # Integration test suite (Pytest)
+├── main.py                 # Central CLI entry point
+└── pyproject.toml          # Project metadata & dependencies
+```
+
+---
+
+## 📈 The Synthetic Dataset
+
+To simulate a real-world environment, Phase 1 generates a highly relational dataset representing a micro-mobility company's daily operations.
+
+| Dataset | Volume | Description | PII Status |
+|:---|---:|:---|:---|
+| **Customers** | 1,000 | User profiles, emails, phone numbers, registration dates. | 🔴 Contains Raw PII |
+| **Drivers** | 500 | Driver profiles, license numbers, current ratings. | 🔴 Contains Raw PII |
+| **Rides** | 10,000 | Core fact table. Pickup/dropoff coordinates, timestamps. | 🟢 Obfuscated Geodata |
+| **Payments** | 8,000 | Transaction records, payment methods, processing fees. | 🟢 Financial Aggregates |
 
 ---
 
