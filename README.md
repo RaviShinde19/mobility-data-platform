@@ -141,9 +141,15 @@ Experience the full pipeline locally. This guide will walk you through generatin
 
 ### 📋 Prerequisites
 Before you begin, ensure you have the following installed and configured:
+
+**Local Environment:**
 * <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" width="16"/> **Python 3.12+**
-* <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" width="16"/> **Docker Desktop** *(Required for Phase 2 PostgreSQL)*
-* <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="16"/> **AWS CLI** *(Authenticated with `aws configure` for Phase 3)*
+* <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" width="16"/> **Docker Desktop** (Must be running in the background for Phase 2)
+
+**AWS Cloud Account:**
+* <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="16"/> **AWS CLI Installed**
+* An **IAM User** with programmatic access (Access Keys) and sufficient privileges to create S3 buckets and IAM policies.
+* Run `aws configure` in your terminal to link your AWS account to your local machine before starting Phase 3.
 
 ### 🛠️ Step 1: Environment Setup
 First, clone the repository and install the required data engineering libraries (boto3, faker, psycopg2).
