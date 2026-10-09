@@ -148,8 +148,8 @@ Before you begin, ensure you have the following installed and configured:
 
 **AWS Cloud Account:**
 * <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="16"/> **AWS CLI Installed**
-* An **IAM User** with programmatic access (Access Keys) and sufficient privileges to create S3 buckets and IAM policies.
-* Run `aws configure` in your terminal to link your AWS account to your local machine before starting Phase 3.
+* **Manual Step:** In the AWS Console, create an **IAM User** with programmatic access. Attach the `AmazonS3FullAccess` and `IAMFullAccess` policies (needed for the IaC scripts to provision infrastructure).
+* **Manual Step:** Run `aws configure` in your terminal to link your AWS account to your local machine using the generated Access Keys.
 
 ### 🛠️ Step 1: Environment Setup
 First, clone the repository and install the required data engineering libraries (boto3, faker, psycopg2).
@@ -198,6 +198,14 @@ Run the integration test suite to verify the AWS infrastructure and data integri
 ```bash
 pytest tests/ -v
 ```
+
+### 🧹 Step 6: Cleanup (Avoid AWS Charges)
+This project includes a programmatic teardown script. When you are done testing, destroy the AWS resources to avoid incurring storage costs.
+
+```bash
+python main.py teardown-s3
+```
+> **What this does:** Safely empties the Bronze S3 bucket, deletes the bucket itself, and removes the custom IAM policies from your AWS account, leaving a zero-cost footprint.
 
 ---
 
