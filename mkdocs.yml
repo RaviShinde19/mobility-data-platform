@@ -57,4 +57,6 @@ nav:
     - Phase 2 — PostgreSQL Walkthrough: phase2_walkthrough.md
     - Phase 2 — Complete Guide: phase2_complete_guide.md
     - Phase 3 — S3 Bronze Planning: phase3_planning.md
-
+    - Phase 3 — S3 Bronze Gap Analysis: phase3_gap_analysis.md
+  - Architecture & Decisions:
+    - Enterprise Trade-offs: enterprise_tradeoffs.md
