@@ -1,0 +1,1397 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../phase3_planning/">
+      
+      
+        <link rel="next" href="../enterprise_tradeoffs/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Phase 3 — S3 Bronze Gap Analysis - Mobility Data Platform</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#phase-3-gap-analysis-plan-vs-build-vs-industry-standard" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mobility Data Platform" class="md-header__button md-logo" aria-label="Mobility Data Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mobility Data Platform
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Phase 3 — S3 Bronze Gap Analysis
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mobility Data Platform" class="md-nav__button md-logo" aria-label="Mobility Data Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mobility Data Platform
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../implementation_plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_dictionary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Dictionary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_governance_and_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governance & Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v1_v2_metrics_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metrics Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase Walkthroughs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Phase Walkthroughs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase1_walkthrough/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 1 — Data Generation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase2_planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 2 — PostgreSQL Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase2_walkthrough/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 2 — PostgreSQL Walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase2_complete_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 2 — Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase3_planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 3 — S3 Bronze Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 3 — S3 Bronze Gap Analysis
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 3 — S3 Bronze Gap Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#category-1-planned-but-not-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Category 1: Planned but NOT Implemented
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Category 1: Planned but NOT Implemented">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gap-1-s3-lifecycle-policies-agentsmd-rule-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gap 1: S3 Lifecycle Policies (AGENTS.md Rule 8)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gap-2-file_exists-idempotency-check-before-upload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gap 2: file_exists() Idempotency Check Before Upload
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gap-3-date-and-force-cli-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gap 3: --date and --force CLI Arguments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gap-4-prefix-structure-pre-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gap 4: Prefix Structure Pre-Creation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gap-5-tests-missing-specific-test-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gap 5: Tests — Missing Specific Test Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gap-6-screenshots-directory-for-portfolio-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gap 6: Screenshots Directory for Portfolio Evidence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gap-7-gitignore-verification-for-aws-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gap 7: .gitignore Verification for AWS Credentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#category-2-not-planned-and-not-implemented-industry-standard-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Category 2: NOT Planned AND NOT Implemented (Industry Standard Gaps)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Category 2: NOT Planned AND NOT Implemented (Industry Standard Gaps)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#industry-gap-1-structured-logging-json-audit-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Industry Gap 1: Structured Logging (JSON Audit Logs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#industry-gap-2-pipeline-run-id-batch-id-lineage-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Industry Gap 2: Pipeline Run ID / Batch ID (Lineage Tracking)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#industry-gap-3-s3-object-tagging-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Industry Gap 3: S3 Object Tagging (Metadata)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#industry-gap-4-upload-retry-logic-exponential-backoff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Industry Gap 4: Upload Retry Logic (Exponential Backoff)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#industry-gap-5-checksum-verification-md5sha-256" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Industry Gap 5: Checksum Verification (MD5/SHA-256)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture & Decisions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture & Decisions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enterprise_tradeoffs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enterprise Trade-offs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#category-1-planned-but-not-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Category 1: Planned but NOT Implemented
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Category 1: Planned but NOT Implemented">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gap-1-s3-lifecycle-policies-agentsmd-rule-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gap 1: S3 Lifecycle Policies (AGENTS.md Rule 8)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gap-2-file_exists-idempotency-check-before-upload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gap 2: file_exists() Idempotency Check Before Upload
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gap-3-date-and-force-cli-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gap 3: --date and --force CLI Arguments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gap-4-prefix-structure-pre-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gap 4: Prefix Structure Pre-Creation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gap-5-tests-missing-specific-test-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gap 5: Tests — Missing Specific Test Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gap-6-screenshots-directory-for-portfolio-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gap 6: Screenshots Directory for Portfolio Evidence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gap-7-gitignore-verification-for-aws-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gap 7: .gitignore Verification for AWS Credentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#category-2-not-planned-and-not-implemented-industry-standard-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Category 2: NOT Planned AND NOT Implemented (Industry Standard Gaps)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Category 2: NOT Planned AND NOT Implemented (Industry Standard Gaps)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#industry-gap-1-structured-logging-json-audit-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Industry Gap 1: Structured Logging (JSON Audit Logs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#industry-gap-2-pipeline-run-id-batch-id-lineage-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Industry Gap 2: Pipeline Run ID / Batch ID (Lineage Tracking)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#industry-gap-3-s3-object-tagging-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Industry Gap 3: S3 Object Tagging (Metadata)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#industry-gap-4-upload-retry-logic-exponential-backoff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Industry Gap 4: Upload Retry Logic (Exponential Backoff)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#industry-gap-5-checksum-verification-md5sha-256" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Industry Gap 5: Checksum Verification (MD5/SHA-256)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="phase-3-gap-analysis-plan-vs-build-vs-industry-standard">Phase 3 — Gap Analysis: Plan vs. Build vs. Industry Standard<a class="headerlink" href="#phase-3-gap-analysis-plan-vs-build-vs-industry-standard" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="category-1-planned-but-not-implemented">Category 1: Planned but NOT Implemented<a class="headerlink" href="#category-1-planned-but-not-implemented" title="Permanent link">&para;</a></h2>
+<p>These items were explicitly mentioned in <code>phase3_planning.md</code> but we skipped them during the actual build.</p>
+<h3 id="gap-1-s3-lifecycle-policies-agentsmd-rule-8">Gap 1: S3 Lifecycle Policies (AGENTS.md Rule 8)<a class="headerlink" href="#gap-1-s3-lifecycle-policies-agentsmd-rule-8" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Where in plan:</strong> Section 3, Step 3, Lines 417-425</li>
+<li><strong>What was planned:</strong></li>
+<li><code>quarantine/</code> → Auto-delete after 30 days</li>
+<li><code>bronze/</code> → Move to Glacier (cheap storage) after 90 days</li>
+<li><strong>What we built:</strong> Nothing. No lifecycle rules applied.</li>
+<li><strong>Why it matters:</strong> Without lifecycle rules, old quarantine data and raw Bronze data sit in expensive Standard storage forever. On 14M records, this costs ~$0.35/month instead of ~$0.06/month after Glacier transition. More importantly, AGENTS.md Rule 8 explicitly requires retention policies.</li>
+<li><strong>Impact:</strong> Medium (cost optimization + AGENTS.md compliance)</li>
+<li><strong>Fix:</strong> Add <code>put_bucket_lifecycle_configuration()</code> call to <code>setup_s3.py</code></li>
+</ul>
+<hr />
+<h3 id="gap-2-file_exists-idempotency-check-before-upload">Gap 2: <code>file_exists()</code> Idempotency Check Before Upload<a class="headerlink" href="#gap-2-file_exists-idempotency-check-before-upload" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Where in plan:</strong> Section 4, Step 4, Line 458 and Step 5, Line 485</li>
+<li><strong>What was planned:</strong> A function <code>file_exists(s3_key)</code> that checks if a file already exists in S3 BEFORE uploading. If it exists, skip the upload (unless <code>--force</code> flag is used).</li>
+<li><strong>What we built:</strong> We upload unconditionally. If the file exists, it gets overwritten silently.</li>
+<li><strong>Why it matters:</strong> Both approaches are idempotent (no data duplication). But the planned version is MORE EFFICIENT — it avoids re-uploading a 1.7 MB file over the internet when it's already there. In production with 14M records (hundreds of MB), this saves significant time and bandwidth.</li>
+<li><strong>Impact:</strong> Low for learning, Medium for production</li>
+<li><strong>Fix:</strong> Add <code>head_object()</code> check before <code>upload_file()</code> in <code>s3_uploader.py</code></li>
+</ul>
+<hr />
+<h3 id="gap-3-date-and-force-cli-arguments">Gap 3: <code>--date</code> and <code>--force</code> CLI Arguments<a class="headerlink" href="#gap-3-date-and-force-cli-arguments" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Where in plan:</strong> Section 4, Step 6, Lines 515-516</li>
+<li><strong>What was planned:</strong></li>
+<li><code>python main.py upload-bronze --date 2026-01-15</code> (upload to a specific date partition)</li>
+<li><code>python main.py upload-bronze --force</code> (re-upload even if files exist)</li>
+<li><strong>What we built:</strong> No arguments. Always uploads to today's date, always overwrites.</li>
+<li><strong>Why it matters:</strong> <code>--date</code> is critical for backfilling historical data. If you need to re-process data from January, you need to tell the script to upload to the January partition, not today's partition.</li>
+<li><strong>Impact:</strong> Medium (needed for backfill scenarios)</li>
+<li><strong>Fix:</strong> Add <code>argparse</code> arguments to <code>upload-bronze</code> subparser in <code>main.py</code></li>
+</ul>
+<hr />
+<h3 id="gap-4-prefix-structure-pre-creation">Gap 4: Prefix Structure Pre-Creation<a class="headerlink" href="#gap-4-prefix-structure-pre-creation" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Where in plan:</strong> Section 4, Step 3, Line 414</li>
+<li><strong>What was planned:</strong> <code>setup_s3.py</code> should create empty "folder" markers for <code>bronze/</code>, <code>silver/</code>, <code>gold/</code>, <code>quarantine/</code> after bucket creation.</li>
+<li><strong>What we built:</strong> No prefix pre-creation. The folders only appear when data is uploaded.</li>
+<li><strong>Why it matters:</strong> Low impact. S3 doesn't actually have "folders" — prefixes are created automatically when you upload a file. However, pre-creating them makes the bucket look organized in the AWS Console even before any data is uploaded.</li>
+<li><strong>Impact:</strong> Low (cosmetic)</li>
+<li><strong>Fix:</strong> Add 4x <code>put_object()</code> calls with empty bodies to create placeholder markers</li>
+</ul>
+<hr />
+<h3 id="gap-5-tests-missing-specific-test-cases">Gap 5: Tests — Missing Specific Test Cases<a class="headerlink" href="#gap-5-tests-missing-specific-test-cases" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Where in plan:</strong> Section 4, Step 9, Lines 596-603</li>
+<li><strong>What was planned:</strong> 7 specific tests including:</li>
+<li><code>test_build_bronze_key</code> (unit test for the key construction function)</li>
+<li><code>test_upload_idempotent</code> (run upload twice, verify no duplicates)</li>
+<li><code>test_encryption_enabled</code> (verify uploaded OBJECT has encryption header)</li>
+<li><code>test_invalid_file_path</code> (verify error handling for missing files)</li>
+<li><strong>What we built:</strong> 9 tests, but different ones. We tested bucket-level security and data integrity. We did NOT test:</li>
+<li>The <code>build_s3_key()</code> function in isolation</li>
+<li>Idempotency (uploading twice)</li>
+<li>Per-object encryption headers</li>
+<li>Error handling for invalid file paths</li>
+<li><strong>Impact:</strong> Medium (testing gaps)</li>
+</ul>
+<hr />
+<h3 id="gap-6-screenshots-directory-for-portfolio-evidence">Gap 6: Screenshots Directory for Portfolio Evidence<a class="headerlink" href="#gap-6-screenshots-directory-for-portfolio-evidence" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Where in plan:</strong> Section 11, Checklist 7, Lines 887-904</li>
+<li><strong>What was planned:</strong> Create <code>docs/screenshots/phase3/</code> and capture 7 specific screenshots from the AWS Console for interview evidence.</li>
+<li><strong>What we built:</strong> Nothing. No screenshots directory, no evidence captured.</li>
+<li><strong>Impact:</strong> High for interviews (recruiters want visual proof)</li>
+<li><strong>Fix:</strong> Create the directory and capture screenshots via browser</li>
+</ul>
+<hr />
+<h3 id="gap-7-gitignore-verification-for-aws-credentials">Gap 7: <code>.gitignore</code> Verification for AWS Credentials<a class="headerlink" href="#gap-7-gitignore-verification-for-aws-credentials" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Where in plan:</strong> Section 11, Checklist 0, Lines 786-800</li>
+<li><strong>What was planned:</strong> Verify that <code>.aws/</code> and <code>credentials</code> are in <code>.gitignore</code> so secret keys never get pushed to GitHub.</li>
+<li><strong>What we built:</strong> Never verified this.</li>
+<li><strong>Impact:</strong> HIGH (security risk — if credentials leak to GitHub, your AWS account is compromised)</li>
+<li><strong>Fix:</strong> Check and update <code>.gitignore</code> immediately</li>
+</ul>
+<hr />
+<h2 id="category-2-not-planned-and-not-implemented-industry-standard-gaps">Category 2: NOT Planned AND NOT Implemented (Industry Standard Gaps)<a class="headerlink" href="#category-2-not-planned-and-not-implemented-industry-standard-gaps" title="Permanent link">&para;</a></h2>
+<p>These are practices found in production-grade data pipelines that were missing from both our plan AND our build.</p>
+<h3 id="industry-gap-1-structured-logging-json-audit-logs">Industry Gap 1: Structured Logging (JSON Audit Logs)<a class="headerlink" href="#industry-gap-1-structured-logging-json-audit-logs" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>What it is:</strong> Instead of <code>print("SUCCESS")</code>, production pipelines emit structured JSON log entries like:
+  <div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-10-08T19:24:26Z"</span><span class="p">,</span><span class="w"> </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file_uploaded"</span><span class="p">,</span><span class="w"> </span><span class="nt">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rides"</span><span class="p">,</span><span class="w"> </span><span class="nt">"s3_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bronze/rides/..."</span><span class="p">,</span><span class="w"> </span><span class="nt">"file_size_bytes"</span><span class="p">:</span><span class="w"> </span><span class="mi">1729378</span><span class="p">,</span><span class="w"> </span><span class="nt">"duration_seconds"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.3</span><span class="p">,</span><span class="w"> </span><span class="nt">"pipeline_run_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"run-abc123"</span><span class="p">}</span>
+</span></code></pre></div></li>
+<li><strong>Why it matters:</strong> AGENTS.md Rule 8 explicitly says "pipeline operations emit structured JSON audit logs." Our scripts use plain <code>print()</code> statements. In production, these JSON logs feed into monitoring tools (CloudWatch, Datadog) for alerting and debugging. They also serve as the "lineage tracking" required by AGENTS.md Rule 6.</li>
+<li><strong>Impact:</strong> High (AGENTS.md compliance + observability)</li>
+</ul>
+<hr />
+<h3 id="industry-gap-2-pipeline-run-id-batch-id-lineage-tracking">Industry Gap 2: Pipeline Run ID / Batch ID (Lineage Tracking)<a class="headerlink" href="#industry-gap-2-pipeline-run-id-batch-id-lineage-tracking" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>What it is:</strong> Every time you run <code>upload-bronze</code>, the script should generate a unique ID (like <code>run-20261008-193000-abc123</code>) and tag every uploaded file with it.</li>
+<li><strong>Why it matters:</strong> AGENTS.md Rule 6 says "Record source origin, pipeline run ID, job timestamps, and transformation lineage on every batch." If something goes wrong in Silver, you need to trace back: "Which Bronze batch caused this?" Without a Run ID, you have no way to connect a Silver problem to a specific Bronze upload.</li>
+<li><strong>Impact:</strong> High (AGENTS.md compliance + debugging)</li>
+</ul>
+<hr />
+<h3 id="industry-gap-3-s3-object-tagging-metadata">Industry Gap 3: S3 Object Tagging (Metadata)<a class="headerlink" href="#industry-gap-3-s3-object-tagging-metadata" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>What it is:</strong> When uploading to S3, you can attach key-value tags to each file:
+  <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">s3</span><span class="o">.</span><span class="n">put_object_tagging</span><span class="p">(</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">Bucket</span><span class="o">=</span><span class="n">bucket</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">Tagging</span><span class="o">=</span><span class="p">{</span><span class="s1">'TagSet'</span><span class="p">:</span> <span class="p">[</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="p">{</span><span class="s1">'Key'</span><span class="p">:</span> <span class="s1">'pipeline_run_id'</span><span class="p">,</span> <span class="s1">'Value'</span><span class="p">:</span> <span class="s1">'run-abc123'</span><span class="p">},</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="p">{</span><span class="s1">'Key'</span><span class="p">:</span> <span class="s1">'source'</span><span class="p">,</span> <span class="s1">'Value'</span><span class="p">:</span> <span class="s1">'local_csv'</span><span class="p">},</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="p">{</span><span class="s1">'Key'</span><span class="p">:</span> <span class="s1">'contains_pii'</span><span class="p">,</span> <span class="s1">'Value'</span><span class="p">:</span> <span class="s1">'true'</span><span class="p">}</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="p">]}</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">)</span>
+</span></code></pre></div></li>
+<li><strong>Why it matters:</strong> Tags allow you to search, audit, and apply policies to specific files. For example: "Delete all files tagged <code>contains_pii=true</code> that are older than 90 days." This directly supports AGENTS.md Rule 4 (PII handling) and Rule 8 (retention).</li>
+<li><strong>Impact:</strong> Medium (data governance)</li>
+</ul>
+<hr />
+<h3 id="industry-gap-4-upload-retry-logic-exponential-backoff">Industry Gap 4: Upload Retry Logic (Exponential Backoff)<a class="headerlink" href="#industry-gap-4-upload-retry-logic-exponential-backoff" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>What it is:</strong> If an upload fails due to a network glitch, the script should automatically retry 3 times with increasing wait times (1s, 2s, 4s) before giving up.</li>
+<li><strong>Why it matters:</strong> On a home Wi-Fi connection uploading 14M records, you WILL hit occasional network timeouts. Without retry logic, the entire pipeline crashes and you have to restart manually. With retry logic, transient failures are handled silently.</li>
+<li><strong>Impact:</strong> Medium (reliability)</li>
+</ul>
+<hr />
+<h3 id="industry-gap-5-checksum-verification-md5sha-256">Industry Gap 5: Checksum Verification (MD5/SHA-256)<a class="headerlink" href="#industry-gap-5-checksum-verification-md5sha-256" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>What it is:</strong> Instead of just comparing file sizes (which we do), compute a cryptographic hash (MD5 or SHA-256) of the local file and compare it to the S3 object's ETag.</li>
+<li><strong>Why it matters:</strong> Two files can have the exact same size but completely different content (e.g., a corrupted file that's the right number of bytes but wrong data). Size matching catches gross corruption; checksum matching catches subtle corruption.</li>
+<li><strong>Impact:</strong> Low-Medium (our size check covers 99% of cases)</li>
+</ul>
+<hr />
+<h2 id="summary-table">Summary Table<a class="headerlink" href="#summary-table" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">#</th>
+<th>Gap</th>
+<th>Source</th>
+<th style="text-align: center;">Impact</th>
+<th style="text-align: center;">Fix Effort</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td>S3 Lifecycle Policies</td>
+<td>Plan ✅ Build ❌</td>
+<td style="text-align: center;">Medium</td>
+<td style="text-align: center;">15 min</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td><code>file_exists()</code> check</td>
+<td>Plan ✅ Build ❌</td>
+<td style="text-align: center;">Low-Med</td>
+<td style="text-align: center;">10 min</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td><code>--date</code> / <code>--force</code> flags</td>
+<td>Plan ✅ Build ❌</td>
+<td style="text-align: center;">Medium</td>
+<td style="text-align: center;">15 min</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td>Prefix pre-creation</td>
+<td>Plan ✅ Build ❌</td>
+<td style="text-align: center;">Low</td>
+<td style="text-align: center;">5 min</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td>Missing test cases</td>
+<td>Plan ✅ Build ❌</td>
+<td style="text-align: center;">Medium</td>
+<td style="text-align: center;">20 min</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td>Screenshots directory</td>
+<td>Plan ✅ Build ❌</td>
+<td style="text-align: center;">High</td>
+<td style="text-align: center;">15 min</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td><code>.gitignore</code> verification</td>
+<td>Plan ✅ Build ❌</td>
+<td style="text-align: center;"><strong>HIGH</strong></td>
+<td style="text-align: center;">2 min</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td>Structured JSON logging</td>
+<td>Plan ❌ Build ❌</td>
+<td style="text-align: center;">High</td>
+<td style="text-align: center;">30 min</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td>Pipeline Run ID</td>
+<td>Plan ❌ Build ❌</td>
+<td style="text-align: center;">High</td>
+<td style="text-align: center;">20 min</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td>S3 Object Tagging</td>
+<td>Plan ❌ Build ❌</td>
+<td style="text-align: center;">Medium</td>
+<td style="text-align: center;">15 min</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td>Upload retry logic</td>
+<td>Plan ❌ Build ❌</td>
+<td style="text-align: center;">Medium</td>
+<td style="text-align: center;">15 min</td>
+</tr>
+<tr>
+<td style="text-align: center;">12</td>
+<td>Checksum verification</td>
+<td>Plan ❌ Build ❌</td>
+<td style="text-align: center;">Low-Med</td>
+<td style="text-align: center;">10 min</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
