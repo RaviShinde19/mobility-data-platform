@@ -147,6 +147,24 @@ logging:
   file_output: true
   format: "%(asctime)s | %(levelname)-8s | %(name)-25s | %(message)s"
 
+# ── AWS Configuration (Phase 3+) ─────────────────────────────
+aws:
+  region: "ap-south-1"            # Mumbai — closest to us
+  use_localstack: false           # Toggle: true = LocalStack, false = Real AWS
+  localstack_endpoint: "http://localhost:4566"
+
+# ── S3 Configuration ─────────────────────────────────────────
+s3:
+  # S3 bucket names MUST be globally unique across all AWS accounts.
+  # We appended your AWS account ID (269196137263) to guarantee uniqueness.
+  bucket_name: "mobility-data-lake-269196137263"
+  prefix_bronze: "bronze"
+  prefix_silver: "silver"
+  prefix_gold: "gold"
+  prefix_quarantine: "quarantine"
+  encryption: "AES256"            # SSE-S3 encryption
+  versioning: true
+
 # ── Paths ────────────────────────────────────────────────────
 paths:
   raw_data: "data/raw"

@@ -21,3 +21,7 @@ psycopg2-binary==2.9.10
 
 # Testing
 pytest==8.3.5
+
+# AWS — Phase 3 (S3 Bronze Layer Ingestion)
+boto3==1.43.109
+awscli==1.46.1

@@ -39,8 +39,11 @@ Thumbs.db
 # Docker volumes
 docker/pgdata/
 
-# AWS
+# AWS — Credentials and config (NEVER commit these)
 .aws/
+**/credentials
+**/aws_credentials*
+*.pem
 
 # Jupyter
 .ipynb_checkpoints/

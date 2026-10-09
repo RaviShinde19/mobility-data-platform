@@ -1,0 +1,35 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ExplicitDenyBronze",
+            "Effect": "Deny",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::mobility-data-lake-269196137263/bronze",
+                "arn:aws:s3:::mobility-data-lake-269196137263/bronze/*"
+            ]
+        },
+        {
+            "Sid": "AllowSilverGoldReadOnly",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:GetObjectVersion"
+            ],
+            "Resource": [
+                "arn:aws:s3:::mobility-data-lake-269196137263/silver/*",
+                "arn:aws:s3:::mobility-data-lake-269196137263/gold/*"
+            ]
+        },
+        {
+            "Sid": "AllowBucketListing",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": "arn:aws:s3:::mobility-data-lake-269196137263"
+        }
+    ]
+}

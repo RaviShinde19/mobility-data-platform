@@ -7,6 +7,9 @@ This is the single entry point for running the data platform.
 Usage:
     python main.py generate        # Generate synthetic data
     python main.py load-postgres   # Load data into PostgreSQL
+    python main.py setup-s3        # Create S3 bucket with security
+    python main.py upload-bronze   # Upload raw CSVs to S3 Bronze layer
+    python main.py teardown-s3     # Delete S3 bucket and all data
     python main.py --help          # Show available commands
 
 DESIGN PATTERN — CLI Entry Point:
@@ -46,12 +49,20 @@ Examples:
   python main.py generate              Generate synthetic mobility data
   python main.py generate --count 50000  Generate with custom ride count
   python main.py load-postgres          Load data into PostgreSQL
+  python main.py setup-s3               Create and secure the S3 bucket
+  python main.py upload-bronze          Ingest raw CSVs into S3 Bronze layer
+  python main.py teardown-s3            Delete all S3 resources
 
 Phase 1 Commands:
   generate        Generate synthetic data (customers, drivers, rides, payments)
 
 Phase 2 Commands:
   load-postgres   Create tables, load data, set up RBAC roles
+
+Phase 3 Commands:
+  setup-s3        Create S3 bucket with encryption, TLS, and versioning
+  upload-bronze   Upload raw CSV files to S3 Bronze layer (Hive-partitioned)
+  teardown-s3     Delete the S3 bucket and ALL data inside it
         """
     )
 
@@ -103,6 +114,30 @@ Phase 2 Commands:
         help="Drop all tables before creating (clean slate)"
     )
 
+    # ── Phase 3: S3 Setup command ────────────────────────────
+    subparsers.add_parser(
+        "setup-s3",
+        help="Create S3 bucket with encryption, public access block, TLS, and versioning"
+    )
+
+    # ── Phase 3: Upload Bronze command ───────────────────────
+    bronze_parser = subparsers.add_parser(
+        "upload-bronze",
+        help="Upload raw CSV files to S3 Bronze layer with Hive-style partitioning"
+    )
+    bronze_parser.add_argument(
+        "--date",
+        type=str,
+        default=None,
+        help="Override partition date for backfilling (format: YYYY-MM-DD). Default: today"
+    )
+
+    # ── Phase 3: Teardown command ────────────────────────────
+    subparsers.add_parser(
+        "teardown-s3",
+        help="Delete the S3 bucket and ALL data inside it (requires confirmation)"
+    )
+
     args = parser.parse_args()
 
     if not args.command:
@@ -123,6 +158,15 @@ Phase 2 Commands:
 
     elif args.command == "load-postgres":
         _handle_load_postgres(args, config, logger)
+
+    elif args.command == "setup-s3":
+        _handle_setup_s3(config, logger)
+
+    elif args.command == "upload-bronze":
+        _handle_upload_bronze(args, config, logger)
+
+    elif args.command == "teardown-s3":
+        _handle_teardown_s3(config, logger)
 
     else:
         logger.error(f"Unknown command: {args.command}")
@@ -227,6 +271,45 @@ def _handle_load_postgres(args, config, logger):
     print("=" * 60)
 
 
+def _handle_setup_s3(config, logger):
+    """Handle the 'setup-s3' command (Phase 3)."""
+    # Import here so users without boto3 can still use Phase 1/2 commands
+    from scripts.setup_s3 import create_s3_bucket
+
+    logger.info("Starting S3 bucket setup...")
+    create_s3_bucket()
+    logger.info("S3 setup complete.")
+
+
+def _handle_upload_bronze(args, config, logger):
+    """Handle the 'upload-bronze' command (Phase 3)."""
+    from src.ingestion.bronze_ingestion import run_bronze_ingestion
+
+    # Parse the --date argument for backfilling historical data.
+    # If --date is provided, we upload to that date's partition.
+    # If not, we default to today's date.
+    partition_date = None
+    if hasattr(args, 'date') and args.date:
+        try:
+            partition_date = datetime.strptime(args.date, '%Y-%m-%d')
+            logger.info(f"Backfilling to partition date: {args.date}")
+        except ValueError:
+            logger.error(f"Invalid date format: {args.date}. Use YYYY-MM-DD.")
+            sys.exit(1)
+
+    logger.info("Starting Bronze layer ingestion...")
+    run_bronze_ingestion(partition_date=partition_date)
+    logger.info("Bronze ingestion complete.")
+
+
+def _handle_teardown_s3(config, logger):
+    """Handle the 'teardown-s3' command (Phase 3)."""
+    from scripts.teardown_aws import teardown_s3
+
+    logger.info("Starting S3 teardown...")
+    teardown_s3()
+    logger.info("S3 teardown complete.")
+
+
 if __name__ == "__main__":
     main()
-
