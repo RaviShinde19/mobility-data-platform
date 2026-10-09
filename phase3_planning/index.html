@@ -1,0 +1,3480 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../phase2_complete_guide/">
+      
+      
+        <link rel="next" href="../enterprise_tradeoffs/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Phase 3 — S3 Bronze Planning - Mobility Data Platform</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#phase-3-amazon-s3-bronze-layer-ingestion-planning-document" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mobility Data Platform" class="md-header__button md-logo" aria-label="Mobility Data Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mobility Data Platform
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Phase 3 — S3 Bronze Planning
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mobility Data Platform" class="md-nav__button md-logo" aria-label="Mobility Data Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mobility Data Platform
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../implementation_plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_dictionary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Dictionary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_governance_and_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governance & Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v1_v2_metrics_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metrics Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase Walkthroughs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Phase Walkthroughs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase1_walkthrough/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 1 — Data Generation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase2_planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 2 — PostgreSQL Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase2_walkthrough/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 2 — PostgreSQL Walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase2_complete_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 2 — Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 3 — S3 Bronze Planning
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 3 — S3 Bronze Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-problem-statement-what-are-we-solving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Problem Statement — What Are We Solving?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Problem Statement — What Are We Solving?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whats-broken-or-missing-right-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's broken or missing right now?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-is-this-a-separate-phase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why is this a separate phase?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-does-done-look-like" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What does "done" look like?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-solution-approach-how-are-we-solving-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Solution Approach — How Are We Solving It?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Solution Approach — How Are We Solving It?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#three-realistic-approaches-evaluated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three realistic approaches evaluated:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-paths-for-running-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two paths for running it:
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Two paths for running it:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#path-1-real-aws-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path 1: Real AWS (Recommended)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#path-2-localstack-free-simulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path 2: LocalStack (Free Simulator)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-breakdown-real-aws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cost Breakdown (Real AWS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#region-choice-why-ap-south-1-mumbai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Region Choice: Why ap-south-1 (Mumbai)?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-concepts-to-understand-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Concepts to Understand First
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Concepts to Understand First">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept-1-amazon-s3-simple-storage-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 1: Amazon S3 (Simple Storage Service)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concept-2-iam-identity-and-access-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 2: IAM (Identity and Access Management)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concept-3-boto3-aws-sdk-for-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 3: boto3 (AWS SDK for Python)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concept-4-date-based-partitioning-hive-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 4: Date-based partitioning (Hive-style)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concept-5-encryption-at-rest-sse-s3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 5: Encryption at rest (SSE-S3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concept-6-localstack-if-using-the-local-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 6: LocalStack (if using the local path)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concept-7-s3-bucket-naming-rules-will-bite-you-if-you-dont-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 7: S3 Bucket Naming Rules (Will bite you if you don't know)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concept-8-pii-in-bronze-the-security-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 8: PII in Bronze - The Security Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-step-by-step-build-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Step-by-Step Build Order
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Step-by-Step Build Order">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependency-dag-for-phase-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency DAG for Phase 3:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-aws-account-cli-setup-or-localstack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: AWS Account + CLI Setup (or LocalStack)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1: AWS Account + CLI Setup (or LocalStack)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#path-a-real-aws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path A — Real AWS:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#path-b-localstack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path B — LocalStack:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-update-configyaml-add-s3aws-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Update config.yaml — Add S3/AWS section
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-scriptssetup_s3py-create-the-bucket-with-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: scripts/setup_s3.py — Create the bucket with security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-srcingestions3_uploaderpy-upload-a-single-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: src/ingestion/s3_uploader.py — Upload a single file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-srcingestionbronze_ingestionpy-orchestrate-all-4-datasets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: src/ingestion/bronze_ingestion.py — Orchestrate all 4 datasets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-update-mainpy-add-upload-bronze-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Update main.py — Add upload-bronze command
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-7-iam-policies-least-privilege-json-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7: IAM Policies — Least Privilege JSON files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-8-scriptsteardown_awspy-cleanup-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 8: scripts/teardown_aws.py — Cleanup script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-9-tests-teststest_s3_ingestionpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 9: Tests — tests/test_s3_ingestion.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-datacontrol-flow-trace-what-happens-at-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Data/Control Flow Trace — What Happens at Runtime
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Data/Control Flow Trace — What Happens at Runtime">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-importcall-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The import/call chain:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-beforeafter-state-concrete-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Before/After State — Concrete Example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Before/After State — Concrete Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#before-phase-3-current-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BEFORE Phase 3 (current state):
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#after-phase-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AFTER Phase 3:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-failure-modes-what-can-go-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Failure Modes — What Can Go Wrong?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-interfacecontract-with-phase-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Interface/Contract with Phase 4
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-new-dependenciestools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. New Dependencies/Tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-where-this-fits-in-the-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Where This Fits in the Repo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Where This Fits in the Repo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-directories-and-files-created-by-phase-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        New directories and files created by Phase 3:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-already-exists-untouched" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What already exists (untouched):
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-manual-verification-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Manual Verification Checklist
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Manual Verification Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checklist-0-billing-credentials-safety-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist 0: Billing &amp; Credentials Safety (FIRST!)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checklist-1-s3-bucket-exists-and-is-secure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist 1: S3 Bucket Exists and Is Secure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checklist-2-files-are-uploaded-correctly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist 2: Files Are Uploaded Correctly
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checklist-3-idempotency-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist 3: Idempotency Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checklist-4-tests-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist 4: Tests Pass
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checklist-5-teardown-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist 5: Teardown Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checklist-6-pii-access-restriction-agentsmd-rule-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist 6: PII Access Restriction (AGENTS.md Rule 4)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checklist-7-evidence-collection-for-portfolio-and-interviews" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist 7: Evidence Collection (for portfolio and interviews)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-learning-resources-watchread-before-building" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Learning Resources — Watch/Read Before Building
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Learning Resources — Watch/Read Before Building">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-do-before-writing-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Must-Do (Before writing code):
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#good-to-know-during-or-after-building" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Good-To-Know (During or after building):
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-line-skills-to-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command-Line Skills to Practice:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phase3_gap_analysis.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 3 — S3 Bronze Gap Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture & Decisions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture & Decisions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enterprise_tradeoffs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enterprise Trade-offs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-problem-statement-what-are-we-solving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Problem Statement — What Are We Solving?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Problem Statement — What Are We Solving?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whats-broken-or-missing-right-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's broken or missing right now?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-is-this-a-separate-phase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why is this a separate phase?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-does-done-look-like" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What does "done" look like?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-solution-approach-how-are-we-solving-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Solution Approach — How Are We Solving It?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Solution Approach — How Are We Solving It?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#three-realistic-approaches-evaluated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three realistic approaches evaluated:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-paths-for-running-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two paths for running it:
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Two paths for running it:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#path-1-real-aws-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path 1: Real AWS (Recommended)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#path-2-localstack-free-simulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path 2: LocalStack (Free Simulator)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-breakdown-real-aws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cost Breakdown (Real AWS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#region-choice-why-ap-south-1-mumbai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Region Choice: Why ap-south-1 (Mumbai)?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-concepts-to-understand-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Concepts to Understand First
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Concepts to Understand First">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept-1-amazon-s3-simple-storage-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 1: Amazon S3 (Simple Storage Service)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concept-2-iam-identity-and-access-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 2: IAM (Identity and Access Management)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concept-3-boto3-aws-sdk-for-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 3: boto3 (AWS SDK for Python)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concept-4-date-based-partitioning-hive-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 4: Date-based partitioning (Hive-style)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concept-5-encryption-at-rest-sse-s3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 5: Encryption at rest (SSE-S3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concept-6-localstack-if-using-the-local-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 6: LocalStack (if using the local path)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concept-7-s3-bucket-naming-rules-will-bite-you-if-you-dont-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 7: S3 Bucket Naming Rules (Will bite you if you don't know)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concept-8-pii-in-bronze-the-security-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 8: PII in Bronze - The Security Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-step-by-step-build-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Step-by-Step Build Order
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Step-by-Step Build Order">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependency-dag-for-phase-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency DAG for Phase 3:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-aws-account-cli-setup-or-localstack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: AWS Account + CLI Setup (or LocalStack)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1: AWS Account + CLI Setup (or LocalStack)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#path-a-real-aws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path A — Real AWS:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#path-b-localstack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path B — LocalStack:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-update-configyaml-add-s3aws-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Update config.yaml — Add S3/AWS section
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-scriptssetup_s3py-create-the-bucket-with-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: scripts/setup_s3.py — Create the bucket with security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-srcingestions3_uploaderpy-upload-a-single-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: src/ingestion/s3_uploader.py — Upload a single file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-srcingestionbronze_ingestionpy-orchestrate-all-4-datasets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: src/ingestion/bronze_ingestion.py — Orchestrate all 4 datasets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-update-mainpy-add-upload-bronze-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Update main.py — Add upload-bronze command
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-7-iam-policies-least-privilege-json-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7: IAM Policies — Least Privilege JSON files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-8-scriptsteardown_awspy-cleanup-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 8: scripts/teardown_aws.py — Cleanup script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-9-tests-teststest_s3_ingestionpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 9: Tests — tests/test_s3_ingestion.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-datacontrol-flow-trace-what-happens-at-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Data/Control Flow Trace — What Happens at Runtime
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Data/Control Flow Trace — What Happens at Runtime">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-importcall-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The import/call chain:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-beforeafter-state-concrete-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Before/After State — Concrete Example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Before/After State — Concrete Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#before-phase-3-current-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BEFORE Phase 3 (current state):
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#after-phase-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AFTER Phase 3:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-failure-modes-what-can-go-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Failure Modes — What Can Go Wrong?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-interfacecontract-with-phase-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Interface/Contract with Phase 4
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-new-dependenciestools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. New Dependencies/Tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-where-this-fits-in-the-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Where This Fits in the Repo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Where This Fits in the Repo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-directories-and-files-created-by-phase-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        New directories and files created by Phase 3:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-already-exists-untouched" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What already exists (untouched):
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-manual-verification-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Manual Verification Checklist
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Manual Verification Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checklist-0-billing-credentials-safety-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist 0: Billing &amp; Credentials Safety (FIRST!)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checklist-1-s3-bucket-exists-and-is-secure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist 1: S3 Bucket Exists and Is Secure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checklist-2-files-are-uploaded-correctly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist 2: Files Are Uploaded Correctly
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checklist-3-idempotency-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist 3: Idempotency Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checklist-4-tests-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist 4: Tests Pass
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checklist-5-teardown-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist 5: Teardown Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checklist-6-pii-access-restriction-agentsmd-rule-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist 6: PII Access Restriction (AGENTS.md Rule 4)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checklist-7-evidence-collection-for-portfolio-and-interviews" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist 7: Evidence Collection (for portfolio and interviews)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-learning-resources-watchread-before-building" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Learning Resources — Watch/Read Before Building
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Learning Resources — Watch/Read Before Building">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-do-before-writing-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Must-Do (Before writing code):
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#good-to-know-during-or-after-building" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Good-To-Know (During or after building):
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-line-skills-to-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command-Line Skills to Practice:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="phase-3-amazon-s3-bronze-layer-ingestion-planning-document">Phase 3 — Amazon S3 Bronze Layer Ingestion: Planning Document<a class="headerlink" href="#phase-3-amazon-s3-bronze-layer-ingestion-planning-document" title="Permanent link">&para;</a></h1>
+<div class="admonition info">
+<p class="admonition-title">Phase Status</p>
+<p><strong>Status</strong>: PLANNING (no code written yet)<br />
+<strong>Prerequisite</strong>: Phase 2 complete (52/52 tests passing)<br />
+<strong>Estimated build time</strong>: 2-3 sessions<br />
+<strong>Estimated AWS cost</strong>: ~$0.05 (see detailed breakdown in Section 2)</p>
+</div>
+<hr />
+<h2 id="1-problem-statement-what-are-we-solving">1. Problem Statement — What Are We Solving?<a class="headerlink" href="#1-problem-statement-what-are-we-solving" title="Permanent link">&para;</a></h2>
+<h3 id="whats-broken-or-missing-right-now">What's broken or missing right now?<a class="headerlink" href="#whats-broken-or-missing-right-now" title="Permanent link">&para;</a></h3>
+<p>After Phase 2, our data lives in TWO places:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>data/raw/*.csv  →  Your laptop (flat files)
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>PostgreSQL      →  Your laptop (Docker container)
+</span></code></pre></div>
+<p><strong>Both are on your laptop.</strong> This creates three critical problems:</p>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>No cloud storage</strong></td>
+<td>If your laptop dies, ALL data is gone. There's no backup, no disaster recovery.</td>
+</tr>
+<tr>
+<td><strong>No Bronze layer</strong></td>
+<td>The medallion architecture (Bronze → Silver → Gold) requires raw data to land in a cloud data lake FIRST. Phase 4 (PySpark) needs to READ from S3, not from local CSV files.</td>
+</tr>
+<tr>
+<td><strong>No shared access</strong></td>
+<td>Your PostgreSQL is only accessible from your laptop. In a real company, 50+ engineers and analysts need access to the same raw data. S3 provides that shared, centralized landing zone.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="why-is-this-a-separate-phase">Why is this a separate phase?<a class="headerlink" href="#why-is-this-a-separate-phase" title="Permanent link">&para;</a></h3>
+<p>Phase 4 (PySpark transformations) <strong>assumes data is in S3</strong>. If we skip Phase 3, Phase 4 has nothing to read from. The dependency chain is:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Phase 1: Generate CSVs locally
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Phase 2: Load into PostgreSQL (for SQL practice + validation)
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Phase 3: Upload CSVs to S3 Bronze layer  ← YOU ARE HERE
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Phase 4: PySpark reads FROM S3 Bronze, writes TO S3 Silver
+</span></code></pre></div>
+<p>Without Phase 3, Phase 4 would need to read from local files — which doesn't work when we move to AWS Glue (Phase 7), because Glue runs in the cloud and can't access your laptop.</p>
+<h3 id="what-does-done-look-like">What does "done" look like?<a class="headerlink" href="#what-does-done-look-like" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>s3://your-bucket-name/
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>└── bronze/
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    ├── customers/year=2026/month=09/day=28/customers.csv
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    ├── drivers/year=2026/month=09/day=28/drivers.csv
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    ├── rides/year=2026/month=09/day=28/rides.csv
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    └── payments/year=2026/month=09/day=28/payments.csv
+</span></code></pre></div>
+<p>Plus: encryption ON, public access BLOCKED, versioning ON, IAM roles scoped, teardown script ready.</p>
+<hr />
+<h2 id="2-solution-approach-how-are-we-solving-it">2. Solution Approach — How Are We Solving It?<a class="headerlink" href="#2-solution-approach-how-are-we-solving-it" title="Permanent link">&para;</a></h2>
+<h3 id="three-realistic-approaches-evaluated">Three realistic approaches evaluated:<a class="headerlink" href="#three-realistic-approaches-evaluated" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>What it is</th>
+<th>Pros</th>
+<th>Cons</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A. boto3 (Python SDK)</strong></td>
+<td>Write Python code that calls AWS APIs directly</td>
+<td>Full control, learnable, same language as our project, reusable in production</td>
+<td>Requires understanding AWS auth, more code to write</td>
+<td>✅ <strong>Picking this</strong></td>
+</tr>
+<tr>
+<td><strong>B. AWS CLI</strong></td>
+<td>Use <code>aws s3 cp</code> shell commands</td>
+<td>Quick, simple, no Python needed</td>
+<td>Not programmable, can't add validation/logging, doesn't teach SDK skills</td>
+<td>❌ Too basic</td>
+</tr>
+<tr>
+<td><strong>C. Terraform/CloudFormation</strong></td>
+<td>Infrastructure-as-Code templates</td>
+<td>Professional, repeatable</td>
+<td>Huge learning curve, overkill for Phase 3, better suited for V2</td>
+<td>❌ Too advanced for now</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Decision: boto3 (Option A)</strong></p>
+<p><strong>Why</strong>: You're learning Python. boto3 is Python. Every data engineer uses boto3 daily. The skills transfer directly to Phase 7 (Glue) and Phase 9 (Redshift). AWS CLI is a shortcut that doesn't teach you anything reusable. Terraform is important but belongs in V2 when you've mastered the basics.</p>
+<h3 id="two-paths-for-running-it">Two paths for running it:<a class="headerlink" href="#two-paths-for-running-it" title="Permanent link">&para;</a></h3>
+<p>You asked for both options — here they are side by side:</p>
+<h4 id="path-1-real-aws-recommended">Path 1: Real AWS (Recommended)<a class="headerlink" href="#path-1-real-aws-recommended" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>What</strong></td>
+<td>Create a real S3 bucket in your real AWS account</td>
+</tr>
+<tr>
+<td><strong>Cost</strong></td>
+<td>~$0.05/month. S3 free tier gives 5 GB storage + 20,000 GET + 2,000 PUT requests/month for 12 months. Our data is ~50 MB.</td>
+</tr>
+<tr>
+<td><strong>Pros</strong></td>
+<td>Real experience. Screenshots for portfolio. Skills transfer directly to interviews. Exactly what production looks like.</td>
+</tr>
+<tr>
+<td><strong>Cons</strong></td>
+<td>Requires AWS account creation (15 min). Must remember to teardown to avoid costs.</td>
+</tr>
+<tr>
+<td><strong>Setup needed</strong></td>
+<td>Create AWS account → Create IAM user → Install AWS CLI → Configure credentials</td>
+</tr>
+</tbody>
+</table>
+<h4 id="path-2-localstack-free-simulator">Path 2: LocalStack (Free Simulator)<a class="headerlink" href="#path-2-localstack-free-simulator" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>What</strong></td>
+<td>A Docker container that simulates AWS services locally. Your code talks to <code>localhost:4566</code> instead of <code>s3.amazonaws.com</code>.</td>
+</tr>
+<tr>
+<td><strong>Cost</strong></td>
+<td>$0. Runs entirely on your laptop.</td>
+</tr>
+<tr>
+<td><strong>Pros</strong></td>
+<td>Zero cost, zero risk of accidental charges, no AWS account needed, works offline.</td>
+</tr>
+<tr>
+<td><strong>Cons</strong></td>
+<td>Not real AWS — no IAM enforcement, no real encryption, no console screenshots for portfolio. Interviews will ask "did you use real AWS?"</td>
+</tr>
+<tr>
+<td><strong>Setup needed</strong></td>
+<td>Add LocalStack to <code>docker-compose.yml</code> → Set <code>endpoint_url</code> in boto3</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Recommendation</p>
+<p><strong>Do BOTH.</strong> Start with LocalStack to learn the boto3 API without worrying about costs or credentials. Once comfortable, switch to Real AWS to get the real experience and portfolio evidence.</p>
+<p>The code is IDENTICAL — the only difference is one line:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># LocalStack:</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">'s3'</span><span class="p">,</span> <span class="n">endpoint_url</span><span class="o">=</span><span class="s1">'http://localhost:4566'</span><span class="p">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Real AWS:</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">'s3'</span><span class="p">)</span>  <span class="c1"># uses ~/.aws/credentials automatically</span>
+</span></code></pre></div>
+We'll build the code so that switching between them is a single config toggle.</p>
+</div>
+<h3 id="cost-breakdown-real-aws">Cost Breakdown (Real AWS)<a class="headerlink" href="#cost-breakdown-real-aws" title="Permanent link">&para;</a></h3>
+<p>Let's break down exactly what Phase 3 costs:</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Volume</th>
+<th>Unit price</th>
+<th style="text-align: center;">Cost</th>
+<th style="text-align: center;">Free tier?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PutObject</code> (upload)</td>
+<td>4 files x ~5 runs = 20 requests</td>
+<td>$0.005 per 1,000</td>
+<td style="text-align: center;">~$0.00</td>
+<td style="text-align: center;">Yes, 2,000 free/month</td>
+</tr>
+<tr>
+<td><code>HeadObject</code> (idempotency check)</td>
+<td>4 files x ~5 runs = 20 requests</td>
+<td>$0.004 per 1,000</td>
+<td style="text-align: center;">~$0.00</td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr>
+<td><code>GetObject</code> (verification)</td>
+<td>~20 requests</td>
+<td>$0.0004 per 1,000</td>
+<td style="text-align: center;">~$0.00</td>
+<td style="text-align: center;">Yes, 20,000 free/month</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>~2.5 MB x 1-2 months</td>
+<td>$0.023 per GB/month</td>
+<td style="text-align: center;">~$0.00</td>
+<td style="text-align: center;">Yes, 5 GB free for 12 months</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td></td>
+<td style="text-align: center;"><strong>~$0.00</strong></td>
+<td style="text-align: center;">Fully covered by free tier</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Bottom line</strong>: Phase 3 is effectively free. The first real cost comes in Phase 7 (Glue ETL: ~$7-15).</p>
+<h3 id="region-choice-why-ap-south-1-mumbai">Region Choice: Why <code>ap-south-1</code> (Mumbai)?<a class="headerlink" href="#region-choice-why-ap-south-1-mumbai" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Region</th>
+<th>Location</th>
+<th style="text-align: center;">Latency from India</th>
+<th style="text-align: center;">S3 price/GB</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ap-south-1</code></td>
+<td>Mumbai</td>
+<td style="text-align: center;">~20ms</td>
+<td style="text-align: center;">$0.023</td>
+<td><strong>Picking this.</strong> Closest. Lowest latency.</td>
+</tr>
+<tr>
+<td><code>us-east-1</code></td>
+<td>Virginia, USA</td>
+<td style="text-align: center;">~200ms</td>
+<td style="text-align: center;">$0.023</td>
+<td>Most tutorials use this, but uploads 10x slower from India</td>
+</tr>
+<tr>
+<td><code>ap-southeast-1</code></td>
+<td>Singapore</td>
+<td style="text-align: center;">~50ms</td>
+<td style="text-align: center;">$0.023</td>
+<td>Decent, but Mumbai is closer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key rule</strong>: Once you pick a region, ALL services for this project must be in that same region. S3, Glue, Athena, Redshift - all in <code>ap-south-1</code>. Cross-region data transfer costs money.</p>
+<hr />
+<h2 id="3-concepts-to-understand-first">3. Concepts to Understand First<a class="headerlink" href="#3-concepts-to-understand-first" title="Permanent link">&para;</a></h2>
+<p>Before writing any code, you need to understand these concepts. I've ordered them by when you'll encounter them during the build.</p>
+<h3 id="concept-1-amazon-s3-simple-storage-service">Concept 1: Amazon S3 (Simple Storage Service)<a class="headerlink" href="#concept-1-amazon-s3-simple-storage-service" title="Permanent link">&para;</a></h3>
+<p><strong>What it is</strong>: A cloud storage service. Think of it as an infinite, always-available hard drive in the sky. You upload files (called "objects") into containers (called "buckets").</p>
+<p><strong>Key vocabulary</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>What it means</th>
+<th>Analogy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bucket</strong></td>
+<td>A top-level container for files. Like a Google Drive folder.</td>
+<td>A filing cabinet</td>
+</tr>
+<tr>
+<td><strong>Object</strong></td>
+<td>A single file stored in S3. Has a key (path) and data (contents).</td>
+<td>A document in the cabinet</td>
+</tr>
+<tr>
+<td><strong>Key</strong></td>
+<td>The "path" to an object. e.g., <code>bronze/rides/year=2026/month=09/rides.csv</code></td>
+<td>The label on the folder tab</td>
+</tr>
+<tr>
+<td><strong>Prefix</strong></td>
+<td>A "folder" in S3 (S3 doesn't actually have folders — it's a flat namespace, but prefixes ACT like folders)</td>
+<td>A drawer in the cabinet</td>
+</tr>
+<tr>
+<td><strong>Region</strong></td>
+<td>The physical AWS data center location. e.g., <code>ap-south-1</code> = Mumbai</td>
+<td>Which city the cabinet is in</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Should I read more?</strong> Yes — spend 15 minutes on the AWS S3 overview page after reading this plan.</p>
+<h3 id="concept-2-iam-identity-and-access-management">Concept 2: IAM (Identity and Access Management)<a class="headerlink" href="#concept-2-iam-identity-and-access-management" title="Permanent link">&para;</a></h3>
+<p><strong>What it is</strong>: AWS's permission system. It controls WHO can do WHAT on WHICH resources.</p>
+<p><strong>Key vocabulary</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>What it means</th>
+<th>Our use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IAM User</strong></td>
+<td>A person or application that can access AWS</td>
+<td>You (the developer)</td>
+</tr>
+<tr>
+<td><strong>IAM Role</strong></td>
+<td>A set of permissions that can be assumed by a user or service</td>
+<td><code>mobility-ingestion-role</code> (can only write to <code>bronze/</code>)</td>
+</tr>
+<tr>
+<td><strong>IAM Policy</strong></td>
+<td>A JSON document that defines specific permissions</td>
+<td>"Allow <code>s3:PutObject</code> on <code>s3://bucket/bronze/*</code>"</td>
+</tr>
+<tr>
+<td><strong>Access Key + Secret Key</strong></td>
+<td>Credentials for programmatic access (like a username + password for the API)</td>
+<td>Stored in <code>~/.aws/credentials</code>, NEVER in code</td>
+</tr>
+<tr>
+<td><strong>Principle of Least Privilege</strong></td>
+<td>Give each role ONLY the permissions it needs, nothing more</td>
+<td>Our ingestion role can ONLY write to <code>bronze/</code>, not <code>silver/</code> or <code>gold/</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Should I read more?</strong> Yes — watch a 10-minute YouTube video on IAM before we start. This is one of the most important AWS concepts.</p>
+<h3 id="concept-3-boto3-aws-sdk-for-python">Concept 3: boto3 (AWS SDK for Python)<a class="headerlink" href="#concept-3-boto3-aws-sdk-for-python" title="Permanent link">&para;</a></h3>
+<p><strong>What it is</strong>: A Python library that lets you talk to AWS services. You import it, create a "client" for the service you want (S3, IAM, Glue, etc.), and call methods.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">boto3</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># Create an S3 client</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">'s3'</span><span class="p">)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1"># Upload a file</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">s3</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="s1">'data/raw/rides/rides.csv'</span><span class="p">,</span> <span class="s1">'my-bucket'</span><span class="p">,</span> <span class="s1">'bronze/rides/rides.csv'</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>Key pattern</strong>: <code>client</code> vs <code>resource</code></p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>Style</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>boto3.client('s3')</code></td>
+<td>Low-level, method calls</td>
+<td>Full control, exact API calls</td>
+</tr>
+<tr>
+<td><code>boto3.resource('s3')</code></td>
+<td>High-level, object-oriented</td>
+<td>Simpler code, less control</td>
+</tr>
+</tbody>
+</table>
+<p>We'll use <code>client</code> because it maps 1:1 to the AWS API docs and gives us full control.</p>
+<p><strong>Should I read more?</strong> Skim the boto3 S3 quickstart after reading this plan. Don't deep-dive — you'll learn by writing the code.</p>
+<h3 id="concept-4-date-based-partitioning-hive-style">Concept 4: Date-based partitioning (Hive-style)<a class="headerlink" href="#concept-4-date-based-partitioning-hive-style" title="Permanent link">&para;</a></h3>
+<p><strong>What it is</strong>: Organizing files into folder paths that encode the date. This is how every data lake in the world organizes raw data.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a># Without partitioning (BAD):
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>bronze/rides/rides.csv          ← ONE massive file, grows forever
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a># With partitioning (GOOD):
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>bronze/rides/year=2026/month=01/day=01/rides.csv
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>bronze/rides/year=2026/month=01/day=02/rides.csv
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>bronze/rides/year=2026/month=09/day=28/rides.csv
+</span></code></pre></div>
+<p><strong>Why <code>year=YYYY/month=MM/day=DD</code>?</strong> This is called "Hive-style partitioning." PySpark (Phase 4), Athena (Phase 8), and Glue (Phase 7) all automatically recognize this naming convention. They'll use it to skip irrelevant files when you query a specific date range.</p>
+<p><strong>Should I read more?</strong> No — you'll understand this by doing it.</p>
+<h3 id="concept-5-encryption-at-rest-sse-s3">Concept 5: Encryption at rest (SSE-S3)<a class="headerlink" href="#concept-5-encryption-at-rest-sse-s3" title="Permanent link">&para;</a></h3>
+<p><strong>What it is</strong>: When you upload a file to S3, AWS automatically encrypts it on disk using AES-256. Even if someone physically steals the hard drive from the AWS data center, they can't read your data.</p>
+<p>We'll use <strong>SSE-S3</strong> (Server-Side Encryption with S3-managed keys) — the simplest option. AWS manages the encryption keys for you. Zero code changes needed.</p>
+<p><strong>Should I read more?</strong> No — it's a one-line configuration.</p>
+<h3 id="concept-6-localstack-if-using-the-local-path">Concept 6: LocalStack (if using the local path)<a class="headerlink" href="#concept-6-localstack-if-using-the-local-path" title="Permanent link">&para;</a></h3>
+<p><strong>What it is</strong>: An open-source tool that runs a fake AWS cloud on your laptop in Docker. Your Python code thinks it's talking to real AWS, but it's actually talking to a container on <code>localhost:4566</code>.</p>
+<p><strong>How it works</strong>:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Your Python code → boto3 → endpoint_url=localhost:4566 → LocalStack Docker container
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Your Python code → boto3 → endpoint_url=s3.amazonaws.com → Real AWS (default)
+</span></code></pre></div></p>
+<p><strong>Should I read more?</strong> Only if you choose the LocalStack path first. A 5-minute quickstart is enough.</p>
+<h3 id="concept-7-s3-bucket-naming-rules-will-bite-you-if-you-dont-know">Concept 7: S3 Bucket Naming Rules (Will bite you if you don't know)<a class="headerlink" href="#concept-7-s3-bucket-naming-rules-will-bite-you-if-you-dont-know" title="Permanent link">&para;</a></h3>
+<p>S3 bucket names are <strong>globally unique across ALL 300 million+ AWS accounts</strong>. If someone in Japan already has a bucket named <code>mobility-data-lake</code>, you cannot use that name.</p>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Valid</th>
+<th>Invalid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Must be globally unique</td>
+<td><code>mobility-lake-YOUR-ACCT-ID</code></td>
+<td><code>mobility-data-lake</code> (probably taken)</td>
+</tr>
+<tr>
+<td>Lowercase only</td>
+<td><code>my-bucket</code></td>
+<td><code>My-Bucket</code></td>
+</tr>
+<tr>
+<td>No underscores</td>
+<td><code>my-bucket</code></td>
+<td><code>my_bucket</code></td>
+</tr>
+<tr>
+<td>3-63 characters</td>
+<td><code>mob</code></td>
+<td><code>mo</code></td>
+</tr>
+<tr>
+<td>Must start with letter or number</td>
+<td><code>mobility-123</code></td>
+<td><code>-mobility</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Our strategy</strong>: <code>mobility-data-lake-{your-aws-account-id}</code> makes it unique. Find your ID: <code>aws sts get-caller-identity</code>.</p>
+<h3 id="concept-8-pii-in-bronze-the-security-model">Concept 8: PII in Bronze - The Security Model<a class="headerlink" href="#concept-8-pii-in-bronze-the-security-model" title="Permanent link">&para;</a></h3>
+<p>AGENTS.md Rule 4: <em>"Raw landing data with PII must be kept in access-restricted Bronze prefixes."</em></p>
+<p>Our Bronze CSVs contain raw PII (emails, phones, names, GPS coordinates). We upload them AS-IS. Here is the security model:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Bronze (raw PII)     -&gt; Restricted to ingestion role ONLY
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    | Phase 4
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Silver (masked PII)  -&gt; emails hashed, phones masked, GPS to H3 hex
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    | Phase 5  
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>Gold (no PII)        -&gt; surrogate keys only, no personal data
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Who can access</th>
+<th>PII status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bronze/</code></td>
+<td>ingestion-role (write), etl-role (read). <strong>NO analyst access.</strong></td>
+<td>Raw PII present</td>
+</tr>
+<tr>
+<td><code>silver/</code></td>
+<td>etl-role (write), analytics-role (read)</td>
+<td>PII masked (SHA-256)</td>
+</tr>
+<tr>
+<td><code>gold/</code></td>
+<td>analytics-role (read), BI tools</td>
+<td>Zero PII</td>
+</tr>
+</tbody>
+</table>
+<p>This is enforced by the IAM policies in Step 7. Analysts get an explicit <code>Deny</code> on <code>bronze/*</code>.</p>
+<hr />
+<h2 id="4-step-by-step-build-order">4. Step-by-Step Build Order<a class="headerlink" href="#4-step-by-step-build-order" title="Permanent link">&para;</a></h2>
+<h3 id="dependency-dag-for-phase-3">Dependency DAG for Phase 3:<a class="headerlink" href="#dependency-dag-for-phase-3" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TD
+    A["Step 1: AWS Account + CLI Setup&lt;br/&gt;(or LocalStack Docker)"] --&gt; B["Step 2: config.yaml&lt;br/&gt;(add S3/AWS section)"]
+    B --&gt; C["Step 3: setup_s3.py&lt;br/&gt;(create bucket + security)"]
+    C --&gt; D["Step 4: s3_uploader.py&lt;br/&gt;(upload single file)"]
+    D --&gt; E["Step 5: bronze_ingestion.py&lt;br/&gt;(orchestrate all 4 datasets)"]
+    E --&gt; F["Step 6: main.py&lt;br/&gt;(add upload-bronze command)"]
+    F --&gt; G["Step 7: IAM policies&lt;br/&gt;(least privilege JSON files)"]
+    G --&gt; H["Step 8: teardown_aws.py&lt;br/&gt;(cleanup script)"]
+    H --&gt; I["Step 9: tests&lt;br/&gt;(test_s3_ingestion.py)"]
+
+    style A fill:#E53935,color:#fff,stroke:none
+    style B fill:#FB8C00,color:#fff,stroke:none
+    style C fill:#43A047,color:#fff,stroke:none
+    style D fill:#1E88E5,color:#fff,stroke:none
+    style E fill:#8E24AA,color:#fff,stroke:none
+    style F fill:#00897B,color:#fff,stroke:none
+    style G fill:#6D4C41,color:#fff,stroke:none
+    style H fill:#E53935,color:#fff,stroke:none
+    style I fill:#37474F,color:#fff,stroke:none</code></pre>
+<hr />
+<h3 id="step-1-aws-account-cli-setup-or-localstack">Step 1: AWS Account + CLI Setup (or LocalStack)<a class="headerlink" href="#step-1-aws-account-cli-setup-or-localstack" title="Permanent link">&para;</a></h3>
+<p><strong>What</strong>: Set up the infrastructure that our Python code will talk to.</p>
+<p><strong>Files created/changed</strong>: None in the repo (this is environment setup on your machine).</p>
+<p><strong>Depends on</strong>: Nothing.</p>
+<h4 id="path-a-real-aws">Path A — Real AWS:<a class="headerlink" href="#path-a-real-aws" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Create an AWS account at <a href="https://aws.amazon.com/free/">https://aws.amazon.com/free/</a></li>
+<li><span class="twemoji text-red"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14h-2V9h2m0 9h-2v-2h2M1 21h22L12 2z"/></svg></span> <strong>SET UP A BILLING ALARM IMMEDIATELY</strong> (see Step 1A below)</li>
+<li>Create an IAM user (not root) with <code>AmazonS3FullAccess</code> (temporary — we'll scope it down in Step 7)</li>
+<li>Generate Access Key + Secret Key for the IAM user</li>
+<li>Install AWS CLI: <code>pip install awscli</code></li>
+<li>Configure credentials: <code>aws configure</code> → enter Access Key, Secret Key, region <code>ap-south-1</code></li>
+<li>Verify credentials are NOT inside the project folder (see Credentials Safety below)</li>
+<li>Verify: <code>aws sts get-caller-identity</code> should return your account ID</li>
+</ol>
+<div class="admonition danger">
+<p class="admonition-title">Step 1A: Billing Alarm (DO THIS FIRST — non-negotiable)</p>
+<p>This is your financial safety net. If anything goes wrong, you get an email BEFORE a big bill arrives.</p>
+<ol>
+<li>Go to <strong>AWS Console → Billing → Billing Preferences</strong></li>
+<li>Check "Receive Free Tier Usage Alerts" → enter your email</li>
+<li>Go to <strong>CloudWatch → Alarms → Create Alarm</strong></li>
+<li>Select metric: <strong>Billing → Total Estimated Charge</strong></li>
+<li>Set threshold: <strong>$5 USD</strong> (our project should cost ~$0.05, so $5 means something is wrong)</li>
+<li>Set notification: <strong>Your email address</strong></li>
+<li>Create the alarm</li>
+</ol>
+<p><strong>Why $5?</strong> Our Phase 3 costs ~$0.05. If charges reach $5, something unexpected is running. The alarm gives you time to investigate and tear down before it becomes $50 or $500.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Credentials Safety Check</p>
+<p>AWS CLI stores your credentials at <code>C:\Users\YourName\.aws\credentials</code>. This file must NEVER be inside your project folder or committed to git.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Verify credentials are in the right place (your home directory, NOT project):</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>aws<span class="w"> </span>configure<span class="w"> </span>list
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="c1"># Should show: config file = C:\Users\YourName\.aws\credentials</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Should NOT show any path inside D:\Code\Projects\mobility platform\</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="c1"># Verify .gitignore blocks aws credentials:</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>grep<span class="w"> </span>-n<span class="w"> </span><span class="s2">".aws"</span><span class="w"> </span>.gitignore
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="c1"># Should show a line like: .aws/</span>
+</span></code></pre></div>
+</div>
+<h4 id="path-b-localstack">Path B — LocalStack:<a class="headerlink" href="#path-b-localstack" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Add LocalStack to <code>docker/docker-compose.yml</code> (a new service alongside PostgreSQL)</li>
+<li><code>docker compose -f docker/docker-compose.yml up -d</code></li>
+<li>Verify: <code>aws --endpoint-url=http://localhost:4566 s3 ls</code> should return empty (no buckets yet)</li>
+</ol>
+<p><strong>"Done" looks like</strong>:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Real AWS:</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>aws<span class="w"> </span>s3<span class="w"> </span>ls
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1"># → (empty list or your existing buckets)</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="c1"># LocalStack:</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>aws<span class="w"> </span>--endpoint-url<span class="o">=</span>http://localhost:4566<span class="w"> </span>s3<span class="w"> </span>ls
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># → (empty list)</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="c1"># Billing alarm:</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="c1"># → You received a confirmation email from AWS SNS (click to confirm)</span>
+</span></code></pre></div></p>
+<hr />
+<h3 id="step-2-update-configyaml-add-s3aws-section">Step 2: Update <code>config.yaml</code> — Add S3/AWS section<a class="headerlink" href="#step-2-update-configyaml-add-s3aws-section" title="Permanent link">&para;</a></h3>
+<p><strong>What</strong>: Add AWS and S3 configuration to our single source of truth.</p>
+<p><strong>Files changed</strong>: <code>config/config.yaml</code></p>
+<p><strong>Depends on</strong>: Step 1 (we need to know the region and bucket name)</p>
+<p><strong>What gets added</strong>:
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># ── AWS Configuration (Phase 3+) ─────────────────────────────</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nt">aws</span><span class="p">:</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="s">"ap-south-1"</span><span class="w">            </span><span class="c1"># Mumbai — closest to us</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="nt">use_localstack</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">           </span><span class="c1"># Toggle: true = LocalStack, false = Real AWS</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">  </span><span class="nt">localstack_endpoint</span><span class="p">:</span><span class="w"> </span><span class="s">"http://localhost:4566"</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># ── S3 Configuration ─────────────────────────────────────────</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="nt">s3</span><span class="p">:</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">  </span><span class="nt">bucket_name</span><span class="p">:</span><span class="w"> </span><span class="s">"mobility-data-lake-{account_id}"</span><span class="w">   </span><span class="c1"># Globally unique</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">  </span><span class="nt">prefix_bronze</span><span class="p">:</span><span class="w"> </span><span class="s">"bronze"</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">  </span><span class="nt">prefix_silver</span><span class="p">:</span><span class="w"> </span><span class="s">"silver"</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">  </span><span class="nt">prefix_gold</span><span class="p">:</span><span class="w"> </span><span class="s">"gold"</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">  </span><span class="nt">prefix_quarantine</span><span class="p">:</span><span class="w"> </span><span class="s">"quarantine"</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">  </span><span class="nt">encryption</span><span class="p">:</span><span class="w"> </span><span class="s">"AES256"</span><span class="w">            </span><span class="c1"># SSE-S3 encryption</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">  </span><span class="nt">versioning</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span></code></pre></div></p>
+<p><strong>Why <code>use_localstack</code> toggle?</strong> So switching between LocalStack and Real AWS is a config change, not a code change. The Python code reads this flag and sets <code>endpoint_url</code> accordingly.</p>
+<p><strong>"Done" looks like</strong>: <code>config.yaml</code> has the new sections, and <code>ConfigLoader.load()</code> can read them.</p>
+<hr />
+<h3 id="step-3-scriptssetup_s3py-create-the-bucket-with-security">Step 3: <code>scripts/setup_s3.py</code> — Create the bucket with security<a class="headerlink" href="#step-3-scriptssetup_s3py-create-the-bucket-with-security" title="Permanent link">&para;</a></h3>
+<p><strong>What</strong>: A Python script that creates the S3 bucket and configures ALL security settings in one shot.</p>
+<p><strong>Files created</strong>: <code>scripts/setup_s3.py</code></p>
+<p><strong>Depends on</strong>: Step 1 (credentials) + Step 2 (config)</p>
+<p><strong>What this script does (in order)</strong>:
+1. Create the S3 bucket in <code>ap-south-1</code>
+2. Enable Block Public Access (all 4 settings)
+3. Enable default encryption (SSE-S3 / AES256)
+4. Enable versioning
+5. Apply bucket policy enforcing TLS (HTTPS only)
+6. <strong>Apply S3 Lifecycle policies</strong> (AGENTS.md Rule 8)
+7. Create the prefix structure (<code>bronze/</code>, <code>silver/</code>, <code>gold/</code>, <code>quarantine/</code>)
+8. Print a summary of what was configured</p>
+<p><strong>S3 Lifecycle Policies (Step 6 detail):</strong></p>
+<p>AGENTS.md Rule 8 requires lifecycle rules. These auto-manage storage costs and cleanup:</p>
+<table>
+<thead>
+<tr>
+<th>Prefix</th>
+<th>Rule</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>quarantine/</code></td>
+<td>Auto-delete after 30 days</td>
+<td>Bad data doesn't need to live forever. If not investigated in 30 days, it won't be.</td>
+</tr>
+<tr>
+<td><code>bronze/</code></td>
+<td>Move to Glacier after 90 days</td>
+<td>Raw data is rarely re-read after Silver is built. Glacier storage costs ~$0.004/GB vs $0.023/GB (83% cheaper).</td>
+</tr>
+<tr>
+<td><code>silver/</code>, <code>gold/</code></td>
+<td>No lifecycle (Standard storage)</td>
+<td>Actively queried by Athena/Redshift. Must stay in fast-access storage.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>"Done" looks like</strong>:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>python<span class="w"> </span>scripts/setup_s3.py
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="c1"># Output:</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># ✓ Bucket created: mobility-data-lake-123456789</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="c1"># ✓ Block Public Access: ENABLED</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="c1"># ✓ Default encryption: AES256</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># ✓ Versioning: ENABLED</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="c1"># ✓ TLS-only policy: APPLIED</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="c1"># ✓ Lifecycle: quarantine/ → delete after 30d, bronze/ → Glacier after 90d</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="c1"># ✓ Prefixes created: bronze/, silver/, gold/, quarantine/</span>
+</span></code></pre></div></p>
+<hr />
+<h3 id="step-4-srcingestions3_uploaderpy-upload-a-single-file">Step 4: <code>src/ingestion/s3_uploader.py</code> — Upload a single file<a class="headerlink" href="#step-4-srcingestions3_uploaderpy-upload-a-single-file" title="Permanent link">&para;</a></h3>
+<p><strong>What</strong>: A reusable module that uploads ONE file to S3 with proper key construction, encryption headers, and logging.</p>
+<p><strong>Files created</strong>: <code>src/ingestion/__init__.py</code>, <code>src/ingestion/s3_uploader.py</code></p>
+<p><strong>Depends on</strong>: Step 3 (bucket must exist)</p>
+<p><strong>Key functions</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>get_s3_client()</code></td>
+<td>Creates a boto3 S3 client (handles LocalStack vs Real AWS toggle)</td>
+</tr>
+<tr>
+<td><code>upload_file(local_path, s3_key)</code></td>
+<td>Uploads a single file to S3 with encryption headers</td>
+</tr>
+<tr>
+<td><code>build_bronze_key(dataset, date)</code></td>
+<td>Constructs the Hive-style partitioned S3 key: <code>bronze/rides/year=2026/month=09/day=28/rides.csv</code></td>
+</tr>
+<tr>
+<td><code>file_exists(s3_key)</code></td>
+<td>Checks if a file already exists in S3 (for idempotency)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>"Done" looks like</strong>:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">src.ingestion.s3_uploader</span><span class="w"> </span><span class="kn">import</span> <span class="n">upload_file</span><span class="p">,</span> <span class="n">build_bronze_key</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">key</span> <span class="o">=</span> <span class="n">build_bronze_key</span><span class="p">(</span><span class="s2">"rides"</span><span class="p">,</span> <span class="n">date</span><span class="p">(</span><span class="mi">2026</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">28</span><span class="p">))</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># → "bronze/rides/year=2026/month=09/day=28/rides.csv"</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="n">upload_file</span><span class="p">(</span><span class="s2">"data/raw/rides/rides.csv"</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># → "✓ Uploaded rides.csv to s3://bucket/bronze/rides/year=2026/month=09/day=28/rides.csv"</span>
+</span></code></pre></div></p>
+<hr />
+<h3 id="step-5-srcingestionbronze_ingestionpy-orchestrate-all-4-datasets">Step 5: <code>src/ingestion/bronze_ingestion.py</code> — Orchestrate all 4 datasets<a class="headerlink" href="#step-5-srcingestionbronze_ingestionpy-orchestrate-all-4-datasets" title="Permanent link">&para;</a></h3>
+<p><strong>What</strong>: Orchestrator that uploads ALL 4 CSV files (customers, drivers, rides, payments) to S3 Bronze in one call.</p>
+<p><strong>Files created</strong>: <code>src/ingestion/bronze_ingestion.py</code></p>
+<p><strong>Depends on</strong>: Step 4 (<code>s3_uploader.py</code> provides the upload functions)</p>
+<p><strong>What this does</strong>:
+1. Read the list of datasets from config (customers, drivers, rides, payments)
+2. For each dataset:
+   - Build the S3 key with today's date partition
+   - Check if file already exists in S3 (idempotency)
+   - Upload the file
+   - Verify the upload (check file size matches)
+3. Return a summary: uploaded count, skipped count, total bytes</p>
+<p><strong>"Done" looks like</strong>:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"from src.ingestion.bronze_ingestion import upload_bronze; upload_bronze()"</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="c1"># Output:</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># [1/4] customers.csv → s3://.../bronze/customers/year=2026/month=09/day=28/customers.csv ✓ (45 KB)</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="c1"># [2/4] drivers.csv   → s3://.../bronze/drivers/year=2026/month=09/day=28/drivers.csv ✓ (22 KB)</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="c1"># [3/4] rides.csv     → s3://.../bronze/rides/year=2026/month=09/day=28/rides.csv ✓ (2.1 MB)</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1"># [4/4] payments.csv  → s3://.../bronze/payments/year=2026/month=09/day=28/payments.csv ✓ (380 KB)</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="c1"># Total: 4 uploaded, 0 skipped, 2.5 MB</span>
+</span></code></pre></div></p>
+<hr />
+<h3 id="step-6-update-mainpy-add-upload-bronze-command">Step 6: Update <code>main.py</code> — Add <code>upload-bronze</code> command<a class="headerlink" href="#step-6-update-mainpy-add-upload-bronze-command" title="Permanent link">&para;</a></h3>
+<p><strong>What</strong>: Wire the bronze ingestion into our CLI.</p>
+<p><strong>Files changed</strong>: <code>main.py</code></p>
+<p><strong>Depends on</strong>: Step 5 (the orchestrator function)</p>
+<p><strong>New command</strong>: <code>python main.py upload-bronze</code></p>
+<p><strong>Arguments</strong>:
+- <code>--date</code> — Override the partition date (default: today)
+- <code>--force</code> — Re-upload even if files already exist in S3</p>
+<p><strong>"Done" looks like</strong>:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>upload-bronze
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>python<span class="w"> </span>main.py<span class="w"> </span>upload-bronze<span class="w"> </span>--date<span class="w"> </span><span class="m">2026</span>-01-15
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>python<span class="w"> </span>main.py<span class="w"> </span>upload-bronze<span class="w"> </span>--force
+</span></code></pre></div></p>
+<hr />
+<h3 id="step-7-iam-policies-least-privilege-json-files">Step 7: IAM Policies — Least Privilege JSON files<a class="headerlink" href="#step-7-iam-policies-least-privilege-json-files" title="Permanent link">&para;</a></h3>
+<p><strong>What</strong>: JSON policy documents that define exactly what each role can do. These are documentation AND can be applied via AWS CLI.</p>
+<p><strong>Files created</strong>:</p>
+<ul>
+<li><code>infrastructure/iam/mobility-ingestion-policy.json</code></li>
+<li><code>infrastructure/iam/mobility-etl-policy.json</code></li>
+<li><code>infrastructure/iam/mobility-analytics-policy.json</code></li>
+<li><code>infrastructure/s3/bucket-policy.json</code> — TLS enforcement policy (standalone for security audit)</li>
+</ul>
+<p><strong>Depends on</strong>: Step 3 (bucket must exist, so we know the ARN)</p>
+<p><strong>What each policy allows</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Policy</th>
+<th>Allowed Actions</th>
+<th>On Which Prefixes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ingestion-policy</code></td>
+<td><code>s3:PutObject</code>, <code>s3:ListBucket</code></td>
+<td><code>bronze/*</code> only</td>
+</tr>
+<tr>
+<td><code>etl-policy</code></td>
+<td><code>s3:GetObject</code> on <code>bronze/*</code>, <code>s3:PutObject</code> on <code>silver/*</code>, <code>gold/*</code>, <code>quarantine/*</code></td>
+<td>Cross-prefix</td>
+</tr>
+<tr>
+<td><code>analytics-policy</code></td>
+<td><code>s3:GetObject</code>, <code>s3:ListBucket</code></td>
+<td><code>silver/*</code>, <code>gold/*</code> only. <strong>Explicit Deny</strong> on <code>bronze/*</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>AGENTS.md compliance</strong>: No wildcards (<code>*</code>) in Action or Resource. Each policy is scoped to specific prefixes.</p>
+<p><strong>Why <code>bucket-policy.json</code> as a separate file?</strong> In production, security teams audit policy files directly. They should not need to read Python code (<code>setup_s3.py</code>) to verify TLS enforcement. The standalone JSON file is the auditable "source of truth" — the setup script reads and applies it.</p>
+<p><strong>"Done" looks like</strong>: JSON files exist in <code>infrastructure/iam/</code> and <code>infrastructure/s3/</code>. Can be applied with <code>aws iam create-policy --policy-document file://infrastructure/iam/...</code>.</p>
+<hr />
+<h3 id="step-8-scriptsteardown_awspy-cleanup-script">Step 8: <code>scripts/teardown_aws.py</code> — Cleanup script<a class="headerlink" href="#step-8-scriptsteardown_awspy-cleanup-script" title="Permanent link">&para;</a></h3>
+<p><strong>What</strong>: A Python script that destroys ALL AWS resources created by this project. This is your safety net against surprise bills.</p>
+<p><strong>Files created</strong>: <code>scripts/teardown_aws.py</code></p>
+<p><strong>Depends on</strong>: Steps 3-7 (needs to know what to tear down)</p>
+<p><strong>What it does (in order)</strong>:
+1. Empty the S3 bucket (delete all objects + delete all object versions)
+2. Delete the S3 bucket
+3. Delete IAM policies (if created)
+4. Print confirmation of everything deleted</p>
+<p><strong>"Done" looks like</strong>:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>python<span class="w"> </span>scripts/teardown_aws.py
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="c1"># Output:</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># ⚠ This will DELETE all AWS resources for this project.</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="c1"># Type 'DELETE' to confirm: DELETE</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="c1"># ✓ Deleted 4 objects from s3://mobility-data-lake-123456789</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="c1"># ✓ Deleted bucket: mobility-data-lake-123456789</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="c1"># ✓ All resources cleaned up.</span>
+</span></code></pre></div></p>
+<hr />
+<h3 id="step-9-tests-teststest_s3_ingestionpy">Step 9: Tests — <code>tests/test_s3_ingestion.py</code><a class="headerlink" href="#step-9-tests-teststest_s3_ingestionpy" title="Permanent link">&para;</a></h3>
+<p><strong>What</strong>: Integration tests that verify the upload pipeline works correctly.</p>
+<p><strong>Files created</strong>: <code>tests/test_s3_ingestion.py</code></p>
+<p><strong>Depends on</strong>: Steps 4-6 (all ingestion code must be written)</p>
+<p><strong>Test categories</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test_build_bronze_key</code></td>
+<td>Key construction: <code>bronze/rides/year=2026/month=09/day=28/rides.csv</code></td>
+</tr>
+<tr>
+<td><code>test_upload_single_file</code></td>
+<td>A file actually appears in S3 after upload</td>
+</tr>
+<tr>
+<td><code>test_upload_idempotent</code></td>
+<td>Uploading twice doesn't create duplicates</td>
+</tr>
+<tr>
+<td><code>test_file_size_matches</code></td>
+<td>Uploaded file size matches local file size</td>
+</tr>
+<tr>
+<td><code>test_encryption_enabled</code></td>
+<td>Uploaded object has <code>ServerSideEncryption: AES256</code></td>
+</tr>
+<tr>
+<td><code>test_upload_all_datasets</code></td>
+<td>All 4 datasets upload successfully</td>
+</tr>
+<tr>
+<td><code>test_invalid_file_path</code></td>
+<td>Uploading a non-existent file raises <code>FileNotFoundError</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Auto-skip</strong>: Like Phase 2 tests auto-skip when Docker is off, these tests auto-skip when AWS credentials are not configured.</p>
+<p><strong>"Done" looks like</strong>:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>pytest<span class="w"> </span>tests/test_s3_ingestion.py<span class="w"> </span>-v
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="c1"># → 7/7 passed ✅ (or skipped if no AWS creds)</span>
+</span></code></pre></div></p>
+<hr />
+<h2 id="5-datacontrol-flow-trace-what-happens-at-runtime">5. Data/Control Flow Trace — What Happens at Runtime<a class="headerlink" href="#5-datacontrol-flow-trace-what-happens-at-runtime" title="Permanent link">&para;</a></h2>
+<p>When you run <code>python main.py upload-bronze</code>, this is the EXACT sequence of function calls:</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant User as User (Terminal)
+    participant Main as main.py
+    participant Bronze as bronze_ingestion.py
+    participant Uploader as s3_uploader.py
+    participant S3 as AWS S3 (or LocalStack)
+
+    User-&gt;&gt;Main: python main.py upload-bronze
+    Main-&gt;&gt;Main: Parse args, load config.yaml
+    Main-&gt;&gt;Bronze: upload_bronze(config)
+
+    loop For each dataset [customers, drivers, rides, payments]
+        Bronze-&gt;&gt;Uploader: build_bronze_key("rides", 2026-09-28)
+        Uploader--&gt;&gt;Bronze: "bronze/rides/year=2026/month=09/day=28/rides.csv"
+        Bronze-&gt;&gt;Uploader: file_exists(key)?
+        Uploader-&gt;&gt;S3: HeadObject(key)
+        S3--&gt;&gt;Uploader: 404 (not found)
+        Uploader--&gt;&gt;Bronze: False
+        Bronze-&gt;&gt;Uploader: upload_file("data/raw/rides/rides.csv", key)
+        Uploader-&gt;&gt;S3: PutObject(Body=file, Key=key, SSE=AES256)
+        S3--&gt;&gt;Uploader: 200 OK (ETag, VersionId)
+        Uploader--&gt;&gt;Bronze: UploadResult(success=True, bytes=2.1MB)
+    end
+
+    Bronze--&gt;&gt;Main: Summary(uploaded=4, skipped=0, bytes=2.5MB)
+    Main--&gt;&gt;User: Print summary table</code></pre>
+<h3 id="the-importcall-chain">The import/call chain:<a class="headerlink" href="#the-importcall-chain" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>main.py
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>  └─ _handle_upload_bronze()
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>       └─ bronze_ingestion.upload_bronze(config)
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>            ├─ s3_uploader.get_s3_client(config)       # creates boto3 client
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>            ├─ s3_uploader.build_bronze_key("customers", date)  # constructs S3 path
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>            ├─ s3_uploader.file_exists(client, bucket, key)     # idempotency check
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>            └─ s3_uploader.upload_file(client, local_path, bucket, key)  # actual upload
+</span></code></pre></div>
+<hr />
+<h2 id="6-beforeafter-state-concrete-example">6. Before/After State — Concrete Example<a class="headerlink" href="#6-beforeafter-state-concrete-example" title="Permanent link">&para;</a></h2>
+<h3 id="before-phase-3-current-state">BEFORE Phase 3 (current state):<a class="headerlink" href="#before-phase-3-current-state" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Your Laptop:
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>  data/raw/rides/rides.csv     ← 10,000 rows, 2.1 MB
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>AWS S3:
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>  (nothing — bucket doesn't exist)
+</span></code></pre></div>
+<p><strong>Sample row in <code>rides.csv</code>:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>ride_id,customer_id,driver_id,pickup_city,...,fare,ride_status
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>R00001,C0042,D0187,Mumbai,...,245.50,completed
+</span></code></pre></div></p>
+<h3 id="after-phase-3">AFTER Phase 3:<a class="headerlink" href="#after-phase-3" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Your Laptop:
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>  data/raw/rides/rides.csv     ← still here, unchanged
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>AWS S3:
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>  s3://mobility-data-lake-123456789/
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>  └── bronze/
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>      ├── customers/year=2026/month=09/day=28/customers.csv   (45 KB)
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>      ├── drivers/year=2026/month=09/day=28/drivers.csv       (22 KB)
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>      ├── rides/year=2026/month=09/day=28/rides.csv           (2.1 MB)
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>      └── payments/year=2026/month=09/day=28/payments.csv     (380 KB)
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Key Insight</p>
+<p>Phase 3 doesn't transform the data — it just moves it to the cloud in a date-partitioned structure. The file content is <strong>IDENTICAL</strong> to what's on your laptop. Transformation happens in Phase 4.</p>
+</div>
+<hr />
+<h2 id="7-failure-modes-what-can-go-wrong">7. Failure Modes — What Can Go Wrong?<a class="headerlink" href="#7-failure-modes-what-can-go-wrong" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Failure</th>
+<th>What happens</th>
+<th style="text-align: center;">Blast radius</th>
+<th>How to detect</th>
+<th>How to fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Step 1</td>
+<td>AWS credentials not configured</td>
+<td><code>NoCredentialsError</code></td>
+<td style="text-align: center;">Nothing uploaded</td>
+<td>Loud crash with clear error</td>
+<td>Run <code>aws configure</code></td>
+</tr>
+<tr>
+<td>Step 3</td>
+<td>Bucket name already taken globally</td>
+<td><code>BucketAlreadyExists</code></td>
+<td style="text-align: center;">Bucket not created</td>
+<td>Loud crash</td>
+<td>Change bucket name in config.yaml (add your initials or account ID)</td>
+</tr>
+<tr>
+<td>Step 4</td>
+<td>Network timeout during upload</td>
+<td><code>ConnectionError</code> / partial upload</td>
+<td style="text-align: center;">ONE file not uploaded, others unaffected</td>
+<td>Loud crash</td>
+<td>Re-run; idempotency check skips already-uploaded files</td>
+</tr>
+<tr>
+<td>Step 4</td>
+<td>CSV file doesn't exist locally</td>
+<td><code>FileNotFoundError</code></td>
+<td style="text-align: center;">That dataset skipped</td>
+<td>Loud crash</td>
+<td>Run <code>python main.py generate</code> first</td>
+</tr>
+<tr>
+<td>Step 5</td>
+<td>Upload succeeds but file is corrupted</td>
+<td>Silent! S3 accepts anything</td>
+<td style="text-align: center;">Bad data in Bronze</td>
+<td>Check: compare local file size vs S3 object size</td>
+<td>Re-upload with <code>--force</code> flag</td>
+</tr>
+<tr>
+<td>Step 8</td>
+<td>Teardown fails (bucket not empty)</td>
+<td><code>BucketNotEmpty</code> error</td>
+<td style="text-align: center;">Bucket still exists, costs $0.01/month</td>
+<td>Loud crash</td>
+<td>Must delete all objects AND all versions first, then delete bucket</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Key Insight</p>
+<p>Most failures are LOUD (crashes with clear error messages). The only silent failure is data corruption during upload, which we catch by comparing file sizes.</p>
+</div>
+<hr />
+<h2 id="8-interfacecontract-with-phase-4">8. Interface/Contract with Phase 4<a class="headerlink" href="#8-interfacecontract-with-phase-4" title="Permanent link">&para;</a></h2>
+<p>Phase 4 (PySpark Bronze → Silver) will ASSUME:</p>
+<table>
+<thead>
+<tr>
+<th>What Phase 4 expects</th>
+<th>Format</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Files exist in S3 at Hive-style paths</td>
+<td><code>bronze/{dataset}/year=YYYY/month=MM/day=DD/{dataset}.csv</code></td>
+<td><code>bronze/rides/year=2026/month=09/day=28/rides.csv</code></td>
+</tr>
+<tr>
+<td>Files are CSV with headers</td>
+<td>First row = column names</td>
+<td><code>ride_id,customer_id,driver_id,...</code></td>
+</tr>
+<tr>
+<td>Files are readable (not encrypted with customer-managed KMS keys)</td>
+<td>SSE-S3 (transparent decryption)</td>
+<td>S3 handles decryption automatically</td>
+</tr>
+<tr>
+<td>Bucket name is in <code>config.yaml</code></td>
+<td>Under <code>s3.bucket_name</code></td>
+<td><code>mobility-data-lake-123456789</code></td>
+</tr>
+<tr>
+<td>Bronze prefix is in <code>config.yaml</code></td>
+<td>Under <code>s3.prefix_bronze</code></td>
+<td><code>bronze</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>If Phase 3 changes any of these</strong>, Phase 4 breaks. This is the contract.</p>
+<hr />
+<h2 id="9-new-dependenciestools">9. New Dependencies/Tools<a class="headerlink" href="#9-new-dependenciestools" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Dependency</th>
+<th>Install command</th>
+<th>What problem it solves</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>boto3</code></td>
+<td><code>pip install boto3</code></td>
+<td>Lets Python talk to AWS services (S3, IAM, etc.). Without it, you'd have to make raw HTTP requests to AWS APIs — 100x more code.</td>
+</tr>
+<tr>
+<td><code>awscli</code></td>
+<td><code>pip install awscli</code></td>
+<td>Command-line tool for quick AWS operations. Used for <code>aws configure</code> (setting up credentials) and quick verification (<code>aws s3 ls</code>).</td>
+</tr>
+<tr>
+<td><code>localstack</code> (optional)</td>
+<td>Docker image: <code>localstack/localstack</code></td>
+<td>Simulates AWS on your laptop. Lets you develop and test without a real AWS account or internet connection.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>That's it — only 2 new Python packages</strong> (3 if you count LocalStack's Docker image).</p>
+<hr />
+<h2 id="10-where-this-fits-in-the-repo">10. Where This Fits in the Repo<a class="headerlink" href="#10-where-this-fits-in-the-repo" title="Permanent link">&para;</a></h2>
+<h3 id="new-directories-and-files-created-by-phase-3">New directories and files created by Phase 3:<a class="headerlink" href="#new-directories-and-files-created-by-phase-3" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>mobility-platform/
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>├── config/config.yaml              ← MODIFIED (add aws/s3 sections)
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>├── main.py                         ← MODIFIED (add upload-bronze command)
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>├── requirements.txt                ← MODIFIED (add boto3, awscli)
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>├── infrastructure/                 ← NEW directory
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>│   ├── iam/
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>│   │   ├── mobility-ingestion-policy.json
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>│   │   ├── mobility-etl-policy.json
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>│   │   └── mobility-analytics-policy.json
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>│   └── s3/
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>│       └── bucket-policy.json
+</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>├── scripts/                        ← NEW directory
+</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>│   ├── setup_s3.py
+</span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>│   └── teardown_aws.py
+</span><span id="__span-21-15"><a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>├── src/
+</span><span id="__span-21-16"><a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>│   └── ingestion/                  ← NEW directory
+</span><span id="__span-21-17"><a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a>│       ├── __init__.py
+</span><span id="__span-21-18"><a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a>│       ├── s3_uploader.py
+</span><span id="__span-21-19"><a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a>│       └── bronze_ingestion.py
+</span><span id="__span-21-20"><a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a>└── tests/
+</span><span id="__span-21-21"><a id="__codelineno-21-21" name="__codelineno-21-21" href="#__codelineno-21-21"></a>    └── test_s3_ingestion.py        ← NEW file
+</span></code></pre></div>
+<h3 id="what-already-exists-untouched">What already exists (untouched):<a class="headerlink" href="#what-already-exists-untouched" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>src/data_generator/    ← Phase 1 (generates the CSVs we upload)
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>src/database/          ← Phase 2 (PostgreSQL — independent of S3)
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>docker/                ← Phase 2 (PostgreSQL Docker — may add LocalStack service)
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>sql/                   ← Phase 2 (SQL files — untouched)
+</span></code></pre></div>
+<hr />
+<h2 id="11-manual-verification-checklist">11. Manual Verification Checklist<a class="headerlink" href="#11-manual-verification-checklist" title="Permanent link">&para;</a></h2>
+<p>Run these commands AFTER Phase 3 is complete to confirm everything works:</p>
+<h3 id="checklist-0-billing-credentials-safety-first">Checklist 0: Billing &amp; Credentials Safety (FIRST!)<a class="headerlink" href="#checklist-0-billing-credentials-safety-first" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Verify billing alarm exists</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="c1"># → Go to AWS Console → CloudWatch → Alarms</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="c1"># → Should show an alarm named "BillingAlarm" with threshold $5</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="c1"># Verify credentials are NOT in the project folder</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>Get-ChildItem<span class="w"> </span>-Recurse<span class="w"> </span>-Filter<span class="w"> </span><span class="s2">"credentials"</span><span class="w"> </span>-Path<span class="w"> </span><span class="s2">"D:\Code\Projects\mobility platform"</span>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="c1"># → Should return NOTHING. If it finds a credentials file, MOVE it to ~/.aws/</span>
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="c1"># Verify .gitignore blocks credential files</span>
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>Select-String<span class="w"> </span>-Path<span class="w"> </span><span class="s2">".gitignore"</span><span class="w"> </span>-Pattern<span class="w"> </span><span class="s2">".aws"</span>
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a><span class="c1"># → Should show: .aws/</span>
+</span></code></pre></div>
+<h3 id="checklist-1-s3-bucket-exists-and-is-secure">Checklist 1: S3 Bucket Exists and Is Secure<a class="headerlink" href="#checklist-1-s3-bucket-exists-and-is-secure" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># List buckets (should show our bucket)</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>aws<span class="w"> </span>s3<span class="w"> </span>ls
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1"># Verify Block Public Access is ON</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>aws<span class="w"> </span>s3api<span class="w"> </span>get-public-access-block<span class="w"> </span>--bucket<span class="w"> </span>YOUR_BUCKET_NAME
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="c1"># Verify encryption is enabled</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>aws<span class="w"> </span>s3api<span class="w"> </span>get-bucket-encryption<span class="w"> </span>--bucket<span class="w"> </span>YOUR_BUCKET_NAME
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="c1"># Verify versioning is enabled</span>
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>aws<span class="w"> </span>s3api<span class="w"> </span>get-bucket-versioning<span class="w"> </span>--bucket<span class="w"> </span>YOUR_BUCKET_NAME
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>
+</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="c1"># Verify bucket policy (TLS enforcement)</span>
+</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a>aws<span class="w"> </span>s3api<span class="w"> </span>get-bucket-policy<span class="w"> </span>--bucket<span class="w"> </span>YOUR_BUCKET_NAME
+</span><span id="__span-24-15"><a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a>
+</span><span id="__span-24-16"><a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a><span class="c1"># Verify lifecycle policies are set</span>
+</span><span id="__span-24-17"><a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a>aws<span class="w"> </span>s3api<span class="w"> </span>get-bucket-lifecycle-configuration<span class="w"> </span>--bucket<span class="w"> </span>YOUR_BUCKET_NAME
+</span></code></pre></div>
+<p><strong>Expected output for each</strong>: Block Public Access = all true. Encryption = AES256. Versioning = Enabled. Policy = contains <code>aws:SecureTransport</code>. Lifecycle = quarantine 30d expiry + bronze 90d Glacier transition.</p>
+<h3 id="checklist-2-files-are-uploaded-correctly">Checklist 2: Files Are Uploaded Correctly<a class="headerlink" href="#checklist-2-files-are-uploaded-correctly" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># List all objects in Bronze</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>aws<span class="w"> </span>s3<span class="w"> </span>ls<span class="w"> </span>s3://YOUR_BUCKET_NAME/bronze/<span class="w"> </span>--recursive
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="c1"># Expected: 4 files with correct sizes</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="c1"># 2026-09-28 15:30:00      45000 bronze/customers/year=2026/month=09/day=28/customers.csv</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="c1"># 2026-09-28 15:30:01      22000 bronze/drivers/year=2026/month=09/day=28/drivers.csv</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="c1"># 2026-09-28 15:30:02    2100000 bronze/rides/year=2026/month=09/day=28/rides.csv</span>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="c1"># 2026-09-28 15:30:03     380000 bronze/payments/year=2026/month=09/day=28/payments.csv</span>
+</span></code></pre></div>
+<h3 id="checklist-3-idempotency-works">Checklist 3: Idempotency Works<a class="headerlink" href="#checklist-3-idempotency-works" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># Run upload-bronze TWICE</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>python<span class="w"> </span>main.py<span class="w"> </span>upload-bronze
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>python<span class="w"> </span>main.py<span class="w"> </span>upload-bronze
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="c1"># Second run should say "skipped" for all 4 files (already exists)</span>
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="c1"># OR overwrite cleanly (no duplicates)</span>
+</span></code></pre></div>
+<h3 id="checklist-4-tests-pass">Checklist 4: Tests Pass<a class="headerlink" href="#checklist-4-tests-pass" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># Run Phase 3 tests</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>pytest<span class="w"> </span>tests/test_s3_ingestion.py<span class="w"> </span>-v
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="c1"># Run ALL tests (no regressions)</span>
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>pytest<span class="w"> </span>tests/<span class="w"> </span>-v
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="c1"># Expected: 52 (Phase 1+2) + 7 (Phase 3) = 59 passed</span>
+</span></code></pre></div>
+<h3 id="checklist-5-teardown-works">Checklist 5: Teardown Works<a class="headerlink" href="#checklist-5-teardown-works" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># Clean up everything</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>python<span class="w"> </span>scripts/teardown_aws.py
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="c1"># Verify bucket is gone</span>
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>aws<span class="w"> </span>s3<span class="w"> </span>ls
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="c1"># Should NOT show our bucket</span>
+</span></code></pre></div>
+<h3 id="checklist-6-pii-access-restriction-agentsmd-rule-4">Checklist 6: PII Access Restriction (AGENTS.md Rule 4)<a class="headerlink" href="#checklist-6-pii-access-restriction-agentsmd-rule-4" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># If IAM policies from Step 7 are applied:</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="c1"># Verify analysts CANNOT access Bronze (where raw PII lives)</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>aws<span class="w"> </span>s3<span class="w"> </span>ls<span class="w"> </span>s3://YOUR_BUCKET_NAME/bronze/<span class="w"> </span>--profile<span class="w"> </span>analytics
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="c1"># Expected: AccessDenied</span>
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="c1"># Verify analysts CAN access Silver/Gold prefixes</span>
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>aws<span class="w"> </span>s3<span class="w"> </span>ls<span class="w"> </span>s3://YOUR_BUCKET_NAME/gold/<span class="w"> </span>--profile<span class="w"> </span>analytics
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="c1"># Expected: accessible (no AccessDenied)</span>
+</span></code></pre></div>
+<p>This confirms PII-containing Bronze data is access-restricted per AGENTS.md Rule 4.</p>
+<h3 id="checklist-7-evidence-collection-for-portfolio-and-interviews">Checklist 7: Evidence Collection (for portfolio and interviews)<a class="headerlink" href="#checklist-7-evidence-collection-for-portfolio-and-interviews" title="Permanent link">&para;</a></h3>
+<p>The implementation plan requires screenshots for interview evidence. Capture these and save to <code>docs/screenshots/phase3/</code>:</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Screenshot</th>
+<th>What to capture</th>
+<th>Where in AWS Console</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>S3 bucket structure</td>
+<td>Folder tree showing <code>bronze/customers/year=...</code></td>
+<td>S3 Console &gt; your bucket &gt; Browse</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Security settings</td>
+<td>Block Public Access = all ON</td>
+<td>S3 Console &gt; Permissions tab</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Encryption config</td>
+<td>Default encryption = AES-256</td>
+<td>S3 Console &gt; Properties tab</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Versioning status</td>
+<td>Versioning = Enabled</td>
+<td>S3 Console &gt; Properties tab</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Lifecycle rules</td>
+<td>Quarantine 30d, Bronze 90d Glacier</td>
+<td>S3 Console &gt; Management tab</td>
+</tr>
+<tr>
+<td>6</td>
+<td>IAM policies</td>
+<td>The JSON policy content</td>
+<td>IAM Console &gt; Policies</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Billing alarm</td>
+<td>CloudWatch alarm at $5</td>
+<td>CloudWatch Console &gt; Alarms</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="c1"># Create the screenshots directory first</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>mkdir<span class="w"> </span>docs<span class="se">\s</span>creenshots<span class="se">\p</span>hase3
+</span></code></pre></div>
+<hr />
+<h2 id="12-learning-resources-watchread-before-building">12. Learning Resources — Watch/Read Before Building<a class="headerlink" href="#12-learning-resources-watchread-before-building" title="Permanent link">&para;</a></h2>
+<h3 id="must-do-before-writing-code">Must-Do (Before writing code):<a class="headerlink" href="#must-do-before-writing-code" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th style="text-align: center;">Time</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html">AWS S3 — How It Works (Official)</a></td>
+<td style="text-align: center;">15 min</td>
+<td>Understand buckets, objects, keys, regions</td>
+</tr>
+<tr>
+<td><a href="https://www.youtube.com/watch?v=iF9fs8Rdasc">IAM Basics — YouTube by TechWorld with Nana</a></td>
+<td style="text-align: center;">12 min</td>
+<td>Visual explanation of users, roles, policies</td>
+</tr>
+<tr>
+<td><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/s3-uploading-files.html">boto3 S3 Quickstart (Official)</a></td>
+<td style="text-align: center;">10 min</td>
+<td>See upload_file, put_object examples</td>
+</tr>
+<tr>
+<td><a href="https://aws.amazon.com/free/">AWS Free Tier — What's Actually Free</a></td>
+<td style="text-align: center;">5 min</td>
+<td>Know exactly what costs $0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="good-to-know-during-or-after-building">Good-To-Know (During or after building):<a class="headerlink" href="#good-to-know-during-or-after-building" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th style="text-align: center;">Time</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html">S3 Encryption Options Explained</a></td>
+<td style="text-align: center;">10 min</td>
+<td>SSE-S3 vs SSE-KMS vs SSE-C</td>
+</tr>
+<tr>
+<td><a href="https://policysim.aws.amazon.com/">IAM Policy Simulator</a></td>
+<td style="text-align: center;">15 min</td>
+<td>Test your IAM policies without deploying</td>
+</tr>
+<tr>
+<td><a href="https://docs.localstack.cloud/getting-started/">LocalStack Getting Started</a></td>
+<td style="text-align: center;">10 min</td>
+<td>Only if using LocalStack path</td>
+</tr>
+<tr>
+<td><a href="https://www.youtube.com/watch?v=K_Gx2SCi4Ws">Hive-Style Partitioning Explained</a></td>
+<td style="text-align: center;">8 min</td>
+<td>Understand <code>year=YYYY/month=MM/day=DD</code> naming</td>
+</tr>
+</tbody>
+</table>
+<h3 id="command-line-skills-to-practice">Command-Line Skills to Practice:<a class="headerlink" href="#command-line-skills-to-practice" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1"># AWS CLI — S3 operations</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>aws<span class="w"> </span>s3<span class="w"> </span>ls<span class="w">                              </span><span class="c1"># List buckets</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>aws<span class="w"> </span>s3<span class="w"> </span>ls<span class="w"> </span>s3://bucket/<span class="w"> </span>--recursive<span class="w">     </span><span class="c1"># List all objects</span>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>aws<span class="w"> </span>s3<span class="w"> </span>cp<span class="w"> </span>file.csv<span class="w"> </span>s3://bucket/key<span class="w">     </span><span class="c1"># Upload a file</span>
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>aws<span class="w"> </span>s3<span class="w"> </span>rm<span class="w"> </span>s3://bucket/key<span class="w">              </span><span class="c1"># Delete an object</span>
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>aws<span class="w"> </span>s3<span class="w"> </span>rb<span class="w"> </span>s3://bucket<span class="w"> </span>--force<span class="w">          </span><span class="c1"># Delete bucket + all objects</span>
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a><span class="c1"># AWS CLI — IAM operations</span>
+</span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>aws<span class="w"> </span>sts<span class="w"> </span>get-caller-identity<span class="w">            </span><span class="c1"># "Who am I?"</span>
+</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>aws<span class="w"> </span>iam<span class="w"> </span>list-policies<span class="w"> </span>--scope<span class="w"> </span>Local<span class="w">    </span><span class="c1"># List custom policies</span>
+</span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a>
+</span><span id="__span-31-12"><a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a><span class="c1"># AWS CLI — Verification</span>
+</span><span id="__span-31-13"><a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a>aws<span class="w"> </span>s3api<span class="w"> </span>get-bucket-encryption<span class="w"> </span>--bucket<span class="w"> </span>NAME
+</span><span id="__span-31-14"><a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a>aws<span class="w"> </span>s3api<span class="w"> </span>get-bucket-versioning<span class="w"> </span>--bucket<span class="w"> </span>NAME
+</span><span id="__span-31-15"><a id="__codelineno-31-15" name="__codelineno-31-15" href="#__codelineno-31-15"></a>aws<span class="w"> </span>s3api<span class="w"> </span>get-public-access-block<span class="w"> </span>--bucket<span class="w"> </span>NAME
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
